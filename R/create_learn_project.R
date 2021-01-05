@@ -2,7 +2,7 @@
 # tutor:::nice_name(tutor:::tous_les_programmes())
 
 create_learn_project <- function(name,path="."){
-dir.create(path = file.path(path,name),showWarnings = FALSE)
+dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
 
  rprofile <-  glue::glue("setHook('rstudio.sessionInit', function(newSession) {
    for ( i in 1:10){rstudioapi::documentClose()}
