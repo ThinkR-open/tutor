@@ -4,12 +4,17 @@
 create_learn_project <- function(name,path="."){
 dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
 
- rprofile <-  glue::glue("setHook('rstudio.sessionInit', function(newSession) {
+ rprofile <-  glue::glue("
+ message('Bonjour');
+
+ setHook('rstudio.sessionInit', function(newSession) {
    for ( i in 1:10){rstudioapi::documentClose()}
     rstudioapi::navigateToFile(file = 'explications.R')
     rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)
     message('done')
-  }, action = 'append')",.open="*",.close="*")
+  }, action = 'append')
+
+                         ",.open="*",.close="*")
 
 cat(rprofile,file = file.path(path,name,".Rprofile"))
 
