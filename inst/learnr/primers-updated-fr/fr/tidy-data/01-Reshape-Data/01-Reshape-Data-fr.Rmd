@@ -392,7 +392,7 @@ table4b %>%
 
 Si vous avez examiné de près vos résultats des exercices précédents, vous avez peut-être remarqué quelque chose d'étrange : la nouvelle colonne `year` contient des vecteurs de caractères. Vous pouvez le savoir car R affiche `<chr>` sous le nom de la colonne.
 
-Vous pouvez demander à R de convertir chaque nouvelle colonne en un type de données approprié en utilisant l'argument `names_ptypes` à l'appel `pivot_longer()`. Cet argument doit être renseigné sous la forme `names_ptypes = list(year = integer())`. R transformera le contenu de la colonne `year` en entiers (integer). Essayez-le dans le code ci-dessus !
+Vous pouvez demander à R de convertir chaque nouvelle colonne en un type de données approprié en utilisant l'argument `names_transform` à l'appel `pivot_longer()`. Cet argument doit être renseigné sous la forme `names_transform = list(year = integer())`. R transformera le contenu de la colonne `year` en entiers (integer). Essayez-le dans le code ci-dessus !
 
 ```{r ex9, exercise = TRUE}
 table4b %>% 
@@ -401,7 +401,7 @@ table4b %>%
 
 ```{r ex9-solution}
 table4b %>% 
-  pivot_longer(cols = -country, names_to = "year", values_to = "population", names_ptypes = list(year = integer()))
+  pivot_longer(cols = -country, names_to = "year", values_to = "population", names_transform = list(year = integer()))
 ```
 
 ```{r ex9-check}

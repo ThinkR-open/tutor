@@ -146,7 +146,7 @@ question("Selon vous, quels arguments de la fonction rnorm sont optionnels ?",
 
 ### rnorm() 1
 
-Utilisez `rnorm()` pour générer 100 valeurs aléatoires qui suivent une loi normale de moyenne 100 et d'écart-type 15.
+Utilisez `rnorm()` pour générer 100 valeurs aléatoires qui suivent une loi normale de moyenne 100 et d'écart-type 50.
 
 ```{r arguments-3, exercise = TRUE}
 
