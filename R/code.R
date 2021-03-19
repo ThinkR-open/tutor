@@ -40,10 +40,10 @@ tous_les_programmes <- function(){
 #'
 #' @param file
 #' @param port
-#'
+#' @importFrom httpuv randomPort
 #' @export
 #'
-launch_learn <- function(file=sample(tous_les_programmes(),1),port=3838,host='0.0.0.0'){
+launch_learn <- function(file=sample(tous_les_programmes(),1),port=httpuv::randomPort(),host='0.0.0.0'){
   message(file)
   rmarkdown::run(file = file,
                  shiny_args = list(port = port,host=host))
