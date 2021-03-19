@@ -8,12 +8,17 @@ Authors@R:
            email = "vincent@thinkr.fr",
            comment = c(ORCID = "0000-0003-0671-9270"))
 Description: Deploy Rmd using shiny_prerendered.
-License: MIT
+License: MIT + file LICENSE
+Imports: 
+    glue,
+    httpuv,
+    learnr,
+    magrittr,
+    purrr,
+    rmarkdown,
+    rstudioapi,
+    stringr,
+    yaml
 Encoding: UTF-8
 LazyData: true
-Imports: 
-    learnr,
-    httpuv,
-    tidyverse,
-    dplyr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

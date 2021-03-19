@@ -1,4 +1,4 @@
-#' @import magrittr
+#' @importFrom  magrittr %>%
 #' @import stringr
 #' @import purrr
 get_header <- function(file){
@@ -38,8 +38,10 @@ tous_les_programmes <- function(){
 
 #' Title
 #'
-#' @param file
-#' @param port
+#' @param file file to launch
+#' @param host host
+#' @param port port to use
+#'
 #' @importFrom httpuv randomPort
 #' @export
 #'
