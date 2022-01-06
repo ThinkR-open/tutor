@@ -1,4 +1,4 @@
-nice_name <- function(n){
+nice_name <- function(n,lang="fr"){
   n %>%
     basename() %>%
     str_split("-") %>%
@@ -7,9 +7,10 @@ nice_name <- function(n){
                 # [-c(1,length(.x))]
                 ,collapse = "_")
     }) %>% str_to_lower()%>%
-    str_remove("_fr") %>%
+    str_remove(paste0("_",lang)) %>%
     str_remove("^[0-9]*_") %>%
     str_remove("[.]rmd") %>%
-    paste0("_fr")
+    paste0(paste0("_",lang))
 
 }
+
