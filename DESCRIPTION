@@ -11,6 +11,7 @@ Description: Deploy Rmd using shiny_prerendered.
 License: MIT + file LICENSE
 Imports: 
     glue,
+    learnr,
     httpuv,
     learnr,
     magrittr,
