@@ -22,8 +22,8 @@ is_shiny_prerendered <- function(header,balise="runtime:shiny_prerendered"){
   res >= 1
 }
 
-tous_les_programmes <- function(){
-  tous_les_rmd<-list.files(system.file("learnr", package = "tutor"),
+tous_les_programmes <- function(lang="fr"){
+  tous_les_rmd<-list.files(system.file("learnr",lang, package = "tutor"),
                            all.files = TRUE,full.names = TRUE,
                            include.dirs = FALSE,no.. = FALSE,
                            recursive = TRUE
