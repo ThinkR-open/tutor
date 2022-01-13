@@ -15,6 +15,7 @@ Imports:
     rmarkdown,
     rstudioapi,
     stringr,
+    fs,
     yaml
 Encoding: UTF-8
 LazyData: true
