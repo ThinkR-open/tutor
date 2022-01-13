@@ -550,7 +550,7 @@ Dans le bloc de code ci-dessous, chargez le package `{tidyverse}`. `{tidyverse}`
 ```
 
 ```{r packages2-solution}
-library(tidyverse)
+# library(tidyverse)
 ```
 
 ```{r packages2-check}
@@ -572,7 +572,7 @@ Mais que faire si le package que vous souhaitez charger n'est pas installé sur 
 ```
 
 ```{r packages3-solution}
-install.packages("dplyr")
+# install.packages("dplyr")
 ```
 
 ```{r packages3-check}

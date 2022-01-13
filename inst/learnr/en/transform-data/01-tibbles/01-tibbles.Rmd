@@ -234,7 +234,7 @@ Let's give this a try. We will use the ggplot2 and dplyr packages later in this 
 ```
 
 ```{r babyname-5-solution}
-library("tidyverse")
+# library("tidyverse")
 ```
 
 ### Quiz
