@@ -47,6 +47,17 @@ tous_les_programmes <- function(lang="fr"){
 #'
 launch_learn <- function(file=sample(tous_les_programmes(),1),port=httpuv::randomPort(),host='0.0.0.0'){
   message(file)
-  rmarkdown::run(file = file,
+  # browser()
+  bacasable <- tempdir()
+  try(fs::dir_copy(path = dirname(file), new_path = bacasable
+                   # ,overwrite = TRUE
+                   )
+
+  )
+
+  rmarkdown::run(file = file.path(bacasable,basename(dirname(file))     ,basename(file)),
+
+                   # basename(file),
+                 # dir = file.path(bacasable,basename(file)),
                  shiny_args = list(port = port,host=host))
 }
