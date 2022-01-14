@@ -5,7 +5,7 @@ create_learn_project <- function(name,path=".",lang="fr"){
 dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
 
  rprofile <-  glue::glue("
- message('Bonjour');
+ message('learnr start');
 
  setHook('rstudio.sessionInit', function(newSession) {
    for ( i in 1:10){rstudioapi::documentClose()}
@@ -14,7 +14,7 @@ dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
        function(){rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)}
     ,3)
 
-    message('done')
+    message('please wait (3s)')
   }, action = 'append')
 
                          ",.open="*",.close="*")
