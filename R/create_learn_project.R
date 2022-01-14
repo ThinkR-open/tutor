@@ -12,7 +12,7 @@ dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
     rstudioapi::navigateToFile(file = 'explications.R')
     later::later(
        function(){rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)}
-    ,1)
+    ,3)
 
     message('done')
   }, action = 'append')
