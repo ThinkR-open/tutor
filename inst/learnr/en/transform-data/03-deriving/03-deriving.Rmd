@@ -140,7 +140,9 @@ I used `summarise()` above to calculate the total number of boys named "Garrett"
 ```{r echo = TRUE}
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
-  summarise(total = sum(n), max = max(n), mean = mean(n))
+  summarise(total = sum(n), 
+            max = max(n), 
+            mean = mean(n))
 ```
 
 Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `%>%`. Here the first argument will be the data frame that is returned by `babynames %>% filter(name == "Garrett", sex == "M")`.
@@ -162,7 +164,9 @@ If you cannot think of an R function that would compute each statistic, click th
 ```{r summarise-1-solution}
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
-  summarise(total = sum(n), max = max(n), mean = mean(n))
+  summarise(total = sum(n), 
+            max = max(n), 
+            mean = mean(n))
 ```
 
 ### Summary functions
@@ -206,7 +210,8 @@ Will these numbers be different? Why or why not?
 
 ```{r distinct-solution}
 babynames %>% 
-  summarise(n = n(), distinct = n_distinct(name))
+  summarise(n = n(), 
+            distinct = n_distinct(name))
 ```
 
 ```{r distinct-check}
@@ -342,7 +347,8 @@ Use the code block below to plot a line graph of `prop` vs `year` for each name 
 ```{r popular-2-solution}
 top_10 %>%
   ggplot() +
-    geom_line(aes(x = year, y = prop, color = name))
+    aes(x = year, y = prop, color = name) +
+    geom_line()
 ```
 
 ### Exercise - Total children for popular names
@@ -356,7 +362,8 @@ Now use `top_10` to plot `n` vs `year` for each of the names. How are the plots 
 ```{r popular-3-solution}
 top_10 %>%
   ggplot() +
-    geom_line(aes(x = year, y = n, color = name))
+    aes(x = year, y = n, color = name) +
+    geom_line()
 ```
 
 ```{r popular-3-check}
@@ -382,7 +389,8 @@ babynames %>%
   group_by(year) %>% 
   summarise(n = sum(n)) %>% 
   ggplot() +
-    geom_line(aes(x = year, y = n))
+    aes(x = year, y = n) +
+    geom_line()
 ```
 
 ### Popularity based on rank
@@ -588,7 +596,8 @@ Use `number_ones` with `babynames` to recreate the plot below, which shows the p
 babynames %>% 
   filter(name %in% number_ones, sex == "M") %>% 
   ggplot() +
-    geom_line(aes(x = year, y = prop, color = name))
+    aes(x = year, y = prop, color = name) +
+    geom_line()
 ```
 
 ```{r ones-3, exercise = TRUE, exercise.setup = "bnames"}
@@ -599,7 +608,8 @@ babynames %>%
 babynames %>% 
   filter(name %in% number_ones, sex == "M") %>% 
   ggplot() +
-    geom_line(aes(x = year, y = prop, color = name))
+    aes(x = year, y = prop, color = name) +
+    geom_line()
 ```
 
 ### Name Diversity Challenge - number of unique names
@@ -618,7 +628,8 @@ babynames %>%
   group_by(year, sex) %>% 
   summarise(n_names = n_distinct(name)) %>% # or summarise(n_names = n())
   ggplot() +
-    geom_line(aes(x = year, y = n_names, color = sex))
+    aes(x = year, y = n_names, color = sex) +
+    geom_line()
 ```
 
 ### Name Diversity Challenge - number of boys and girls
@@ -634,7 +645,8 @@ babynames %>%
   group_by(year, sex) %>% 
   summarise(n = sum(n)) %>% 
   ggplot() +
-    geom_line(aes(x = year, y = n, color = sex))
+    aes(x = year, y = n, color = sex) +
+    geom_line()
 ```
 
 ### Name Diversity Challenge - children per name
@@ -655,7 +667,8 @@ babynames %>%
   group_by(year, sex) %>% 
   summarise(per_name = mean(n)) %>% 
   ggplot() +
-    geom_line(aes(x = year, y = per_name, color = sex))
+    aes(x = year, y = per_name, color = sex) +
+    geom_line()
 ```
 
 ```{r diversity-3-check}
