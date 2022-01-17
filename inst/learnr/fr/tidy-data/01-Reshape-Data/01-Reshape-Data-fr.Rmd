@@ -250,7 +250,6 @@ Par conséquent, la plupart des fonctions dans R --- et chaque fonction dans le 
 ### Résumé
 
 > "Data comes in many formats, but R prefers just one: tidy data." - "Les données peuvent être présentées dans de nombreux formats, mais R en préfère un seul : les données ordonnées."
-
 > --- Garrett Grolemund
 
 Un jeu de données est bien ordonné si :
@@ -338,12 +337,16 @@ Le résultat devrait contenir trois colonnes : `country`, `year`, et `cases`. Co
 
 ```{r ex7, exercise = TRUE}
 cases %>%
-  pivot_longer(cols = c(2, 3, 4), names_to = "year", values_to = "n")
+  pivot_longer(cols = c(2, 3, 4), 
+               names_to = "year", 
+               values_to = "n")
 ```
 
 ```{r ex7-solution}
 table4a %>%
-  pivot_longer(cols = c(2, 3), names_to = "year", values_to = "cases")
+  pivot_longer(cols = c(2, 3), 
+               names_to = "year", 
+               values_to = "cases")
 ```
 
 ```{r ex7-check}
@@ -356,13 +359,24 @@ Jusqu'à présent, nous avons utilisé des nombres pour décrire les colonnes à
 
 ```{r echo = TRUE, eval = FALSE}
 table4a %>%
-  pivot_longer(cols = c(2, 3), names_to = "year", values_to = "cases")
+  pivot_longer(cols = c(2, 3), 
+               names_to = "year", 
+               values_to = "cases")
+
 table4a %>%
-  pivot_longer(cols = c(`1999`, `2000`), names_to = "year", values_to = "cases")
+  pivot_longer(cols = c(`1999`, `2000`), 
+               names_to = "year", 
+               values_to = "cases")
+
 table4a %>%
-  pivot_longer(cols = -country, names_to = "year", values_to = "cases")
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "cases")
+
 table4a %>%
-  pivot_longer(cols = one_of(c("1999", "2000")), names_to = "year", values_to = "cases")
+  pivot_longer(cols = one_of(c("1999", "2000")), 
+               names_to = "year", 
+               values_to = "cases")
 ```
 
 Notez que 1999 et 2000 sont des nombres. Lorsque vous appelez directement des noms de colonnes qui sont des nombres, vous devez les entourer de guillemets. Sinon `pivot_longer()` penserait que vous voulez dire les 1999ème et 2000ème colonnes... Utilisez `?select_helpers` pour ouvrir une page d'aide qui répertorie les outils `select()`.
@@ -381,7 +395,9 @@ table4b
 
 ```{r ex8-solution}
 table4b %>% 
-  pivot_longer(cols = -country, names_to = "year", values_to = "population")
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "population")
 ```
 
 ```{r ex8-check}
@@ -396,12 +412,17 @@ Vous pouvez demander à R de convertir chaque nouvelle colonne en un type de don
 
 ```{r ex9, exercise = TRUE}
 table4b %>% 
-  pivot_longer(cols = -country, names_to = "year", values_to = "population")
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "population")
 ```
 
 ```{r ex9-solution}
 table4b %>% 
-  pivot_longer(cols = -country, names_to = "year", values_to = "population", names_transform = list(year = as.integer))
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "population", 
+               names_transform = list(year = as.integer))
 ```
 
 ```{r ex9-check}
@@ -429,7 +450,9 @@ Pour ordonner ces données, vous souhaitez conserver les trois premières colonn
 
 ```{r ex10-solution}
 cases2 %>% 
-  pivot_longer(cols = c(4, 5, 6), names_to = "year", values_to = "cases")
+  pivot_longer(cols = c(4, 5, 6), 
+               names_to = "year", 
+               values_to = "cases")
 ```
 
 ```{r ex10-check}
@@ -480,14 +503,14 @@ question("Quelle colonne du jeu de données pollution contient les valeurs assoc
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/49c1IxOWlCM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
 ### pivot_wider()
 
 Vous pouvez "étendre" les noms des variables sur leur propre ensemble de colonnes avec la fonction `pivot_wider()` du package **{tidyr}**. Pour utiliser `pivot_wider()`, passez-lui le nom d'un ensemble de données à étendre (fourni ici par le pipe `%>%`). Indiquez ensuite à `pivot_wider()` quelle colonne contient les noms des variables et quelle colonne contient les valeurs associées à ces variables.
 
 ```{r echo = TRUE}
 pollution %>% 
-  pivot_wider(names_from = size, values_from = amount)
+  pivot_wider(names_from = size, 
+              values_from = amount)
 ```
 
 `pivot_wider()` donnera à chaque valeur unique de la colonne _names_from_ sa propre colonne. Le nom de la valeur deviendra le nom de la colonne. `pivot_wider()` redistribuera ensuite les valeurs de la colonne _values_from_ à travers les nouvelles colonnes d'une manière qui préserve chaque relation dans le jeu de données d'origine.
@@ -507,7 +530,8 @@ table2
 
 ```{r ex11-solution}
 table2 %>% 
-  pivot_wider(names_from = type, values_from = count)
+  pivot_wider(names_from = type, 
+              values_from = count)
 ```
 
 ```{r ex11-check}
@@ -521,9 +545,13 @@ Vous remarquerez peut-être que `pivot_longer()` et `pivot_wider()` prennent tou
 
 ```{r echo = TRUE, eval = FALSE}
 table4b %>% 
-  pivot_longer(cols = -country, names_to = "year", values_to = "population")
+  pivot_longer(cols = -country, 
+               names_to = "year", 
+               values_to = "population")
+
 pollution %>% 
-  pivot_wider(names_from = size,  = amount)
+  pivot_wider(names_from = size, 
+              values_from = amount)
 ```
 
 Ne laissez pas la différence vous piéger. Pensez plutôt à la signification des guillemets.
@@ -638,7 +666,8 @@ Il serait plus facile de calculer le ratio garçons/filles si nous pouvions rest
 prenoms %>%
   group_by(year, sex) %>% 
   summarise(total = sum(n)) %>% 
-  pivot_wider(names_from = sex, values_from = total)
+  pivot_wider(names_from = sex, 
+              values_from = total)
 ```
 
 Ensuite, nous pourrions calculer le ratio en utilisant nos données dans `mutate(ratio = M / F)`.
