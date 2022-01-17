@@ -66,7 +66,8 @@ To make a histogram with ggplot2, add `geom_histogram()` to the [ggplot2 templat
 
 ```{r hist1, exercise = TRUE, out.width = "80%", message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat))
+  aes(x = carat) +
+  geom_histogram()
 ```
 
 ### The y variable
@@ -75,7 +76,8 @@ As with `geom_bar()`, you do not need to give `geom_histogram()` a $y$ variable.
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat))
+  aes(x = carat) +
+  geom_histogram()
 ```
 
 As a result, you can glance at a bar to determine how many observations fall within a bin. Bins with tall bars highlight common values of the $x$ variable.
@@ -84,7 +86,8 @@ As a result, you can glance at a bar to determine how many observations fall wit
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat))
+  aes(x = carat) +
+  geom_histogram()
 ```
 
 ```{r r1, echo = FALSE}
@@ -103,7 +106,8 @@ By default, ggplot2 will choose a binwidth for your histogram that results in ab
 
 ```{r hist2, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 1)
+  aes(x = carat) +
+  geom_histogram(binwidth = 1)
 ```
 
 ### bins
@@ -112,7 +116,8 @@ Alternatively, you can set the binwidth with the `bins` argument which takes the
 
 ```{r hist3, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), bins = 10)
+  aes(x = carat) +
+  geom_histogram(bins = 10)
 ```
 
 It can be hard to determine what the actual binwidths are when you use `bins`, since they may not be round numbers.
@@ -123,7 +128,8 @@ You can move the bins left and right along the $x$ axis with the `boundary` argu
 
 ```{r hist4, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), bins = 10, boundary = 0)
+  aes(x = carat) +
+  geom_histogram(bins = 10, boundary = 0)
 ```
 
 ### Exercise 2 - binwidth
@@ -142,7 +148,8 @@ To see an example of this, make a histogram of the `carat` variable in the `diam
 
 ```{r r2-solution}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+  aes(x = carat) + 
+  geom_histogram(binwidth = 0.5)
 ```
 
 ### Exercise 3 - another binwidth
@@ -159,7 +166,8 @@ Recreate your histogram of `carat` but this time use a binwidth of 0.1. Does you
 
 ```{r r3-solution}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 0.1)
+  aes(x = carat) +
+  geom_histogram(binwidth = 0.1)
 ```
 
 ### Exercise 4 - another binwidth
@@ -176,7 +184,8 @@ Recreate your histogram of `carat` a final time, but this time use a binwidth of
 
 ```{r r4-solution}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 0.01, boundary = 0)
+  aes(x = carat) +
+  geom_histogram(binwidth = 0.01, boundary = 0)
 ```
 
 ### aesthetics
@@ -198,7 +207,8 @@ Recreate the histogram below.
 
 ```{r out.width = "100%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 ```{r r5, exercise = TRUE}
@@ -211,7 +221,8 @@ ggplot(data = diamonds) +
 
 ```{r r5-solution}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 ## Similar geoms
@@ -222,7 +233,8 @@ By adding a fill color to our histogram below, we've divided the data into five 
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 But this display has some shortcomings:
@@ -244,8 +256,9 @@ We can improve the plot by using a different geom to display the distributions o
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = carat), binwidth = 0.25, boundary = 0, fill = "grey50") +
-  geom_freqpoly(mapping = aes(x = carat), binwidth = 0.25, boundary = 0, size = 0.7)
+  aes(x = carat) +
+  geom_histogram(binwidth = 0.25, boundary = 0, fill = "grey50") +
+  geom_freqpoly(binwidth = 0.25, boundary = 0, size = 0.7)
 ```
 
 Note that the bars are not part of the frequency polygon; they are just there for reference. `geom_freqpoly()` recognizes the same parameters as `geom_histogram()`, such as `bins`, `binwidth`, and `boundary`.
@@ -264,7 +277,8 @@ Create the frequency polygon depicted above. It has a binwidth of 0.25 and start
 
 ```{r r6-solution}
 ggplot(data = diamonds) +
-  geom_freqpoly(mapping = aes(x = carat), binwidth = 0.25, boundary = 0)
+  aes(x = carat)
+  geom_freqpoly(binwidth = 0.25, boundary = 0)
 ```
 
 ### Exercise 7 - Multiple frequency polygons
@@ -273,7 +287,8 @@ Use a frequency polygon to recreate our chart of price and cut. Since lines do n
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 ```{r r7, exercise = TRUE}
@@ -286,7 +301,8 @@ ggplot(data = diamonds) +
 
 ```{r r7-solution}
 ggplot(data = diamonds) +
-  geom_freqpoly(mapping = aes(x = price, color = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, color = cut) +
+  geom_freqpoly(binwidth = 1000, boundary = 0)
 ```
 
 ### geom_density()
@@ -295,7 +311,8 @@ Our frequency polygon highlights a second shortcoming with our graph: it is diff
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_freqpoly(mapping = aes(x = price, color = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, color = cut) +
+  geom_freqpoly(binwidth = 1000, boundary = 0)
 ```
 
 You can avoid this with `geom_density()`.
@@ -309,12 +326,15 @@ Density curves do not plot count on the $y$ axis but _density_, which is analago
 ```{r out.width = "50%", echo = FALSE, message = FALSE}
 data <- data.frame(data = c(rnorm(1000), rnorm(500, mean = 3), rnorm(100, mean = 6)),
                    group = c(rep("A", 1000), rep("B", 500), rep("C", 100)))
+
 ggplot(data = data) +
-  geom_freqpoly(mapping = aes(x = data, color = group)) +
+  aes(x = data, color = group) +
+  geom_freqpoly() +
   ggtitle("Data with counts")
 
 ggplot(data = data) +
-  geom_density(mapping = aes(x = data, color = group)) + 
+  aes(x = data, color = group) +
+  geom_density() + 
   ggtitle("Same data with densities")
 ```
 
@@ -324,7 +344,8 @@ Re-draw our plot with density curves. How do you interpret the results?
 
 ```{r out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 ```{r r8, exercise = TRUE}
@@ -337,7 +358,8 @@ ggplot(data = diamonds) +
 
 ```{r r8-solution}
 ggplot(data = diamonds) +
-  geom_density(mapping = aes(x = price, color = cut))
+  aes(x = price, color = cut) +
+  geom_density()
 ```
 
 ### Density parameters
@@ -354,7 +376,8 @@ Dotplots can provide an intuitive display of the data, but they have several sho
 
 ```{r dotplot, exercise = TRUE, exercise.eval = TRUE, message = FALSE}
 ggplot(data = mpg) +
-  geom_dotplot(mapping = aes(x = displ), dotsize = 0.5, stackdir = "up", stackratio = 1.1)
+  aes(x = displ) +
+  geom_dotplot(dotsize = 0.5, stackdir = "up", stackratio = 1.1)
 ```
 
 ### Exercise 9 - Facets
@@ -363,7 +386,8 @@ Instead of changing geoms, you can make the sub-groups in our original plot easi
 
 ```{r r9, exercise = TRUE}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0)
 ```
 
 ```{r r9-check}
@@ -372,8 +396,9 @@ ggplot(data = diamonds) +
 
 ```{r r9-solution}
 ggplot(data = diamonds) +
-  geom_histogram(mapping = aes(x = price, fill = cut), binwidth = 1000, boundary = 0) +
-  facet_wrap( ~cut)
+  aes(x = price, fill = cut) +
+  geom_histogram(binwidth = 1000, boundary = 0) +
+  facet_wrap(facet = vars(cut))
 ```
 
 ### Recap

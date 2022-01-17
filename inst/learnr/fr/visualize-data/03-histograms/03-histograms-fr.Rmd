@@ -381,7 +381,7 @@ ggplot(data = diamonds) +
 ggplot(data = diamonds) +
   aes(x = price, fill = cut) +
   geom_histogram(binwidth = 1000, boundary = 0) +
-  facet_wrap( ~cut)
+  facet_wrap(facet = vars(cut))
 ```
 
 ### Récapitulatif
