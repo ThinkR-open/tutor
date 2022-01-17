@@ -598,7 +598,7 @@ prenoms %>%
     geom_line()
 ```
 
-```{r ones-3, exercise = "TRUE"}
+```{r ones-3, exercise = TRUE}
 
 ```
 
