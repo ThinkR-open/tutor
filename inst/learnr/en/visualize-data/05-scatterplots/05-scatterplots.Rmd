@@ -78,7 +78,8 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy))
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point()
 ```
 
 ```{r r1-check}
@@ -97,7 +98,8 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy))
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point()
 ```
 
 ```{r r2-solution}
@@ -105,13 +107,15 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_text(mapping = aes(x = mean_cty, y = mean_hwy, label = class))
+    aes(x = mean_cty, y = mean_hwy, label = class) +
+    geom_text()
 
 mpg %>% 
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_label(mapping = aes(x = mean_cty, y = mean_hwy, label = class))
+    aes(x = mean_cty, y = mean_hwy, label = class) +
+    geom_label()
 ```
 
 ```{r r2-check}
@@ -130,7 +134,8 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point() +
     ggtitle("geom_point)") +
     ylim(16, 30)
 
@@ -138,7 +143,8 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), se = FALSE) +
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_smooth(se = FALSE) +
     ggtitle("geom_smooth()") +
     ylim(16, 30)
 ```
@@ -161,7 +167,8 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm)
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_smooth(method = lm)
 ```
 
 ```{r r3-check}
@@ -184,8 +191,9 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
-    geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm) 
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point() +
+    geom_smooth(method = lm)  
 ```
 
 ```{r r4-check}
@@ -203,8 +211,9 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
-    geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm)
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point() +
+    geom_smooth(method = lm)
 ```
 
 ```{r r5-solution}
@@ -212,9 +221,10 @@ mpg %>%
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
   ggplot() +
-    geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
-    geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm) +
-    geom_label_repel(mapping = aes(x = mean_cty, y = mean_hwy, label = class))
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point() +
+    geom_smooth(method = lm) +
+    geom_label_repel(aes(label = class))
 ```
 
 ```{r r5-check}
@@ -235,14 +245,26 @@ mpg %>%
     geom_label_repel(mapping = aes(x = mean_cty, y = mean_hwy, label = class))
 ```
 
-You should try to avoid duplication whenever you can in code because duplicated code invites typos, is hard to update, and takes longer than needed to write. Thankfully, ggplot2 provides a way to avoid duplication across multiple layers.
+You should try to avoid duplication whenever you can in code because duplicated code invites typos, is hard to update, and takes longer than needed to write. Thankfully, ggplot2 provides a way to avoid duplication across multiple layers:
+
+```{r eval = FALSE}
+mpg %>% 
+  group_by(class) %>% 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+  ggplot() +
+    aes(x = mean_cty, y = mean_hwy) +
+    geom_point() +
+    geom_smooth(method = lm) +
+    geom_label_repel(aes(label = class))
+```
 
 ### ggplot() mappings
 
 You can set aesthetic mappings in two places within any ggplot2 call. You can set the mappings inside of a geom function, as we've been doing. Or you can set the mappings inside of the `ggplot()` function like below:
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE, message = FALSE, warning = FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point()
 ```
 
@@ -255,9 +277,10 @@ ggplot2 will treat any mappings set in a geom function as _local_ mappings. Only
 This system creates an efficient way to write plot calls:
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE, warning = FALSE, message = FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() +
-  geom_smooth(mapping = aes(color = class), se = FALSE)
+  geom_smooth(aes(color = class), se = FALSE)
 ```
 
 ### Exercise 2
@@ -278,10 +301,11 @@ mpg %>%
 mpg %>% 
   group_by(class) %>% 
   summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
-  ggplot(mapping = aes(x = mean_cty, y = mean_hwy)) +
+  ggplot() +
+    aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
     geom_smooth(method = lm) +
-    geom_label_repel(mapping = aes(label = class))
+    geom_label_repel(aes(label = class))
 ```
 
 ```{r r6-check}
@@ -304,8 +328,9 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ```
 
 ```{r r7-solution}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
+  geom_point(aes(color = class)) +
   geom_smooth()
 ```
 
@@ -322,7 +347,8 @@ Use `data` arguments to recreate the plot below. I've started the code for you.
 ```{r echo = FALSE, out.width = "80%", message = FALSE, warning = FALSE}
 mpg2 <- filter(mpg, class == "2seater")
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() +
   geom_point(data = mpg2, color = "red", size = 2)
 ```
@@ -334,7 +360,8 @@ mpg2 <- filter(mpg, class == "2seater")
 ```{r r8-solution}
 mpg2 <- filter(mpg, class == "2seater")
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() +
   geom_point(data = mpg2, color = "red", size = 2)
 ```
@@ -350,9 +377,10 @@ Use `data` arguments to recreate the plot below.
 ```{r echo = FALSE, out.width = "80%", message = FALSE, warning = FALSE}
 mpg3 <- filter(mpg, hwy > 40)
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() +
-  geom_label_repel(data = mpg3, mapping = aes(label = class))
+  geom_label_repel(data = mpg3, aes(label = class))
 ```
 
 ```{r r9, exercise = TRUE}
@@ -362,37 +390,37 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ```{r r9-solution}
 mpg3 <- filter(mpg, hwy > 40)
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() +
-  geom_label_repel(data = mpg3, mapping = aes(label = class))
+  geom_label_repel(data = mpg3, aes(label = class))
 ```
 
 ```{r r9-check}
 "Good Job!"
 ```
 
-### last_plot()
+### Saving graphs
 
-When exploring data, you'll often make a plot and then think of a way to improve it. Instead of starting from scratch or copying and pasting your code, you can use ggplot2's `last_plot()` function. `last_plot()` returns the most recent plot call, which makes it easy to build up a plot one layer at a time.
+When exploring data, you'll often make a plot and then think of a way to improve it. Instead of starting from scratch or copying and pasting your code, you can store your {ggplot2} graph in an R object. Later, you can display the graph or add to it.
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+p <- ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point()
 
-last_plot() +
+p +
   geom_smooth()
 
-last_plot() +
+p +
   geom_smooth(method = lm, color = "purple")
 ```
 
-### Saving plots
-
-If you'd like to work with a plot later, you can save it to an R object. Later you can display the plot or add to it, as if you were using `last_plot()`. 
+If you want to keep a new version of the graphic, you will have to overwrite the previous version. Like this:
 
 ```{r}
-p <- ggplot(data = mpg) +
-  geom_point(mapping = aes(x = cty, y = hwy))
+p <- p +
+  geom_smooth(method = lm, color = "purple")
 ```
 
 Notice that ggplot2 will not display a plot when you save it. It waits until you call the saved object.
@@ -413,7 +441,8 @@ In the chunk below, use the `faithful` dataset to create a scatterplot that has 
 ```
 
 ```{r r10-solution}
-ggplot(data = faithful, mapping = aes(x = waiting, y = eruptions)) +
+ggplot(data = faithful) +
+  aes(x = waiting, y = eruptions) +
   geom_point() +
   geom_rug()
 ```
@@ -431,12 +460,14 @@ Why would you use `geom_jitter()`? Jittering provides a simple way to inspect pa
 
 ```{r r11, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_point()
 ```
 
 ```{r r11-solution}
 ggplot(data = mpg) +
-  geom_jitter(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_jitter()
 ```
 
 ```{r r11-check}
@@ -455,7 +486,8 @@ Use the chunk below to create a boxplot of the previous graph. Arrange for the o
 ```
 
 ```{r r12-solution}
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = class, y = hwy) +
   geom_boxplot(outlier.alpha = 0) +
   geom_jitter(width = 0)
 ```
@@ -472,7 +504,8 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 One way to customize a scatterplot is to plot it in a new coordinate system. ggplot2 provides several helper functions that change the coordinate system of a plot. You've already seen one of these in action in the [boxplots tutorial](https://tutorials.shinyapps.io/04-boxplots): `coord_flip()` flips the $x$ and $y$ axes of a plot.
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE}
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = class, y = hwy) +
   geom_boxplot(outlier.alpha = 0) +
   geom_jitter(width = 0) +
   coord_flip()
@@ -498,10 +531,11 @@ You use each coord function like you use `coord_flip()`, by adding it to a ggplo
 So for example, you could add `coord_polar()` to a plot to make a graph that uses polar coordinates.
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE}
-ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = cut), width = 1) 
+p2 <- ggplot(data = diamonds) +
+  aes(x = cut, fill = cut) + 
+  geom_bar(width = 1) 
 
-last_plot() +
+p2 +
   coord_polar()
 ```
 
@@ -513,7 +547,8 @@ Consider, the scatterplot below. It shows a strong relationship between the cara
 
 ```{r echo = FALSE, out.width = "80%", message = FALSE, warning = FALSE}
 ggplot(data = diamonds) +
-  geom_point(mapping = aes(x = carat, y = price)) 
+  aes(x = carat, y = price) +
+  geom_point() 
 ```
 
 However, the relationship does not appear linear. It appears to have the form $y = x^{n}$, a common relationship found in nature. You can estimate the $n$ by replotting the data in a _log-log plot_.
@@ -536,9 +571,11 @@ Try this by using the diamonds dataset to plot `log(carat)` against `log(price)`
 ```{r r13, exercise = TRUE}
 
 ```
+
 ```{r r13-solution}
 ggplot(data = diamonds) +
-  geom_point(mapping = aes(x = log(carat), y = log(price))) 
+  aes(x = log(carat), y = log(price)) +
+  geom_point() 
 ```
 
 ```{r r13-check}
@@ -553,7 +590,8 @@ To use `coord_trans()` give it an $x$ and/or a $y$ argument. Set each to the nam
 
 ```{r r14, exercise = TRUE}
 ggplot(data = diamonds) +
-  geom_point(mapping = aes(x = carat, y = price)) +
+  aes(x = carat, y = price) +
+  geom_point() +
   coord_trans(x = "log", y = "log")
 ```
 
