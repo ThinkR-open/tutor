@@ -433,7 +433,7 @@ arrange(prenoms, desc(n))
 
 ### Étapes
 
-Remarquez comment chaque fonction de {dplyr} prend un jeu de données en entrée et renvoie un jeu de données en sortie. Cela rend les fonctions faciles "brancher" les unes aux autres pour réaliser des suites d'étapes. Par exemple, vous pourriez :
+Remarquez comment chaque fonction de {dplyr} prend un jeu de données en entrée et renvoie un jeu de données en sortie. Cela rend les fonctions faciles à "brancher" les unes aux autres pour réaliser des suites d'étapes. Par exemple, vous pourriez :
 
 1. Filtrer les prénoms de bébé pour les garçons nés en 2018
 2. Sélectionner les colonnes `name` et `n` dans le résultat
@@ -469,7 +469,7 @@ prenoms %>%
   arrange(desc(n))
 ```
 
-Lorsque vous lisez le code, prononcez `%>%` comme "puis". Vous remarquerez que {dplyr} facilite la lecture des opérations qui arrivent aux données. Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par prénom et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
+Lorsque vous lisez le code, prononcez `%>%` comme "puis". Vous remarquerez que {dplyr} facilite la lecture des opérations qui arrivent aux données. Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par année et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
 
 {dplyr} facilite également l'écriture des pipes. Chaque fonction de {dplyr} renvoie un jeu de données qui peut être utilisé dans une autre fonction de {dplyr} (qui acceptera alors le jeu de données comme premier argument). En fait, les fonctions de dplyr sont écrites pour permettre l'usage du pipe : chaque fonction fait une tâche simple, et {dplyr} s'attend à ce que vous utilisiez des pipes pour combiner ces tâches simples pour produire des résultats plus sophistiqués.
 
