@@ -71,7 +71,8 @@ You can use the data in `babynames` to make graphs like this, which reveal the h
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
   ggplot() +
-    geom_line(aes(x = year, y = prop)) +
+    aes(x = year, y = prop) +
+    geom_line() +
     labs(title = "Popularity of the name Garrett")
 ```
 
@@ -83,7 +84,8 @@ To see what I mean, consider how I made the plot above: I began with the entire 
 
 ```{r out.width = "60%", cached = TRUE}
 ggplot(babynames) +
-  geom_point(aes(x = year, y = prop)) +
+  aes(x = year, y = prop) +
+  geom_point() +
   labs(title = "Popularity of every name in the data set")
 ```
 
@@ -93,7 +95,8 @@ I then narrowed the data to just the rows that contain my name, before plotting 
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
   ggplot() +
-    geom_point(aes(x = year, y = prop)) +
+    aes(x = year, y = prop) +
+    geom_point() +
     labs(title = "Popularity of the name Garrett")
 ```
 
@@ -101,7 +104,8 @@ If I had skipped this step, my line graph would've connected all of the points i
 
 ```{r out.width = "60%", cached = TRUE}
 ggplot(babynames) +
-  geom_line(aes(x = year, y = prop)) +
+  aes(x = year, y = prop) +
+  geom_line() +
   labs(title = "Popularity of every name in the data set")
 ```
 
@@ -503,7 +507,8 @@ babynames %>%
   filter(name == "Garrett", sex == "M") %>% 
   select(year, prop) %>% 
   ggplot() +
-    geom_line(aes(x = year, y = prop)) +
+    aes(x = year, y = prop) +
+    geom_line() +
     labs(title = "Popularity of the name Garrett")
 ```
 
