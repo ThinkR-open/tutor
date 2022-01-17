@@ -214,7 +214,8 @@ knitr::include_graphics("www/images/right-join.png")
 You can think of `left_join()` as prioritizing the first data set, and `right_join()` as prioritizing the second. To see the results in R, run the code below.
 
 ```{r ex3, exercise = TRUE}
-band %>% right_join(instrument, by = "name")
+band %>% 
+  right_join(instrument, by = "name")
 ```
 
 ### Test your comprehension
@@ -226,11 +227,13 @@ knitr::include_graphics("www/images/right-join.png")
 ```
 
 ```{r ex4, exercise = TRUE}
-band %>% left_join(instrument, by = "name")
+band %>% 
+  left_join(instrument, by = "name")
 ```
 
 ```{r ex4-solution}
-instrument %>% left_join(band, by = "name")
+instrument %>% 
+  left_join(band, by = "name")
 ```
 
 ```{r ex4-check}
@@ -250,7 +253,8 @@ knitr::include_graphics("www/images/full-join.png")
 To see what this result looks like in R, run the code below.
 
 ```{r ex5, exercise = TRUE}
-band %>% full_join(instrument, by = "name")
+band %>% 
+  full_join(instrument, by = "name")
 ```
 
 ### inner_join()
@@ -264,7 +268,8 @@ knitr::include_graphics("www/images/inner-join.png")
 To see what this result looks like in R, run the code below.
 
 ```{r ex6, exercise = TRUE}
-band %>% inner_join(instrument, by = "name")
+band %>% 
+  inner_join(instrument, by = "name")
 ```
 
 ### Mutating join syntax
@@ -402,7 +407,8 @@ Named vectors are a basic feature of R. Let's look at how we can use them to sol
 To match on columns with different names, change the `by` argument of your join function from a vector of character strings to a _named_ vector of character strings. 
 
 ```{r echo = TRUE}
-band %>% left_join(instrument2, by = c("name" = "artist"))
+band %>% 
+  left_join(instrument2, by = c("name" = "artist"))
 ```
 
 R will match the column in the first data set that has the name (here `"name"`) with the column in the second data set that has the element (here `"artist"`).
@@ -414,7 +420,8 @@ knitr::include_graphics("www/images/match-names.png")
 To see what the result looks like in R, run the code below.
 
 ```{r ex9, exercise = TRUE}
-band %>% left_join(instrument2, by = c("name" = "artist"))
+band %>% 
+  left_join(instrument2, by = c("name" = "artist"))
 ```
 
 ### Two details
@@ -422,13 +429,15 @@ band %>% left_join(instrument2, by = c("name" = "artist"))
 You can use this syntax to describe multiple pairs of columns. For example,
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% left_join(foo2, by = c("first" = "artist1", "last" = "artist2"))
+foo %>% 
+  left_join(foo2, by = c("first" = "artist1", "last" = "artist2"))
 ```
 
 Technically, you do not need to surround the names of the vector with quotes. This would work.
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% left_join(foo2, by = c(first = "artist1", last = "artist2"))
+foo %>% 
+  left_join(foo2, by = c(first = "artist1", last = "artist2"))
 ```
 
 But you do need to use quotes in the elements of the vector, which are character strings. I like to use quotes on both sides of the `=` for parity.
@@ -498,7 +507,8 @@ knitr::include_graphics("www/images/semi-join.png")
 To see what the results look like in R, run the code below.
 
 ```{r ex11, exercise = TRUE}
-band %>% semi_join(instrument, by = "name")
+band %>% 
+  semi_join(instrument, by = "name")
 ```
 
 ### anti_join()
@@ -512,7 +522,8 @@ knitr::include_graphics("www/images/anti-join.png")
 To see what the results look like in R, run the code below.
 
 ```{r ex12, exercise = TRUE}
-band %>% anti_join(instrument, by = "name")
+band %>% 
+  anti_join(instrument, by = "name")
 ```
 
 
@@ -521,7 +532,8 @@ band %>% anti_join(instrument, by = "name")
 We will also use a new function that comes in dplyr: `distinct()`. `distinct()` isn't a join function, but it is incredibly useful. `distinct()` returns the _distinct_ values of a column.
 
 ```{r ex13, exercise = TRUE}
-instrument %>% distinct(plays)
+instrument %>% 
+  distinct(plays)
 ```
 
 ```{r out.width = "90%"}
@@ -698,7 +710,8 @@ knitr::include_graphics("www/images/bind-cols.png")
 Run the code below to see what the results look like in R.
 
 ```{r ex19, exercise = TRUE}
-beatles1 %>% bind_cols(beatles2)
+beatles1 %>% 
+  bind_cols(beatles2)
 ```
 
 Note that this is a dangerous way to store your data, because it is hard to ensure that the rows of one data set haven't gotten jumbled. `bind_cols()` cannot tell whether the rows are in the correct order or not, so you will need to be careful in these situations.
@@ -722,7 +735,8 @@ knitr::include_graphics("www/images/bind-rows.png")
 Run the code below to see what the results look like in R.
 
 ```{r ex20, exercise = TRUE}
-band %>% bind_rows(band2)
+band %>% 
+  bind_rows(band2)
 ```
 
 ### .id
@@ -745,14 +759,16 @@ Add a `.id` argument ot the code below to create the output displayed in the dia
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% bind_rows()
+bands %>% 
+  bind_rows()
 ```
 
 ```{r ex21-solution}
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% bind_rows(.id = "origin")
+bands %>% 
+  bind_rows(.id = "origin")
 ```
 
 ```{r ex21-check}
@@ -773,10 +789,14 @@ knitr::include_graphics("www/images/band2.png")
 Imagine what each of the set operations below will return when applied to the data sets above. Then run the code to check if you are right.
 
 ```{r ex22, exercise = TRUE}
-band %>% union(band2)
-band %>% intersect(band2)
-band %>% setdiff(band2)
-band2 %>% setdiff(band)
+band %>% 
+  union(band2)
+band %>% 
+  intersect(band2)
+band %>% 
+  setdiff(band2)
+band2 %>% 
+  setdiff(band)
 ```
 
 ### union()
@@ -784,7 +804,8 @@ band2 %>% setdiff(band)
 `union()` returns every row that appears in either data set, but it removes duplicate copies of the rows.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% union(band2)
+band %>% 
+  union(band2)
 ```
 
 ```{r out.width = "90%"}
@@ -796,7 +817,8 @@ knitr::include_graphics("www/images/union.png")
 `intersect()` returns only the rows that appear in _both_ data sets. It too removes duplicate copies of these rows.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% intersect(band2)
+band %>% 
+  intersect(band2)
 ```
 
 ```{r out.width = "90%"}
@@ -808,7 +830,8 @@ knitr::include_graphics("www/images/intersect.png")
 `setdiff()` returns all of the rows that appear in the first data set but not the second.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% setdiff(band2)
+band %>% 
+  setdiff(band2)
 ```
 
 ```{r out.width = "90%"}
