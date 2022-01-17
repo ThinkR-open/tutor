@@ -1,17 +1,20 @@
 # tous <- tutor:::tous_les_programmes()
 # tutor:::nice_name(tutor:::tous_les_programmes())
 
-create_learn_project <- function(name,path="."){
+create_learn_project <- function(name,path=".",lang="fr"){
 dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
 
  rprofile <-  glue::glue("
- message('Bonjour');
+ message('learnr start');
 
  setHook('rstudio.sessionInit', function(newSession) {
    for ( i in 1:10){rstudioapi::documentClose()}
     rstudioapi::navigateToFile(file = 'explications.R')
-    rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)
-    message('done')
+    later::later(
+       function(){rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)}
+    ,3)
+
+    message('please wait (3s)')
   }, action = 'append')
 
                          ",.open="*",.close="*")
@@ -24,6 +27,19 @@ topo <- "# Veuillez patienter le temps que l'exercice se charge.(Une commande au
 # Si a la fin de la generation un popup s'ouvre, cliquez sur 'try again' pour
 # faire apparaitre l'exercice
 # N'hésitez pas a agrandir le panneau viewer pour etre a l'aise"
+
+
+if (lang=="en"){
+topo <- "# Please wait for the exercise to load (an automatic command will be sent to the console)
+# You should see a percentage of progress in your console,
+# Some launches can be long (up to 30 seconds)
+# If at the end of the generation a popup opens, click on 'try again' to
+# make the exercise appear
+# Don't hesitate to enlarge the viewer panel to be more comfortable"
+
+
+  }
+
 
 cat(topo,file = file.path(path,name,"explications.R"))
 
@@ -41,8 +57,8 @@ yaml::write_yaml(the_yaml, file =
  }
 
 
-create_learn_project_all <- function(names = tutor:::nice_name(tutor:::tous_les_programmes()),path="."){
+create_learn_project_all <- function(names = tutor:::nice_name(tutor:::tous_les_programmes(lang=lang),lang=lang),path=".",lang="fr"){
   for ( n in names){
-  create_learn_project(name = n,path=path)
+  create_learn_project(name = n,path=path,lang=lang)
   }
 }
