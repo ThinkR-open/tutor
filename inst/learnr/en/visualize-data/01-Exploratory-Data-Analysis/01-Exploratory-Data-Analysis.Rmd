@@ -60,9 +60,9 @@ EDA is an iterative cycle that helps you understand what your data says. When yo
 
 1. Generate questions about your data
 
-1. Search for answers by visualising, transforming, and/or modeling your data
+2. Search for answers by visualising, transforming, and/or modeling your data
 
-1. Use what you learn to refine your questions and/or generate new questions
+3. Use what you learn to refine your questions and/or generate new questions
 
 EDA is an important part of any data analysis. You can use EDA to make discoveries about the world; or you can use EDA to ensure the quality of your data, asking questions about whether the data meets your standards or not.
 
@@ -180,7 +180,8 @@ A variable is **categorical** if it can take only one of a small set of values. 
 
 ```{r echo = FALSE, out.width = "100%"}
 ggplot(data = mpg) +
-  geom_bar(aes(x = class)) + 
+  aes(x = class) +
+  geom_bar() + 
   ggtitle("Classes of cars in mpg")
 ```
 
@@ -194,7 +195,8 @@ Numbers and date-times are two examples of continuous variables. You can visuali
 
 ```{r echo = FALSE, message = FALSE, out.width = "100%"}
 ggplot(data = faithful) +
-  geom_histogram(aes(x = eruptions), binwidth = 0.25) + 
+  aes(x = eruptions) +
+  geom_histogram(binwidth = 0.25) + 
   ggtitle("Lengths of 272 eruptions of Old Faithful")
 ```
 
@@ -218,12 +220,12 @@ The bar chart below visualises the distribution of the `class` variable in the `
 
 ```{r echo = FALSE, out.width = "100%"}
 ggplot(data = mpg) +
-  geom_bar(aes(x = class)) + 
+  aes(x = class) +
+  geom_bar() + 
   ggtitle("Classes of cars in mpg")
 ```
 
 ```{r fq1, echo = FALSE}
-
 quiz(caption = "The distribution of class in `mpg`",
   question("What is the most common type of car in the `mpg` data set?",
            answer("2seater"),
@@ -274,7 +276,8 @@ To see how many eruptions lasted for a specific length of time, find the length 
 
 ```{r echo = FALSE, message = FALSE, out.width = "100%"}
 ggplot(data = faithful) +
-  geom_histogram(aes(x = eruptions), binwidth = 0.25) + 
+  aes(x = eruptions) +
+  geom_histogram(binwidth = 0.25) + 
   ggtitle("Lengths of 272 eruptions of Old Faithful")
 ```
 
@@ -301,13 +304,15 @@ You can plot the relationship between two categorical variables with a heatmap o
 ```{r echo = FALSE, out.width = "50%"}
 diamonds %>% 
   count(color, cut) %>% 
-  ggplot(mapping = aes(x = color, y = cut)) +
-    geom_tile(mapping = aes(fill = n)) +
+  ggplot() +
+    aes(x = color, y = cut, fill = n) +
+    geom_tile() +
     ggtitle("Color grade vs. cut quality for 53940 diamonds")
 
-ggplot(diamonds) +
-  geom_count(aes(color, cut)) +
-    ggtitle("Color grade vs. cut quality for 53940 diamonds")
+ggplot(data = diamonds) +
+  aes(color, cut) +
+  geom_count() +
+  ggtitle("Color grade vs. cut quality for 53940 diamonds")
 ```
 
 Again, don't be concerned if you do not know how to make these graphs. For now, let's focus on the strategy of how to use visualizations in EDA. You'll learn how to make different types of plots in the tutorials that follow. 
@@ -318,9 +323,10 @@ You can plot the relationship between one continuous and one categorical variabl
 
 ```{r echo = FALSE, out.width = "100%"}
 ggplot(mpg) +
-  geom_boxplot(aes(reorder(class, hwy, median), hwy)) +
-    ggtitle("Pickup trucks and SUVs display the lowest fuel efficiency") +
-    labs(x = "class")
+  aes(reorder(class, hwy, median), hwy) +
+  geom_boxplot() +
+  ggtitle("Pickup trucks and SUVs display the lowest fuel efficiency") +
+  labs(x = "class")
 ```
 
 ### Two continuous variables
@@ -329,7 +335,8 @@ You can plot the relationship between two continuous variables with a scatterplo
 
 ```{r echo = FALSE, message = FALSE, out.width = "100%"}
 ggplot(data = faithful) +
-  geom_point(aes(x = eruptions, y = waiting)) + 
+  aes(x = eruptions, y = waiting) +
+  geom_point() + 
   ggtitle("Length of eruption vs wait time before eruption")
 ```
 
@@ -355,7 +362,8 @@ The scatterplot below shows the relationship between the length of an eruption o
 
 ```{r echo = FALSE, message = FALSE, out.width = "100%"}
 ggplot(data = faithful) +
-  geom_point(aes(x = eruptions, y = waiting)) + 
+  aes(x = eruptions, y = waiting) +
+  geom_point() + 
   ggtitle("Length of eruption vs wait time before eruption")
 ```
 

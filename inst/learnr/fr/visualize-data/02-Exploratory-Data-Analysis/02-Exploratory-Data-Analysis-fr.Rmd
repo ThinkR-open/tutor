@@ -309,8 +309,8 @@ Vous pouvez représenter la relation entre une variable continue et une variable
 ggplot(mpg) +
   aes(reorder(class, hwy, median), hwy) +
   geom_boxplot() +
-    ggtitle("Pickup et SUV ont la consommation la plus efficace") +
-    labs(x = "class")
+  ggtitle("Pickup et SUV ont la consommation la plus efficace") +
+  labs(x = "class")
 ```
 
 ### Deux variables continues
