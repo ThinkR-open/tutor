@@ -126,7 +126,7 @@ Recréez le graphique en utilisant un nuage de points. Voyez-vous plus d'une "li
 ```
 
 ```{r r3-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap) +
   geom_point()
 ```
@@ -142,13 +142,13 @@ De nombreuses fonctions géométriques `geom` comme lines, boxplots, et smooth l
 Par exemple, dans le code ci-dessous, vous pouvez associer `group` à la variable de regroupement `country` pour créer une ligne distincte pour chaque pays. Essayez. Assurez-vous de placer le groupe dans la fonction `aes`.
 
 ```{r r4, exercise = TRUE}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap)
   geom_line()
 ```
 
 ```{r r4-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap, group = country) +
   geom_line()
 ```
@@ -164,7 +164,7 @@ Vous n'avez pas besoin de vous fier au paramètre esthétique `group` pour effec
 Ainsi, par exemple, le code ci-dessous effectue un regroupement implicite. Et comme nous utilisons le paramètre esthétique `color`, le tracé comprend la légende des couleurs.
 
 ```{r, out.width = "80%"}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap, color = country) +
   geom_line()
 ```
@@ -174,13 +174,13 @@ ggplot(asia) +
 Les lignes reconnaissent un paramètre esthétique que nous n'avons jamais rencontré auparavant : _linetype_. Changez le paramètre esthétique `color` par le paramètre `linetype` ci-dessous et examinez les résultats. Que se passe-t-il si vous associez _à la fois_ une couleur et un type de ligne à un pays ?
 
 ```{r r5, exercise = TRUE, exercise.eval = TRUE}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap, color = country) +
   geom_line()
 ```
 
 ```{r r5-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = gdpPercap, linetype = country, color = country) +
   geom_line()
 ```
@@ -199,7 +199,7 @@ Utilisez ce que vous avez appris pour tracer l'espérance de vie de chaque pays 
 
 
 ```{r r6-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, color = country, linetype = country) +
   geom_line()
 ```
@@ -216,13 +216,13 @@ Bien ! Le Japon a l'espérance de vie la plus élevée et la Corée du Nord la p
 `geom_step()` produit un graphique linéaire de manière progressive. Pour voir ce que nous voulons dire, changez la fonction `geom` dans le graphique ci-dessous et relancez le code.
 
 ```{r r7, exercise = TRUE, exercise.eval = TRUE}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, color = country, linetype = country) +
   geom_line()
 ```
 
 ```{r r7-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, color = country, linetype = country) +
   geom_step()
 ```
@@ -236,13 +236,13 @@ ggplot(asia) +
 `geom_area()` est similaire à un graphique linéaire, mais il remplit la zone sous la ligne. Pour voir `geom_area()` en action, changez la fonction `geom` dans le graphique ci-dessous et relancez le code.
 
 ```{r r0, exercise = TRUE, exercise.eval = TRUE}
-ggplot(economics) +
+ggplot(data = economics) +
   aes(x = date, y = unemploy) +
   geom_line()
 ```
 
 ```{r r0-solution}
-ggplot(economics) +
+ggplot(data = economics) +
   aes(x = date, y = unemploy) +
   geom_area()
 ```
@@ -257,13 +257,13 @@ ggplot(economics) +
 Vous souvenez-vous du module [Bases de la visualisation de données]() ? Comment feriez-vous pour mettre le remplissage de notre graphique en bleu (au lieu, par exemple, de faire correspondre le remplissage à une variable) ? Essayez.
 
 ```{r r8, exercise = TRUE, exercise.eval = TRUE}
-ggplot(economics) +
+ggplot(data = economics) +
   aes(x = date, y = unemploy) +
   geom_area()
 ```
 
 ```{r r8-solution}
-ggplot(economics) +
+ggplot(data = economics) +
   aes(x = date, y = unemploy) +
   geom_area(fill = "blue")
 ```
@@ -279,7 +279,7 @@ ggplot(economics) +
 C'est peut-être pour cette raison que `geom_area()` peut donner des résultats étranges lorsque vous avez plusieurs groupes. Exécutez le code ci-dessous. Pouvez-vous dire ce qui se passe ici ?
 
 ```{r r00, exercise = TRUE}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, fill = country) +
   geom_area()
 ```
@@ -293,13 +293,13 @@ Si vous avez répondu que les Chinois vivaient jusqu'à 300 ans, vous avez mal d
 Vous pouvez corriger cela en modifiant l'ajustement de position de la fonction `geom_area()`. Essayez ci-dessous. Changez le paramètre de position de `"stack"` (la valeur par défaut) à `"identity"`. Allez voir le module [Diagramme à barres]() si vous voulez en savoir plus sur les ajustements de position.
 
 ```{r r9, exercise = TRUE}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, fill = country) +
   geom_area(position = "stack", alpha = 0.3)
 ```
 
 ```{r r9-solution}
-ggplot(asia) +
+ggplot(data = asia) +
   aes(x = year, y = lifeExp, fill = country) +
   geom_area(position = "identity", alpha = 0.3)
 ```
@@ -327,11 +327,11 @@ economics2
 Si nous traçons les données réordonnées avec à la fois `geom_line()` et `geom_path()` nous obtenons deux graphiques très différents. 
 
 ```{r out.width = "50%", fig.show='hold'}
-ggplot(economics2) +
+ggplot(data = economics2) +
   aes(x = date, y = unemploy) +
   geom_line()
 
-ggplot(economics2) +
+ggplot(data = economics2) +
   aes(x = date, y = unemploy) +
   geom_path()
 ```
@@ -416,7 +416,7 @@ Pour utiliser `map_data()`, donnez-lui le nom d'un jeu de données à récupére
 
 ```{r eval = FALSE}
 fl <- map_data("state", region = "florida")
-ggplot(fl) +
+ggplot(data = fl) +
   aes(x = long, y = lat) +
   geom_polygon()
 ```
@@ -429,7 +429,7 @@ Modifiez le code pour récupérer et tracer un autre état, par exemple l'Idaho.
 
 ```{r r12-solution}
 id <- map_data("state", region = "idaho")
-ggplot(id) +
+ggplot(data = id) +
   aes(x = long, y = lat) +
   geom_polygon()
 ```
@@ -453,7 +453,7 @@ Le code ci-dessous récupère et trace l'ensemble du jeu de données state, mais
 
 ```{r}
 us <- map_data("state")
-ggplot(us) +
+ggplot(data = us) +
   aes(x = long, y = lat) +
   geom_polygon()
 ```
@@ -469,13 +469,13 @@ Par défaut, `geom_polygon()` essaie de tracer un seul polygone, ce qui l'amène
 Quel paramètre pouvez-vous utiliser pour tracer des polygones multiples ? Dans le code ci-dessous, associez le paramètre esthétique `group` à la variable `group` du jeu de données `state`. Cette variable contient toutes les informations de regroupement nécessaires pour réaliser une carte cohérente. Relancez ensuite le code.
 
 ```{r r13, exercise = TRUE, exercise.eval = TRUE}
-ggplot(us) +
+ggplot(data = us) +
   aes(x = long, y = lat) +
   geom_polygon()
 ```
 
 ```{r r13-solution}
-ggplot(us) +
+ggplot(data = us) +
   aes(x = long, y = lat, group = group) +
   geom_polygon()
 ```
@@ -523,7 +523,7 @@ Pour utiliser `geom_map()` :
 1. Après `geom_map()`, utilisez `expand_limits()`, et dites à `expand_limits()` quelles sont les variables $x$ et $y$ dans la carte. Cela ne devrait pas être nécessaire dans les futures versions de `geom_map()`, mais pour l'instant {ggplot2} utilisera les arguments `x` et `y` de `expand_limits()` pour construire la boîte de délimitation de votre graphique.
 
 ```{r r15, exercise = TRUE}
-ggplot(USArrests2) +
+ggplot(data = USArrests2) +
   aes(map_id = region, fill = UrbanPop) +
   geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat)
@@ -540,7 +540,7 @@ Vous avez peut-être remarqué que nos cartes ont l'air un peu fausses. Jusqu'à
 Vous pouvez éviter ces deux distorsions en ajoutant `coord_map()` à votre graphique. La fonction `coord_map()` affiche le graphique dans une projection cartographique fixe. Notez que `coord_map()`, repose sur le package **{mapproj}** . Vous devrez donc avoir installé {mapproj} avant d'utiliser `coord_map()`.
 
 ```{r out.width = "80%"}
-ggplot(USArrests2) +
+ggplot(data = USArrests2) +
   aes(map_id = region, fill = UrbanPop) +
   geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat) +
@@ -554,14 +554,14 @@ Par défaut, `coord_map()` remplace le système de coordonnées par une projecti
 Pour voir cela, étendez le code ci-dessous pour afficher la carte dans une projection "sinusoïdale".
 
 ```{r r16, exercise = TRUE, exercise.eval = TRUE, exercise.lines = 4}
-ggplot(USArrests2) +
+ggplot(data = USArrests2) +
   aes(map_id = region, fill = UrbanPop) +
   geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat)
 ```
 
 ```{r r16-solution}
-ggplot(USArrests2) +
+ggplot(data = USArrests2) +
   aes(map_id = region, fill = UrbanPop) +
   geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat) +
