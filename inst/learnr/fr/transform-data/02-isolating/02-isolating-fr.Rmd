@@ -130,7 +130,7 @@ Chaque fonction prend un data.frame ou un tibble et renvoie un nouveau data.fram
 
 ## select()
 
-`select()` selectionne les colonnes d'un jeu de données et retourne les colonnes comme un nouveau jeu de données. Pour utiliser `select()`, passez-lui le nom du jeu de données dont extraire les colonnes, puis les noms des colonnes à extraire.
+`select()` selectionne les colonnes d'un jeu de données et retourne les colonnes comme un nouveau jeu de données. Pour utiliser `select()`, passez-lui le nom du jeu de données dont il faut extraire les colonnes, puis les noms des colonnes à extraire.
 
 Aparté pour les déjà utilisateurs de R qui découvriraient le tidyverse : les noms de colonnes n'ont pas besoin d'apparaître entre guillemets ni d'être précédés par un `$`. En effet, `select()` sait les trouver dans le jeu de données que vous lui fournissez.
 
@@ -150,7 +150,7 @@ select(prenoms, year, sex, name, n)
 
 ### Outils de select()
 
-Il existe également utiliser une série d'outils appelé "helpers" fournis avec `select()` et destinés à nous faciliter la vie. Par exemple, si vous placez un signe '-' devant un nom de colonne, `select()` renverra toutes les colonnes sauf cette colonne. Pouvez-vous prédire comment le signe moins va fonctionner ici ?
+Il existe également une série d'outils appelés "helpers" fournis avec `select()` et destinés à nous faciliter la vie. Par exemple, si vous placez un signe '-' devant un nom de colonne, `select()` renverra toutes les colonnes sauf cette colonne. Pouvez-vous prédire comment le signe moins va fonctionner ici ?
 
 ```{r select-2, exercise = TRUE, exercise.setup = "bnames"}
 select(prenoms, -year, -prop)
@@ -314,7 +314,7 @@ filter(prenoms, name %in% c("Marie", "Mariette", "Marine"))
 
 ### Deux erreurs courantes supplémentaires
 
-Les tests logiques peuvent également être liés à deux erreurs dréquentes que nous allons explorer. Chacune est affichée dans un bloc de code ci-dessous. L'un des codes génère une erreur et l'autre est inutilement verbeux. Diagnostiquez les problèmes, puis corrigez le code.
+Les tests logiques peuvent également être liés à deux erreurs fréquentes que nous allons explorer. Chacune est affichée dans un bloc de code ci-dessous. L'un des codes génère une erreur et l'autre est inutilement verbeux. Diagnostiquez les problèmes, puis corrigez le code.
 
 ```{r eval = FALSE, echo = TRUE}
 filter(prenoms, 10 < n < 20)
