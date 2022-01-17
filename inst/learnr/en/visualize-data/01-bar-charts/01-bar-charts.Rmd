@@ -63,7 +63,8 @@ To make a bar chart with ggplot2, add `geom_bar()` to the [ggplot2 template](htt
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut))
+  aes(x = cut) +
+  geom_bar()
 ```
 
 ### The y axis
@@ -83,7 +84,8 @@ Sometimes, you may want to map the heights of the bars not to counts, but to a v
 
 ```{r out.width = "80%"}
 ggplot(data = pressure) +
-  geom_col(mapping = aes(x = temperature, y = pressure))
+  aes(x = temperature, y = pressure) +
+  geom_col()
 ```
 
 ### geom_col() data
@@ -104,14 +106,16 @@ Use the code chunk below to plot the distribution of the `color` variable in the
 
 ```{r r1-solution}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color))
+  aes(x = color) +
+  geom_bar()
 ```
 
 ### Exercise 2 - Interpretation
 
 ```{r out.width = "80%", echo = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut)) + 
+  aes(x = cut) +
+  geom_bar() + 
   ggtitle("Distribution of diamond cuts")
 ```
 
@@ -141,12 +145,14 @@ Diagnose the error below and then fix the code chunk to make a plot.
 
 ```{r r3, exercise = TRUE, exercise.eval = TRUE, error = TRUE}
 ggplot(data = pressure) +
-  geom_bar(mapping = aes(x = temperature, y = pressure))
+  aes(x = temperature, y = pressure) +
+  geom_bar()
 ```
 
 ```{r r3-solution}
 ggplot(data = pressure) +
-  geom_col(mapping = aes(x = temperature, y = pressure))
+  aes(x = temperature, y = pressure) +
+  geom_col()
 ```
 
 
@@ -161,8 +167,9 @@ Recreate the bar graph of `color` from exercise one, but this time first use `co
 ```{r r4-solution}
 diamonds %>% 
   count(color) %>% 
-  ggplot() +
-    geom_col(mapping = aes(x = color, y = n))
+  ggplot() +  
+    aes(x = color, y = n) + 
+    geom_col()
 ```
 
 ##  Aesthetics
@@ -181,7 +188,8 @@ One of these, color, creates the most surprising results. Predict what the code 
 
 ```{r color, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, color = cut))
+  aes(x = cut, color = cut) +
+  geom_bar()
 ```
 
 ### fill
@@ -190,11 +198,13 @@ The color aesthetic controls the outline of each bar in your bar plot, which may
 
 ```{r echo = FALSE, out.width="50%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, color = cut), size = 1) + 
+  aes(x = cut, color = cut) +
+  geom_bar(size = 1) + 
   ggtitle("color = cut")
 
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = cut)) + 
+  aes(x = cut, fill = cut) +
+  geom_bar() + 
   ggtitle("fill = cut")
 ```
 
@@ -202,7 +212,8 @@ Use the code chunk below to experiment with fill, along with other `geom_bar()` 
 
 ```{r color2, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, color = cut))
+  aes(x = cut, color = cut) +
+  geom_bar()
 ```
 
 ### Width
@@ -211,7 +222,8 @@ You can control the width of each bar in your bar chart with the `width` paramet
 
 ```{r width, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = cut), width = 0.9)
+  aes(x = cut, fill = cut) +
+  geom_bar(width = 0.9)
 ```
 
 Notice that width is a _parameter_, not an aesthetic mapping. Hence, you should set width _outside_ of the `aes()` function.
@@ -226,7 +238,8 @@ Create a colored bar chart of the `class` variable from the `mpg` data set, whic
 
 ```{r r5-solution}
 ggplot(data = mpg) +
-  geom_bar(mapping = aes(x = class, fill = class))
+  aes(x = class, fill = class) +
+  geom_bar()
 ```
 
 ## Position adjustments
@@ -237,7 +250,8 @@ If you map `fill` to a new variable, `geom_bar()` will display a _stacked_ bar c
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity))
+  aes(x = cut, fill = clarity) +
+  geom_bar()
 ```
 
 This plot displays 40 different combinations of `cut` and `clarity`, each displayed by its own rectangle. `geom_bar()` lays out the rectangles by stacking rectangles that have the same `cut` value on top of one another. You can change this behavior with a _position adjustment_.
@@ -248,7 +262,8 @@ To place rectangles that have the same `cut` value beside each other, set `posit
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+  aes(x = cut, fill = clarity) +
+  geom_bar(position = "dodge")
 ```
 
 This plot shows the same rectangles as the previous chart; however, it lays out rectangles that have the same `cut` value _beside_ each other.
@@ -259,7 +274,8 @@ To create the familiar stacked bar chart, set `position = "stack"` (which is the
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "stack")
+  aes(x = cut, fill = clarity) +
+  geom_bar(position = "stack")
 ```
 
 ### Position = "fill"
@@ -268,7 +284,8 @@ To expand each bar to take up the entire $y$ axis, set `position = "fill"`. ggpl
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+  aes(x = cut, fill = clarity) +
+  geom_bar(position = "fill")
 ```
 
 This makes it easy to _compare proportions_. For example, you can scan across the bars to see how the proportion of `IF` diamonds changes from cut to cut. 
@@ -291,7 +308,8 @@ knitr::include_graphics("www/images/positions.png")
 
 ```{r}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "identity")
+  aes(x = cut, fill = clarity) +
+  geom_bar(position = "identity")
 ```
 
 Position adjustments tell ggplot2 how to re-distribute objects when they overlap. `position = "identity"` is the "adjustment" that let's objects overlap each other. It is a bad choice for bar graphs because the result looks like a stacked bar chart, even though it is not. 
@@ -302,7 +320,8 @@ Use the code chunk to recreate the plot you see below. Remember: `color` is the 
 
 ```{r echo = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = clarity), position = "fill", width = 1)
+  aes(x = color, fill = clarity) +
+  geom_bar(position = "fill", width = 1)
 ```
 
 ```{r r6, exercise = TRUE}
@@ -311,7 +330,8 @@ ggplot(data = diamonds) +
 
 ```{r r6-solution}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = clarity), position = "fill", width = 1)
+  aes(x = color, fill = clarity) +
+  geom_bar(position = "fill", width = 1)
 ```
 
 ### Exercise 7 - Positions
@@ -320,7 +340,8 @@ Use the code chunk to recreate the plot you see below. Remember: `color` is the 
 
 ```{r echo = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = cut), position = "dodge")
+  aes(x = color, fill = cut) +
+  geom_bar(position = "dodge")
 ```
 
 ```{r r7, exercise = TRUE}
@@ -329,14 +350,16 @@ ggplot(data = diamonds) +
 
 ```{r r7-solution}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = cut), position = "dodge")
+  aes(x = color, fill = cut) +
+  geom_bar(position = "dodge")
 ```
 
 ### Exercise 8 - position = "identity"
 
 ```{r echo = FALSE, out.width = "100%"}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut, fill = color), position = "identity")
+  aes(x = cut, fill = color) +
+  geom_bar(position = "identity")
 ```
 
 ```{r q8, echo = FALSE}
@@ -364,8 +387,9 @@ You can more easily compare subgroups of data if you place each subgroup in its 
 
 ```{r echo = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = cut)) +
-  facet_wrap( ~ cut)
+  aes(x = color, fill = cut) +
+  geom_bar() +
+  facet_wrap(facets = vars(cut))
 ```
 
 ### facet_grid()
@@ -376,47 +400,52 @@ The code chunks below, show three ways to facet with `facet_grid()`. Spot the di
 
 ```{r facet1, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color)) +
-  facet_grid(clarity ~ cut)
+  aes(x = color) +
+  geom_bar() +
+  facet_grid(rows = vars(clarity), cols = vars(cut))
 ```
 
 ```{r facet2, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color)) +
-  facet_grid(. ~ cut)
+  aes(x = color) +
+  geom_bar() +
+  facet_grid(cols = vars(cut))
 ```
 
 ```{r facet3, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color)) +
-  facet_grid(clarity ~ .)
+  aes(x = color) +
+  geom_bar() +
+  facet_grid(rows = vars(clarity))
 ```
 
 ### facet_grid() recap
 
-As you saw in the code examples, you use `facet_grid()` by passing it a formula, the names of two variables connected by a `~`. 
+As you saw in the code examples, you use `facet_grid()` by passing it variables names in `rows` and `cols`. 
 
 `facet_grid()` will split the plot into facets vertically by the values of the first variable: each facet will contain the observations that have a common value of the variable. `facet_grid()` will split the plot horizontally by values of the second variable. The result is a grid of facets, where each specific subplot shows a specific combination of values.
 
-If you do not wish to split on the vertical or horizontal dimension, pass `facet_grid()` a `.` instead of a variable name as a place holder.
+If you do not wish to split on the vertical or horizontal dimension, use only `rows` or `cols`.
 
 ### `facet_wrap()`
 
 `facet_wrap()` provides a more relaxed way to facet a plot on a _single_ variable. It will split the plot into subplots and then reorganize the subplots into multiple rows so that each plot has a more or less square aspect ratio. In short, `facet_wrap()` _wraps_ the single row of subplots that you would get with `facet_grid()` into multiple rows. 
 
-To use `facet_wrap()` pass it a single variable name with a `~` before it, e.g. `facet_wrap( ~ color)`.
+To use `facet_wrap()` pass it a single variable name in `facets`, contained in `vars()`.
 
 Add `facet_wrap()` to the code below to create the graph that appeared at the start of this section. Facet on `cut`.
 
 ```{r facet4, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = cut))
+  aes(x = color, fill = cut) +
+  geom_bar()
 ```
 
 ```{r facet4-solution}
 ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = color, fill = cut)) +
-  facet_wrap( ~ cut)
+  aes(x = color, fill = cut) +
+  geom_bar() +
+  facet_wrap(facets = vars(cut))
 ```
 
 ### scales
@@ -427,12 +456,12 @@ By default, each facet in your plot will share the same $x$ and $y$ ranges. You 
 * `scales = "free_x"` will let the $x$ range of each facet vary, but not the $y$ range
 * `scales = "free_y"` will let the $y$ range of each facet vary, but not the $x$ range. This is a convenient way to compare the shapes of different distributions:
 
-    ```{r}
-    ggplot(data = diamonds) +
-      geom_bar(mapping = aes(x = color, fill = cut)) +
-      facet_wrap( ~ cut, scales = "free_y")
-    ```
-
+```{r}
+ggplot(data = diamonds) +
+  aes(x = color, fill = cut) +
+  geom_bar() +
+  facet_wrap(facets = vars(cut), scales = "free_y")
+```
 
 ### Recap
 
