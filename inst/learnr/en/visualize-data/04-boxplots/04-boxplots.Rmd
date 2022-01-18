@@ -83,7 +83,8 @@ To make a boxplot with ggplot2, add `geom_boxplot()` to the [ggplot2 template](h
 
 ```{r boxplot, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ### Categorical and continuous
@@ -92,14 +93,16 @@ ggplot(data = mpg) +
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ### Exercise 2 - Interpretation
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ```{r r2, echo = FALSE}
@@ -121,7 +124,8 @@ Recreate the boxplot below with the diamonds data set.
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price))
+  aes(x = cut, y = price) +
+  geom_boxplot()
 ```
 
 ```{r r3, exercise = TRUE}
@@ -130,7 +134,8 @@ ggplot(data = diamonds) +
 
 ```{r r3-solution}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price))
+  aes(x = cut, y = price) +
+  geom_boxplot()
 ```
 
 ```{r r3-check}
@@ -145,13 +150,16 @@ Unfortunately, you can't tell `geom_boxplot()` to ignore outliers completely, bu
 
 ```{r outliers, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price), outlier.shape  = 24, 
-               outlier.fill = "white", outlier.stroke = 0.25)
+  aes(x = cut, y = price) +
+  geom_boxplot(outlier.shape  = 24, 
+               outlier.fill = "white", 
+               outlier.stroke = 0.25)
 ```
 
 ```{r outliers-solution}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price), outlier.alpha = 0)
+  aes(x = cut, y = price) +
+  geom_boxplot(outlier.alpha = 0)
 ```
 
 <!--
@@ -186,7 +194,8 @@ Of these _group_ can be the most useful. Consider the plot below. It uses a cont
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE, warning = FALSE}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = carat, y = price))
+  aes(x = carat, y = price) +
+  geom_boxplot()
 ```
 
 In the next sections, we'll use _group_ to make a more informative plot.
@@ -239,12 +248,14 @@ This means we can split our `carat` plot by mapping $group$ to the output of a c
 
 ```{r r4, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = carat, y = price, group = cut_interval(carat, n = 2)))
+  aes(x = carat, y = price, group = cut_interval(carat, n = 2)) +
+  geom_boxplot()
 ```
 
 ```{r r4-solution}
 ggplot(data = diamonds) +
-  geom_boxplot(mapping = aes(x = carat, y = price, group = cut_width(carat, width = 0.25)))
+  aes(x = carat, y = price, group = cut_width(carat, width = 0.25)) +
+  geom_boxplot()
 ```
 
 ```{r r4-check}
@@ -257,7 +268,8 @@ ggplot(data = diamonds) +
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy)) +
+  aes(x = class, y = hwy) +
+  geom_boxplot() +
   coord_flip()
 ```
 
@@ -269,12 +281,14 @@ Extend the code below to orient the boxplots horizontally.
 
 ```{r r5, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ```{r r5-solution}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy)) +
+  aes(x = class, y = hwy) +
+  geom_boxplot() +
   coord_flip()
 ```
 
@@ -295,14 +309,19 @@ Here each group functions like a vertical histogram. Add the parameter `stackdir
 
 ```{r r6, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_dotplot(mapping = aes(x = class, y = hwy), binaxis = "y", 
-               dotsize = 0.5, binwidth = 1)
+  aes(x = class, y = hwy) +
+  geom_dotplot(binaxis = "y", 
+               dotsize = 0.5, 
+               binwidth = 1)
 ```
 
 ```{r r6-solution}
 ggplot(data = mpg) +
-  geom_dotplot(mapping = aes(x = class, y = hwy), binaxis = "y", 
-               dotsize = 0.5, binwidth = 1, stackdir = "center")
+  aes(x = class, y = hwy) +
+  geom_dotplot(binaxis = "y", 
+               dotsize = 0.5, 
+               binwidth = 1, 
+               stackdir = "center")
 ```
 
 ```{r r6-check}
@@ -321,12 +340,14 @@ Convert the plot below from a boxplot to a violin plot. Note that violin plots d
 
 ```{r r7, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ```{r r7-solution}
 ggplot(data = mpg) +
-  geom_violin(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_violin()
 ```
 
 ```{r r7-check}
@@ -341,12 +362,14 @@ Add these lines to the violin plot below.
 
 ```{r r8, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +
-  geom_violin(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_violin()
 ```
 
 ```{r r8-solution}
 ggplot(data = mpg) +
-  geom_violin(mapping = aes(x = class, y = hwy), draw_quantiles = c(0.25, 0.5, 0.75))
+  aes(x = class, y = hwy) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
 ```
 
 ```{r r8-check}
@@ -363,7 +386,8 @@ You can see how observations are distributed across two categorical variables wi
 
 ```{r  out.width = "80%", echo = FALSE, message = FALSE}
 ggplot(data = diamonds) +
-  geom_count(mapping = aes(x = color, y = clarity))
+  aes(x = color, y = clarity) +
+  geom_count()
 ```
 
 ### Exercise 8 - Count plots
@@ -376,7 +400,8 @@ Use `geom_count()` to plot the interaction of the `cut` and `clarity` variables 
 
 ```{r r9-solution}
 ggplot(data = diamonds) +
-  geom_count(mapping = aes(x = cut, y = clarity))
+  aes(x = cut, y = clarity) +
+  geom_count()
 ```
 
 ### count
@@ -386,7 +411,7 @@ You can use the `count()` function in the **dplyr** package to compute the count
 So for example, the code below returns the counts that you visualized in Exercise 8.
 
 ```{r}
- diamonds %>% 
+diamonds %>% 
    count(cut, clarity)
 ```
 
@@ -401,10 +426,11 @@ ggplot2 does not provide a geom function for heat maps, but you can construct a 
 To do this, set the x and y aesthetics of `geom_tile()` to the variables that you pass to `count()`. Then map the fill aesthetic to the `n` variable computed by `count()`. The plot below displays the same counts as the plot in Exercise 8.
 
 ```{r}
- diamonds %>% 
-   count(cut, clarity) %>% 
-   ggplot() +
-     geom_tile(mapping = aes(x = cut, y = clarity, fill = n))
+diamonds %>% 
+  count(cut, clarity) %>% 
+  ggplot() +
+    aes(x = cut, y = clarity, fill = n) +
+    geom_tile()
 ```
 
 ### Exercise 9 - Make a heat map
@@ -412,10 +438,11 @@ To do this, set the x and y aesthetics of `geom_tile()` to the variables that yo
 Practice the method above by re-creating the heat map below.
 
 ```{r echo = FALSE, out.width = "80%"}
- diamonds %>% 
-   count(color, cut) %>% 
-   ggplot(mapping = aes(x = color, y = cut)) +
-     geom_tile(mapping = aes(fill = n))
+diamonds %>% 
+  count(color, cut) %>% 
+  ggplot() +
+    aes(x = color, y = cut, fill = n) +
+    geom_tile()
 ```
 
 ```{r r10, exercise = TRUE}
@@ -423,10 +450,11 @@ Practice the method above by re-creating the heat map below.
 ```
 
 ```{r r10-solution}
- diamonds %>% 
-   count(color, cut) %>% 
-   ggplot(mapping = aes(x = color, y = cut)) +
-     geom_tile(mapping = aes(fill = n))
+diamonds %>% 
+  count(color, cut) %>% 
+  ggplot() +
+    aes(x = color, y = cut, fill = n) + 
+    geom_tile()
 ```
 
 ```{r r10-check}

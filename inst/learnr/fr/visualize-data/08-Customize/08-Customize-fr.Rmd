@@ -78,7 +78,7 @@ Dans le bloc ci-dessous, faites un graphique qui utilise des boîtes à moustach
 ```
 
 ```{r r1-solution}
-ggplot(diamonds) +
+ggplot(data = diamonds) +
   aes(x = cut, y = price) +
   geom_boxplot()
 ```
@@ -92,7 +92,7 @@ ggplot(diamonds) +
 Puisque nous voulons réutiliser ce graphique plus tard, allons-y et sauvegardons-le.
 
 ```{r}
-p <- ggplot(diamonds) +
+p <- ggplot(data = diamonds) +
   aes(x = cut, y = price) +
   geom_boxplot()
 ```
@@ -268,7 +268,7 @@ p + labs(title = "Le titre apparaît ici",
 Tracez `p` avec un ensemble d'étiquettes informatives. Pour des raisons d'apprentissage, veillez à utiliser un titre, un sous-titre et une note de bas de page.
 
 ```{r r5-setup}
-p <- ggplot(diamonds) +
+p <- ggplot(data = diamonds) +
   aes(x = cut, y = price) +
   geom_boxplot() + 
   coord_cartesian(ylim = c(0, 7500))
@@ -481,7 +481,8 @@ Une échelle est une fonction R qui fonctionne comme une fonction mathématique 
 Par exemple, le code ci-dessous trace `p1` en niveaux de gris au lieu des couleurs par défaut.
 
 ```{r}
-p1 + scale_color_grey()
+p1 + 
+  scale_color_grey()
 ```
 
 ### Un deuxième exemple
@@ -796,7 +797,8 @@ Ainsi, par exemple, vous pouvez ajuster la légende de p1 avec :
 
 ```{r out.width = "80%"}
 p1 + 
-  scale_color_brewer(name = "Coupe", labels = c("Très mauvaise", "Mauvaise", "Mediocre", "Jolie", "Très jolie"))
+  scale_color_brewer(name = "Coupe", 
+                     labels = c("Très mauvaise", "Mauvaise", "Mediocre", "Jolie", "Très jolie"))
 ```
 
 ### Et si ?
@@ -815,14 +817,15 @@ Par exemple, notre graphique ci-dessus repose sur l'échelle de couleur par déf
 
 ```{r out.width = "80%"}
 p1 + 
-  scale_color_discrete(name = "Coupe", labels = c("Très mauvaise", "Mauvaise", "Mediocre", "Jolie", "Très jolie"))
+  scale_color_discrete(name = "Coupe", 
+                       labels = c("Très mauvaise", "Mauvaise", "Mediocre", "Jolie", "Très jolie"))
 ```
 
 Comme vous pouvez le voir, il est pratique de savoir quelles échelles un graphique {ggplot2} utilisera par défaut. En voici une courte liste :
 
-paramètre esthétique	| variable   |	défaut
+paramètre esthétique	 | variable  |	défaut
 --------- | ---------- | -------------------------
-x	        | continue |	scale_x_continuous()
+x	        | continue   |	scale_x_continuous()
 	        | discrète   |	scale_x_discrete()
 y	        | continue |	scale_y_continuous()
 	        | discrète	 |  scale_y_discrete()
@@ -858,7 +861,8 @@ Dans {ggplot2}, les axes sont les "légendes" associées aux paramètres esthét
 
 ```{r}
 p1 + 
-  scale_x_continuous(name = "Taille du carat", labels = c("Zéro", "Un", "Deux", "Trois", "Quatre", "Cinq"))
+  scale_x_continuous(name = "Taille du carat", 
+                     labels = c("Zéro", "Un", "Deux", "Trois", "Quatre", "Cinq"))
 ```
 
 ## Quiz
@@ -878,7 +882,7 @@ Dans ce module, vous avez appris à personnaliser les graphiques que vous réali
 Pourconsolider vos compétences, combinez ce que vous avez appris pour recréer le graphique ci-dessous.
 
 ```{r echo = FALSE}
-ggplot(diamonds) +
+ggplot(data = diamonds) +
   aes(x = carat, y = price) +
   geom_point() + 
   geom_smooth(aes(color = cut), se = FALSE) +  
@@ -898,7 +902,7 @@ ggplot(diamonds) +
 ```
 
 ```{r r18-solution}
-ggplot(diamonds) +
+ggplot(data = diamonds) +
   aes(x = carat, y = price) +
   geom_point() + 
   geom_smooth(aes(color = cut), se = FALSE) +  

@@ -84,7 +84,8 @@ For example, in the plot below, there is only one value of `unemploy` for each v
 ```{r echo = FALSE, out.width = "80%"}
 economics %>% 
   ggplot() +
-    geom_line(mapping = aes(x = date, y = unemploy))
+    aes(x = date, y = unemploy) +
+    geom_line()
 ```
 
 ### geom_line()
@@ -99,7 +100,8 @@ Use `geom_line()` in the chunk below to recreate the graph above. The graph uses
 
 ```{r r1-solution}
 ggplot(economics) +
-  geom_line(mapping = aes(x = date, y = unemploy))
+  aes(x = date, y = unemploy) +
+  geom_line()
 ```
 
 ```{r r1-check}
@@ -120,7 +122,8 @@ However, when we plot the asia data we get an odd looking graph. The line seems 
 
 ```{r out.width = "80%"}
 ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap))
+  aes(x = year, y = gdpPercap) +
+  geom_line()
 ```
 
 ### Review 1 - Whipsawing
@@ -143,8 +146,9 @@ Redraw our graph as a scatterplot. Can you spot more than one "line" in the data
 ```
 
 ```{r r3-solution}
-ggplot(asia) +
-  geom_point(mapping = aes(x = year, y = gdpPercap))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap) +
+  geom_point()
 ```
 
 ```{r r3-check}
@@ -158,13 +162,15 @@ Many geoms, like lines, boxplots, and smooth lines, use a single object to displ
 For example, in the code below, you can map `group` to the grouping variable `country` to create a separate line for each country. Try it. Be sure to place the group mapping inside of `aes()`.
 
 ```{r r4, exercise = TRUE}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap)
+  geom_line()
 ```
 
 ```{r r4-solution}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap, group = country))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap, group = country) +
+  geom_line()
 ```
 
 ```{r r4-check}
@@ -178,8 +184,9 @@ You do not have to rely on the group aesthetic to perform a grouping. ggplot2 wi
 So for example, the code below performs an implied grouping. And since we use the color aesthetic, the plot includes the color legend.
 
 ```{r, out.width = "80%"}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap, color = country))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap, color = country) +
+  geom_line()
 ```
 
 ### linetype 
@@ -187,13 +194,15 @@ ggplot(asia) +
 Lines recognize a useful aesthetic that we haven't encountered before, _linetype_. Change color to linetype below and inspect the results. What happens if you map _both_ a color and a linetype to country?
 
 ```{r r5, exercise = TRUE, exercise.eval = TRUE}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap, color = country))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap, color = country) +
+  geom_line()
 ```
 
 ```{r r5-solution}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = gdpPercap, linetype = country, color = country))
+ggplot(data = asia) +
+  aes(x = year, y = gdpPercap, linetype = country, color = country) +
+  geom_line()
 ```
 
 ```{r r5-check}
@@ -210,8 +219,9 @@ Use what you've learned to plot the life expectancy of each country over time. L
 
 
 ```{r r6-solution}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = lifeExp, color = country, linetype = country))
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, color = country, linetype = country) +
+  geom_line()
 ```
 
 ```{r r6-check}
@@ -225,13 +235,15 @@ ggplot(asia) +
 `geom_step()` draws a line chart in a stepwise fashion. To see what I mean, change the geom in the plot below and rerun the code.
 
 ```{r r7, exercise = TRUE, exercise.eval = TRUE}
-ggplot(asia) +
-  geom_line(mapping = aes(x = year, y = lifeExp, color = country, linetype = country))
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, color = country, linetype = country) +
+  geom_line()
 ```
 
 ```{r r7-solution}
-ggplot(asia) +
-  geom_step(mapping = aes(x = year, y = lifeExp, color = country, linetype = country))
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, color = country, linetype = country) +
+  geom_step()
 ```
 
 ```{r r7-check}
@@ -243,13 +255,15 @@ ggplot(asia) +
 `geom_area()` is similar to a line graph, but it fills in the area under the line. To see `geom_area()` in action, change the geom in the plot below and rerun the code.
 
 ```{r r0, exercise = TRUE, exercise.eval = TRUE}
-ggplot(economics) +
-  geom_line(mapping = aes(x = date, y = unemploy))
+ggplot(data = economics) +
+  aes(x = date, y = unemploy) +
+  geom_line()
 ```
 
 ```{r r0-solution}
-ggplot(economics) +
-  geom_area(mapping = aes(x = date, y = unemploy))
+ggplot(data = economics) +
+  aes(x = date, y = unemploy) +
+  geom_area()
 ```
 
 ```{r r0-check}
@@ -262,13 +276,15 @@ ggplot(economics) +
 Do you recall from [Visualization Basics]() how you would set the fill of our plot to blue (instead of, say, map the fill to a variable)? Give it a try.
 
 ```{r r8, exercise = TRUE, exercise.eval = TRUE}
-ggplot(economics) +
-  geom_area(mapping = aes(x = date, y = unemploy))
+ggplot(data = economics) +
+  aes(x = date, y = unemploy) +
+  geom_area()
 ```
 
 ```{r r8-solution}
-ggplot(economics) +
-  geom_area(mapping = aes(x = date, y = unemploy), fill = "blue")
+ggplot(data = economics) +
+  aes(x = date, y = unemploy) +
+  geom_area(fill = "blue")
 ```
 
 ```{r r8-check}
@@ -282,8 +298,9 @@ ggplot(economics) +
 Perhaps because of this, `geom_area()` can be quirky when you have multiple groups. Run the code below. Can you tell what happens here?
 
 ```{r r00, exercise = TRUE}
-ggplot(asia) +
-  geom_area(mapping = aes(x = year, y = lifeExp, fill = country))
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, fill = country) +
+  geom_area()
 ```
 
 ### Review 3 - Position adjustments
@@ -295,13 +312,15 @@ If you answered that people in China were living to be 300 years old, you guesse
 You can fix this by changing the position adjustment for `geom_area()`. Give it a try below. Change the position parameter from "stack" (the implied default) to `"identity"`. See [Bar Charts]() if you'd like to learn more about position adjustments.
 
 ```{r r9, exercise = TRUE}
-ggplot(asia) +
-  geom_area(mapping = aes(x = year, y = lifeExp, fill = country), alpha = 0.3)
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, fill = country) +
+  geom_area(position = "stack", alpha = 0.3)
 ```
 
 ```{r r9-solution}
-ggplot(asia) +
-  geom_area(mapping = aes(x = year, y = lifeExp, fill = country), position = "identity", alpha = 0.3)
+ggplot(data = asia) +
+  aes(x = year, y = lifeExp, fill = country) +
+  geom_area(position = "identity", alpha = 0.3)
 ```
 
 ```{r r9-check}
@@ -329,11 +348,13 @@ economics2
 If we plot the reordered data with both `geom_line()` and `geom_path()` we get two very different graphs. 
 
 ```{r out.width = "50%", fig.show='hold'}
-ggplot(economics2) +
-  geom_line(mapping = aes(x = date, y = unemploy))
+ggplot(data = economics2) +
+  aes(x = date, y = unemploy) +
+  geom_line()
 
-ggplot(economics2) +
-  geom_path(mapping = aes(x = date, y = unemploy))
+ggplot(data = economics2) +
+  aes(x = date, y = unemploy) +
+  geom_path()
 ```
 
 The plot on the left uses `geom_line()`, hence the points are connected in order along the $x$ axis. The plot on the right uses `geom_path()`. These points are connected in the order that they appear in the dataset, which happens to put them in order along the $y$ axis.
@@ -352,12 +373,14 @@ What do you think happens when you plot the data in `tx`? Run the code to find o
 
 ```{r r10, exercise = TRUE}
 ggplot(tx) +
-  geom_path(mapping = aes(x = long, y = lat))
+  aes(x = long, y = lat) +
+  geom_path()
 ```
 
 ```{r r10-solution}
 ggplot(tx) +
-  geom_path(mapping = aes(x = long, y = lat))
+  aes(x = long, y = lat) +
+  geom_path()
 ```
 
 ```{r r10-check}
@@ -370,7 +393,8 @@ ggplot(tx) +
 
 ```{r out.width = "80%"}
 ggplot(tx) +
-  geom_polygon(mapping = aes(x = long, y = lat))
+  aes(x = long, y = lat) +
+  geom_polygon()
 ```
 
 ### Exercise 2 - Shattered Glass
@@ -383,7 +407,8 @@ rows <- c(rep(c(1:10), 100) + rep(sample(0:99 * 10), each = 10), 1001:1088)
 
 tx[rows, ] %>% 
   ggplot() +
-    geom_polygon(mapping = aes(x = long, y = lat))
+    aes(x = long, y = lat) +
+    geom_polygon()
 ```
 
 ```{r r11, echo = FALSE}
@@ -412,8 +437,9 @@ To use `map_data()` give it the name of a dataset to retrieve. You can retrieve 
 
 ```{r eval = FALSE}
 fl <- map_data("state", region = "florida")
-ggplot(fl) +
-  geom_polygon(mapping = aes(x = long, y = lat))
+ggplot(data = fl) +
+  aes(x = long, y = lat) +
+  geom_polygon()
 ```
 
 Alter the code to retrieve and plot your home state (Try Idaho if you are outside of the US). Notice the capitalization.
@@ -424,8 +450,9 @@ Alter the code to retrieve and plot your home state (Try Idaho if you are outsid
 
 ```{r r12-solution}
 id <- map_data("state", region = "idaho")
-ggplot(id) +
-  geom_polygon(mapping = aes(x = long, y = lat))
+ggplot(data = id) +
+  aes(x = long, y = lat) +
+  geom_polygon()
 ```
 
 ```{r r12-check}
@@ -448,8 +475,9 @@ The code below retrieves and plots the entire state data set, but something goes
 
 ```{r}
 us <- map_data("state")
-ggplot(us) +
-  geom_polygon(mapping = aes(x = long, y = lat))
+ggplot(data = us) +
+  aes(x = long, y = lat) +
+  geom_polygon()
 ```
 
 ### Multiple polygons
@@ -463,13 +491,15 @@ By default, `geom_polygon()` tries to plot a single polygon, which causes it to 
 Which aesthetic can you use to plot multiple polygons? In the code below, map the aesthetic to the `group` variable in the `state` dataset. This variable contains all of the grouping information needed to make a coherent map. Then rerun the code.
 
 ```{r r13, exercise = TRUE, exercise.eval = TRUE}
-ggplot(us) +
-  geom_polygon(mapping = aes(x = long, y = lat))
+ggplot(data = us) +
+  aes(x = long, y = lat) +
+  geom_polygon()
 ```
 
 ```{r r13-solution}
-ggplot(us) +
-  geom_polygon(mapping = aes(x = long, y = lat, group = group))
+ggplot(data = us) +
+  aes(x = long, y = lat, group = group) +
+  geom_polygon()
 ```
 
 ```{r r13-check}
@@ -515,8 +545,9 @@ To use `geom_map()`:
 1. Follow `geom_map()` with `expand_limits()`, and tell `expand_limits()` what the $x$ and $y$ variables in the map dataset are. This shouldn't be necessary in future iterations of `geom_map()`, but for now ggplot2 will use the x and y arguments of `expand_limits()` to build the bounding box for your plot.
 
 ```{r r15, exercise = TRUE}
-ggplot(USArrests2) +
-  geom_map(aes(map_id = region, fill = UrbanPop), map = us) +
+ggplot(data = USArrests2) +
+  aes(map_id = region, fill = UrbanPop) +
+  geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat)
 ```
 
@@ -531,8 +562,9 @@ You may have noticed that our maps look a little off. So far, we've plotted them
 You can avoid both of these distortions by adding `coord_map()` to your plot. `coord_map()` displays the plot in a fixed cartographic projection. Note that  `coord_map()`, relies on the **mapproj** package, so you'll need to have mapproj installed before you use `coord_map()`.
 
 ```{r out.width = "80%"}
-ggplot(USArrests2) +
-  geom_map(aes(map_id = region, fill = UrbanPop), map = us) +
+ggplot(data = USArrests2) +
+  aes(map_id = region, fill = UrbanPop) +
+  geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat) +
   coord_map()
 ```
@@ -544,14 +576,16 @@ By default, `coord_map()` replaces the coordinate system with a Mercator project
 To see this, extend the code below to view the map in a `"sinusoidal"` projection.
 
 ```{r r16, exercise = TRUE, exercise.eval = TRUE, exercise.lines = 4}
-ggplot(USArrests2) +
-  geom_map(aes(map_id = region, fill = UrbanPop), map = us) +
+ggplot(data = USArrests2) +
+  aes(map_id = region, fill = UrbanPop) +
+  geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat)
 ```
 
 ```{r r16-solution}
-ggplot(USArrests2) +
-  geom_map(aes(map_id = region, fill = UrbanPop), map = us) +
+ggplot(data = USArrests2) +
+  aes(map_id = region, fill = UrbanPop) +
+  geom_map(map = us) +
   expand_limits(x = us$long, y = us$lat) +
   coord_map(projection = "sinusoidal")
 ```

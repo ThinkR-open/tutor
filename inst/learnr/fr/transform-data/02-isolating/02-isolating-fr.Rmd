@@ -130,7 +130,7 @@ Chaque fonction prend un data.frame ou un tibble et renvoie un nouveau data.fram
 
 ## select()
 
-`select()` selectionne les colonnes d'un jeu de données et retourne les colonnes comme un nouveau jeu de données. Pour utiliser `select()`, passez-lui le nom du jeu de données dont extraire les colonnes, puis les noms des colonnes à extraire.
+`select()` selectionne les colonnes d'un jeu de données et retourne les colonnes comme un nouveau jeu de données. Pour utiliser `select()`, passez-lui le nom du jeu de données dont il faut extraire les colonnes, puis les noms des colonnes à extraire.
 
 Aparté pour les déjà utilisateurs de R qui découvriraient le tidyverse : les noms de colonnes n'ont pas besoin d'apparaître entre guillemets ni d'être précédés par un `$`. En effet, `select()` sait les trouver dans le jeu de données que vous lui fournissez.
 
@@ -150,7 +150,7 @@ select(prenoms, year, sex, name, n)
 
 ### Outils de select()
 
-Il existe également utiliser une série d'outils appelé "helpers" fournis avec `select()` et destinés à nous faciliter la vie. Par exemple, si vous placez un signe '-' devant un nom de colonne, `select()` renverra toutes les colonnes sauf cette colonne. Pouvez-vous prédire comment le signe moins va fonctionner ici ?
+Il existe également une série d'outils appelés "helpers" fournis avec `select()` et destinés à nous faciliter la vie. Par exemple, si vous placez un signe '-' devant un nom de colonne, `select()` renverra toutes les colonnes sauf cette colonne. Pouvez-vous prédire comment le signe moins va fonctionner ici ?
 
 ```{r select-2, exercise = TRUE, exercise.setup = "bnames"}
 select(prenoms, -year, -prop)
@@ -314,7 +314,7 @@ filter(prenoms, name %in% c("Marie", "Mariette", "Marine"))
 
 ### Deux erreurs courantes supplémentaires
 
-Les tests logiques peuvent également être liés à deux erreurs dréquentes que nous allons explorer. Chacune est affichée dans un bloc de code ci-dessous. L'un des codes génère une erreur et l'autre est inutilement verbeux. Diagnostiquez les problèmes, puis corrigez le code.
+Les tests logiques peuvent également être liés à deux erreurs fréquentes que nous allons explorer. Chacune est affichée dans un bloc de code ci-dessous. L'un des codes génère une erreur et l'autre est inutilement verbeux. Diagnostiquez les problèmes, puis corrigez le code.
 
 ```{r eval = FALSE, echo = TRUE}
 filter(prenoms, 10 < n < 20)
@@ -433,7 +433,7 @@ arrange(prenoms, desc(n))
 
 ### Étapes
 
-Remarquez comment chaque fonction de {dplyr} prend un jeu de données en entrée et renvoie un jeu de données en sortie. Cela rend les fonctions faciles "brancher" les unes aux autres pour réaliser des suites d'étapes. Par exemple, vous pourriez :
+Remarquez comment chaque fonction de {dplyr} prend un jeu de données en entrée et renvoie un jeu de données en sortie. Cela rend les fonctions faciles à "brancher" les unes aux autres pour réaliser des suites d'étapes. Par exemple, vous pourriez :
 
 1. Filtrer les prénoms de bébé pour les garçons nés en 2018
 2. Sélectionner les colonnes `name` et `n` dans le résultat
@@ -469,7 +469,7 @@ prenoms %>%
   arrange(desc(n))
 ```
 
-Lorsque vous lisez le code, prononcez `%>%` comme "puis". Vous remarquerez que {dplyr} facilite la lecture des opérations qui arrivent aux données. Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par prénom et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
+Lorsque vous lisez le code, prononcez `%>%` comme "puis". Vous remarquerez que {dplyr} facilite la lecture des opérations qui arrivent aux données. Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par année et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
 
 {dplyr} facilite également l'écriture des pipes. Chaque fonction de {dplyr} renvoie un jeu de données qui peut être utilisé dans une autre fonction de {dplyr} (qui acceptera alors le jeu de données comme premier argument). En fait, les fonctions de dplyr sont écrites pour permettre l'usage du pipe : chaque fonction fait une tâche simple, et {dplyr} s'attend à ce que vous utilisiez des pipes pour combiner ces tâches simples pour produire des résultats plus sophistiqués.
 

@@ -120,7 +120,8 @@ To see the plot, click "Run Code."
 
 ```{r ggplot1, exercise = TRUE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 Can you spot the relationship?
@@ -135,11 +136,12 @@ Now let's look at how we made the plot.
 
 ### `ggplot()`
 
-Here's the code that we used to make the plot. Notice that it contains three functions: `ggplot()`, `geom_point()`, and `aes()`.
+Here's the code that we used to make the plot. Notice that it contains three functions: `ggplot()`, `aes()`, and `geom_point()`.
 
 ```{r eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 In R, a function is a name followed by a set of parentheses. Many functions require special information to do their jobs, and you write this information between the parentheses.
@@ -154,47 +156,56 @@ By itself, `ggplot(data = mpg)` creates an empty graph, which looks like this.
 ggplot(data = mpg)
 ```
 
-### geom_point()
+### `aes()`
 
-`geom_point()` adds a layer of points to the empty plot created by `ggplot()`. This gives us a scatterplot. 
-
-```{r}
+```{r eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
-### mapping = aes()
+`aes()` is used to gather together all of the aesthetics mappings that you want to create. It defines which variables in your dataset are mapped to which axes in your graph.
 
-`geom_point()` takes a `mapping` argument that defines which variables in your dataset are mapped to which axes in your graph. The `mapping` argument is always paired with the function `aes()`, which you use to gather together all of the mappings that you want to create. 
-
-### 
-
-Here, we want to map the `displ` variable to the x axis and the `hwy` variable to the y axis, so we add `x = displ` and `y = hwy` inside of `aes()` (and we separate them with a comma). 
+Here, we want to map the `displ` variable to the x axis and the `hwy` variable to the y axis, so we add `x = displ` and `y = hwy` inside of `aes()` (and we separate them with a comma).
 
 Where will ggplot2 look for these mapped variables? In the data frame that we passed to the `data` argument, in this case, `mpg`.
+
+### `geom_point()`
+
+```{r eval = FALSE}
+ggplot(data = mpg) + 
+  aes(x = displ, y = hwy) +
+  geom_point()
+```
+
+`geom_point()` adds a layer of points to the empty plot created by `ggplot() + aes()`. This gives us a scatterplot. 
 
 ### A graphing workflow
 
 Our code follows the common workflow for making graphs with ggplot2. To make a graph, you: 
 
 1. Start the graph with `ggplot()`
-1. Add elements to the graph with a `geom_` function
-1. Select variables with the `mapping = aes()` argument
+
+2. Select variables with the `aes()` function
+
+3. Add elements to the graph with a `geom_` function
 
 ### A graphing template
 
 In fact, you can turn our code into a reusable template for making graphs. To make a graph, replace the bracketed sections in the code below with a data set, a `geom_` function, or a collection of mappings.
 
-Give it a try! Replace the bracketed sections with `mpg`, `geom_boxplot`, and `x = class, y = hwy` to make a slightly different graph. Be sure to delete the `#` symbols before you run the code.
+Give it a try! Replace the bracketed sections with `mpg`, `x = class, y = hwy`, and `geom_boxplot` to make a slightly different graph. Be sure to delete the `#` symbols before you run the code.
 
 ```{r template, exercise = TRUE, eval = FALSE}
 # ggplot(data = <DATA>) + 
-#  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+#   aes(x = <X>, y = <Y>)
+#  <GEOM_FUNCTION>()
 ```
 
 ```{r template-solution}
 ggplot(data = mpg) + 
-  geom_boxplot(mapping = aes(x = class, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ```{r template-check}
@@ -213,10 +224,11 @@ One common problem when creating ggplot2 graphics is to put the `+` in the wrong
 
 ```R
 ggplot(data = mpg) 
-+ geom_point(mapping = aes(x = displ, y = hwy))
++ aes(x = displ, y = hwy)
++ geom_point()
 ```
 
-### help
+### Help
 
 If you're still stuck, try the help. You can get help about any R function by running `?function_name` in a code chunk, e.g. `?geom_point`. Don't worry if the help doesn't seem that helpful --- instead skip down to the bottom of the help page and look for a code example that matches what you're trying to do.
 
@@ -231,7 +243,7 @@ Run `ggplot(data = mpg)` what do you see?
 ```
 
 ```{r blank-check}
-"Good job! A ggplot that has no layers looks blank. To finish the graph, add a geom function."
+"Good job! A ggplot that has no layers looks blank. To finish the graph, add an aes() contente and a geom function."
 ```
      
 ### Exercise 2 
@@ -274,7 +286,8 @@ What happens if you make a scatterplot of `class` vs `drv`. Try it. Why is the p
 In the plot below, one group of points (highlighted in red) seems to fall outside of the linear trend between engine size and gas mileage. These cars have a higher mileage than you might expect. How can you explain these cars? 
 
 ```{r, echo = FALSE}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+ggplot(data = mpg) +
+  aes(x = displ, y = hwy) +
   geom_point() + 
   geom_point(data = dplyr::filter(mpg, displ > 5, hwy > 20), colour = "red", size = 2.2)
 ```
@@ -307,8 +320,9 @@ We can add the `class` variable to the plot by mapping the levels of an aestheti
 Let's give this a try. Fill in the blank piece of code below with `color = class`. What happens? Delete the commenting symbols (`#`) before running your code. (If you prefer British English, you can use `colour` instead of `color`.)
 
 ```{r aesthetics, exercise = TRUE, exercise.eval = FALSE}
-# ggplot(data = mpg) + 
-#   geom_point(mapping = aes(x = displ, y = hwy, ____________))
+# ggplot(data = mpg) +
+#  aes(x = displ, y = hwy, ____________) +
+#  geom_point()
 ```
 
 <div id="aesthetics-hint">
@@ -317,7 +331,8 @@ Let's give this a try. Fill in the blank piece of code below with `color = class
 
 ```{r aesthetics-solution}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+  aes(x = displ, y = hwy, color = class) +
+  geom_point()
 ```
 
 ```{r aesthetics-check}
@@ -332,9 +347,9 @@ This isn't the only insight we've gleaned; you've also learned how to add new ae
 
 ### Aesthetic mappings
 
-To map an aesthetic to a variable, set the name of the aesthetic equal to the name of the variable, and do this inside `mapping = aes()`. ggplot2 will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable. ggplot2 will also add a legend that explains which levels correspond to which values.
+To map an aesthetic to a variable, set the name of the aesthetic equal to the name of the variable, and do this inside `aes()` function. ggplot2 will automatically assign a unique level of the aesthetic (here a unique color) to each unique value of the variable. ggplot2 will also add a legend that explains which levels correspond to which values.
 
-This insight gives us a new way to think about the mapping argument. Mappings tell ggplot2 more than which variables to put on which axes, they tell ggplot2 which variables to map to which visual properties. The x and y locations of each point are just two of the many visual properties displayed by a point.
+This insight gives us a new way to think about the `aes()` function. It tells ggplot2 more than which variables to put on which axes, they tell ggplot2 which variables to map to which visual properties. The x and y locations of each point are just two of the many visual properties displayed by a point.
 
 ### Other aesthetics
 
@@ -344,7 +359,8 @@ Change the code below to map `size` to `class`. What happens?
 
 ```{r size, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+  aes(x = displ, y = hwy, color = class) +
+  geom_point()
 ```
 
 <div id="size-hint">
@@ -353,7 +369,8 @@ ggplot(data = mpg) +
 
 ```{r size-solution}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+  aes(x = displ, y = hwy, size = class) +
+  geom_point()
 ```
 
 ```{r size-check}
@@ -366,7 +383,8 @@ You can also map `class` to the `alpha` aesthetic, which controls the transparen
 
 ```{r alpha, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 <div id="alpha-hint">
@@ -375,7 +393,8 @@ ggplot(data = mpg) +
 
 ```{r alpha-solution}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+  aes(x = displ, y = hwy, alpha = class) +
+  geom_point()
 ```
 
 ```{r alpha-check}
@@ -388,7 +407,8 @@ Let's try one more aesthetic. This time map the class of the points to `shape`, 
 
 ```{r shape, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) + 
+  geom_point()
 ```
 
 <div id="shape-hint">
@@ -397,7 +417,8 @@ ggplot(data = mpg) +
 
 ```{r shape-solution}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+  aes(x = displ, y = hwy, shape = class) +
+  geom_point()
 ```
 
 ```{r shape-check}
@@ -411,15 +432,18 @@ In the code below, map `cty`, which is a continuous variable, to `color`, `size`
 ```{r cty, exercise = TRUE, exercise.eval = FALSE}
 # Map cty to color
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 
 # Map cty to size
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 
 # Map cty to shape
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 ```{r cty-check}
@@ -432,7 +456,8 @@ Map `class` to `color`, `size`, and `shape` all in the same plot. Does it work?
 
 ```{r multiple, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 ```{r multiple-check}
@@ -449,7 +474,8 @@ What happens if you map an aesthetic to something other than a variable name, li
     
 ```{r nonvar, exercise = TRUE, exercise.eval = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = displ, y = hwy) +
+  geom_point()
 ```
 
 ```{r nonvar-check}
@@ -462,14 +488,16 @@ What if you just want to make all of the points in your plot blue, like in the p
 
 ```{r echo = FALSE, out.width="80%"}
 ggplot(mpg) +
-  geom_point(aes(displ, hwy), color = "blue")
+  aes(displ, hwy) +
+  geom_point(color = "blue")
 ```
 
 You can do this by setting the color aesthetic _outside_ of the `aes()` function, like this
 
 ```{r setting, exercise = TRUE}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+  aes(x = displ, y = hwy) +
+  geom_point(color = "blue")
 ```
 
 ### Setting vs. Mapping
@@ -478,14 +506,16 @@ Setting works for every aesthetic in ggplot2. If you want to manually set the ae
 
 ```{r setting2, exercise = TRUE}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue", shape = 3, alpha = 0.5)
+  aes(x = displ, y = hwy) +
+  geom_point(color = "blue", shape = 3, alpha = 0.5)
 ```
 
 If you want to map the aesthetic to a **variable** in the data space, map the aesthetic inside `aes()`.
 
 ```{r setting3, exercise = TRUE}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, color = class, shape = fl, alpha = displ))
+  aes(x = displ, y = hwy, color = class, shape = fl, alpha = displ) +
+  geom_point()
 ```
 
 ### Exercise 4
@@ -494,12 +524,14 @@ What do you think went wrong in the code below? Fix the code so it does somethin
 
 ```{r e4, exercise = TRUE}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+  aes(x = displ, y = hwy, color = "blue") +
+  geom_point()
 ```
 
 ```{r e4-solution}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+  aes(x = displ, y = hwy) +
+  geom_point(color = "blue")
 ```
 
 ```{r e4-check}
@@ -509,7 +541,7 @@ ggplot(data = mpg) +
 
 ### Recap
 
-For each aesthetic, you associate the name of the aesthetic with a variable to display, and you do this within `aes()`. 
+For each aesthetic, you associate the name of the aesthetic with a variable to display, and you do this within `aes()`.
 
 Once you map a variable to an aesthetic, ggplot2 takes care of the rest. It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values. For x and y aesthetics, ggplot2 does not create a legend, but it creates an axis line with tick marks and a label. The axis line acts as a legend; it explains the mapping between locations and values.
 
@@ -525,10 +557,12 @@ How are these two plots similar?
 
 ```{r echo = FALSE, out.width = "50%", fig.align="default", message = FALSE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 
 ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_violin()
 ```
 
 Both plots contain the same x variable, the same y variable, and both describe the same data. But the plots are not identical. Each plot uses a different visual object to represent the data. In ggplot2 syntax, we say that they use different __geoms__.
@@ -543,13 +577,15 @@ To change the geom in your plot, change the geom function that you add to `ggplo
 
 ```{r geom, exercise = TRUE}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_boxplot()
 ```
 
 ```{r geom-solution}
 # right
 ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy))
+  aes(x = class, y = hwy) +
+  geom_violin()
 ```
 
 ```{r geom-check}

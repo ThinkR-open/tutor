@@ -112,7 +112,7 @@ However, there are times where it is convenient to treat each element of a date 
 
 ```{r}
 hurricanes %>% 
-  separate(date, c("year","month","day"), sep = "-", convert = TRUE)
+  separate(date, c("year", "month", "day"), sep = "-", convert = TRUE)
 ```
 
 But how could you do it?
@@ -125,7 +125,7 @@ Run the code below to see `separate()` in action. Then click continue to learn a
 
 ```{r ex1, exercise = TRUE}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"), sep = "-")
+  separate(col = date, into = c("year", "month", "day"), sep = "-")
 ```
 
 ```{r ex1-check}
@@ -137,7 +137,10 @@ hurricanes %>%
 Let's rewrite our above command without the pipe, to make the syntax of `separate()` easier to see.
 
 ```{r echo = TRUE, eval = FALSE}
-separate(hurricanes, col = date, into = c("year","month","day"), sep = "-")
+separate(data = hurricanes, 
+         col = date, 
+         into = c("year", "month", "day"),
+         sep = "-")
 ```
 
 `separate()` takes a data frame and then the name of a column in the data frame to separate. Here our code will separate the `date` column of the `hurricane` data set.
@@ -154,7 +157,8 @@ Or will we? Do a quick mental check and then run the code to see if you are righ
 
 ```{r ex2, exercise = TRUE}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"))
+  separate(col = date, 
+           into = c("year", "month", "day"))
 ```
 
 ```{r ex2-check}
@@ -173,18 +177,18 @@ Think you have it? Create this version of `hurricanes` by adding a second call t
 
 ```{r}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day")) %>% 
+  separate(col = date, into = c("year", "month", "day")) %>% 
   separate(col = year, into = c("century", "year"), sep = 2)
 ```
 
 ```{r ex3, exercise = TRUE}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"))
+  separate(col = date, into = c("year", "month", "day"))
 ```
 
 ```{r ex3-solution}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day")) %>% 
+  separate(col = date, into = c("year", "month", "day")) %>% 
   separate(col = year, into = c("century", "year"), sep = 2)
 ```
 
@@ -198,7 +202,9 @@ Would these two commands return the same result? Why or why not? Once you have a
 
 ```{r ex4, exercise = TRUE}
 hurricanes %>% 
-  separate(col = pressure, into = c("first", "last"), sep = 1)
+  separate(col = pressure, 
+           into = c("first", "last"), 
+           sep = 1)
 ```
 
 ```{r ex4-check}
@@ -208,7 +214,9 @@ hurricanes %>%
 
 ```{r ex5, exercise = TRUE}
 hurricanes %>% 
-  separate(col = pressure, into = c("first", "last"), sep = "1")
+  separate(col = pressure, 
+           into = c("first", "last"), 
+           sep = "1")
 ```
 
 ```{r ex5-check}
@@ -219,18 +227,21 @@ hurricanes %>%
 
 You may have noticed that `separate()` returns its results as columns of character strings. However, in some cases, like ours, the columns will contain integers, doubles, or other types of non-character data.
 
-You can ask `separate()` to convert the new columns to an appropriate data type by adding `convert = TRUE` to your `separate()` call. This is identical to the `convert = TRUE` argument of `gather()`.
+You can ask `separate()` to convert the new columns to an appropriate data type by adding `convert = TRUE` to your `separate()` call.
 
 Identify the data types of `year`, `month`, and `day` (they appear under the column names) in the output below. Then add `convert = TRUE` and re-run the code. What changes?
 
 ```{r ex6, exercise = TRUE, exercise.eval = TRUE}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"))
+  separate(col = date, 
+           into = c("year", "month", "day"))
 ```
 
 ```{r ex6-solution}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"), convert = TRUE)
+  separate(col = date, 
+           into = c("year", "month", "day"), 
+           convert = TRUE)
 ```
 
 ```{r ex6-check}
@@ -243,7 +254,10 @@ Let's take a look at one last argument for `separate()`. If you add `remove = FA
 
 ```{r echo = TRUE}
 hurricanes %>% 
-  separate(col = date, into = c("year","month","day"), convert = TRUE, remove = FALSE)
+  separate(col = date, 
+           into = c("year", "month", "day"), 
+           convert = TRUE, 
+           remove = FALSE)
 ```
 
 
@@ -255,16 +269,24 @@ You can do the inverse of `separate()` with `unite()`. `unite()` uses multiple i
 
 ```{r ex7, exercise = TRUE, exercise.eval = TRUE}
 hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
-  unite(col = "date", month, day, year, sep = ":")
+  separate(date, 
+           c("year", "month", "day"), 
+           sep = "-") %>%
+  unite(col = "date", 
+        month, day, year, 
+        sep = ":")
 ```
 
 ### Syntax
 
 ```{r echo = TRUE, eval = FALSE}
 hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
-  unite(col = "date", month, day, year, sep = ":")
+  separate(date, 
+           c("year", "month", "day"), 
+           sep = "-") %>%
+  unite(col = "date", 
+        month, day, year, 
+        sep = ":")
 ```
 
 Notice that the syntax of `unite()` is the inverse of `separate()`:
@@ -284,8 +306,12 @@ Use `separate()` and `unite()` to rewrite the dates in hurricanes in the format 
 
 ```{r ex8-solution}
 hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
-  unite(col = "date", month, day, year, sep = "/")
+  separate(date, 
+           c("year", "month", "day"), 
+           sep = "-") %>%
+  unite(col = "date", 
+        month, day, year, 
+        sep = "/")
 ```
 
 ```{r ex8-check}
@@ -306,9 +332,13 @@ Use the chunk below to:
 
 ```{r ex9-solution}
 hurricanes %>%
-  separate(col = date, c("century", "rest"), sep = 2) %>%
+  separate(col = date, 
+           c("century", "rest"), 
+           sep = 2) %>%
   filter(century == 19) %>% 
-  unite(col = "date", century, rest, sep = "")
+  unite(col = "date", 
+        century, rest, 
+        sep = "")
 ```
 
 ```{r ex9-check}
@@ -359,7 +389,7 @@ To make `who` easier to use in R, we should tidy it into the format below. This 
 ```{r}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather("codes", "n", 3:58) %>%
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>%
   separate(codes, c("new", "type", "sexage"), sep = "_") %>%
   select(-new) %>%
   separate(sexage, c("sex", "age"), sep = 1) %>%
@@ -409,7 +439,7 @@ who %>%
 ```{r ex11-solution}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58)
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n")
 ```
 
 ```{r ex11-check}
@@ -423,13 +453,13 @@ Add to the pipe below. Separate the codes in `codes` into three columns named "n
 ```{r ex12, exercise = TRUE}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n")
 ```
 
 ```{r ex12-solution}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_")
 ```
 
@@ -446,14 +476,14 @@ If you look closely at the structure of the `sexage` column, you will see that e
 ```{r ex13, exercise = TRUE}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_")
 ```
 
 ```{r ex13-solution}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
   separate(sexage, into = c("sex", "age"), sep = 1)
 ```
@@ -470,7 +500,7 @@ Add to the pipe to remove the `new` variable, which doesn't provide any useful i
 ```{r ex14, exercise = TRUE}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
   separate(sexage, into = c("sex", "age"), sep = 1)
 ```
@@ -478,7 +508,7 @@ who %>%
 ```{r ex14-solution}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
   separate(sexage, into = c("sex", "age"), sep = 1) %>% 
   select(-new)
@@ -515,7 +545,7 @@ Add `drop_na()` to the pipe below to drop every row that has an NA in the `n` co
 ```{r ex15, exercise = TRUE}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
   separate(sexage, into = c("sex", "age"), sep = 1) %>% 
   select(-new)
@@ -524,7 +554,7 @@ who %>%
 ```{r ex15-solution}
 who %>%
   select(-iso2, -iso3) %>% 
-  gather(key = "codes", value = "n", 3:58) %>% 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
   separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
   separate(sexage, into = c("sex", "age"), sep = 1) %>% 
   select(-new) %>% 

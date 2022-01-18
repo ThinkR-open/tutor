@@ -91,8 +91,9 @@ In the chunk below, make a plot that uses boxplots to display the relationship b
 ```
 
 ```{r r1-solution}
-ggplot(diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price))
+ggplot(data = diamonds) +
+  aes(x = cut, y = price) +
+  geom_boxplot()
 ```
 
 ```{r r1-check}
@@ -104,8 +105,9 @@ ggplot(diamonds) +
 Since we want to use this plot again later, let's go ahead and save it.
 
 ```{r}
-p <- ggplot(diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price))
+p <- ggplot(data = diamonds) +
+  aes(x = cut, y = price) +
+  geom_boxplot()
 ```
 
 Now whenever you call `p`, R will draw your plot. Try it and see.
@@ -147,8 +149,11 @@ We can make the difference easier to see by zooming in on the low values of $y$,
 Clipping refers to how R should treat the data that falls outside of the zoomed region. To see its effect, look at these plots. Each zooms in on the region where price is between $0 and \$7,500. 
 
 ```{r echo = FALSE, out.width = "50%", warning = FALSE, message = FALSE}
-p + ylim(0, 7500)
-p + coord_cartesian(ylim = c(0, 7500))
+p + 
+  ylim(0, 7500)
+
+p + 
+  coord_cartesian(ylim = c(0, 7500))
 ```
 
 * The plot on the left zooms _by_ clipping. It removes all of the data points that fall outside of the desired region, and then plots the data points that remain.
@@ -172,7 +177,8 @@ p
 ```
 
 ```{r r3-solution}
-p + ylim(0, 7500)
+p + 
+  ylim(0, 7500)
 ```
 
 ```{r r3-check}
@@ -192,7 +198,8 @@ To zoom without clipping, set the xlim and/or ylim arguments of your plot's `coo
 This is easy to do if your plot explicitly calls a `coord_` function
 
 ```{r out.width = "80%"}
-p + coord_flip(ylim = c(0, 7500))
+p + 
+  coord_flip(ylim = c(0, 7500))
 ```
 
 ### coord_cartesian()
@@ -206,7 +213,8 @@ Try it below. Use `coord_cartesian()` to zoom `p` to the region where price fall
 ```
 
 ```{r r4-solution}
-p + coord_cartesian(ylim = c(0, 7500))
+p + 
+  coord_cartesian(ylim = c(0, 7500))
 ```
 
 ```{r r4-check}
@@ -226,7 +234,8 @@ p
 I like the zooming, so I'm purposefully going to overwrite the plot stored in `p` so that it uses it.
 
 ```{r out.width = "80%"}
-p <- p + coord_cartesian(ylim = c(0, 7500))
+p <- p + 
+  coord_cartesian(ylim = c(0, 7500))
 p
 ```
 
@@ -243,7 +252,8 @@ To do this, we will use the `labs()` function. You can think of `labs()` as an a
 Give `labs()` a title argument to add a title.
 
 ```{r out.width = "80%"}
-p + labs(title = "The title appears here")
+p + 
+  labs(title = "The title appears here")
 ```
 
 ### Subtitles
@@ -251,8 +261,9 @@ p + labs(title = "The title appears here")
 Give `labs()` a subtitle argument to add a subtitle. If you use multiple arguments, remember to separate them with a comma.
 
 ```{r out.width = "80%"}
-p + labs(title = "The title appears here",
-         subtitle = "The subtitle appears here, slightly smaller")
+p + 
+  labs(title = "The title appears here",
+       subtitle = "The subtitle appears here, slightly smaller")
 ```
 
 ### Captions
@@ -270,8 +281,9 @@ p + labs(title = "The title appears here",
 Plot `p` with a set of informative labels. for learning purposes, be sure to use a title, subtitle, and caption.
 
 ```{r r5-setup}
-p <- ggplot(diamonds) +
-  geom_boxplot(mapping = aes(x = cut, y = price)) + 
+p <- ggplot(data = diamonds) +
+  aes(x = cut, y = price) +
+  geom_boxplot() + 
   coord_cartesian(ylim = c(0, 7500))
 ```
 
@@ -303,8 +315,9 @@ If you are looking for a way to start, I recommend using a smooth line with colo
 ```
 
 ```{r r6-solution}
-ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-  geom_smooth(mapping = aes(color = cut), se = FALSE) + 
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
+  geom_smooth(aes(color = cut), se = FALSE) + 
   labs(title = "Carat size vs. Price",
        subtitle = "Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.",
        caption = "Data by Hadley Wickham")
@@ -319,8 +332,9 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 Unlike `p`, our new plot uses color and has a legend. Let's save it to use later when we learn to customize colors and legends.
 
 ```{r out.width = "80%"}
-p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-  geom_smooth(mapping = aes(color = cut), se = FALSE) + 
+p1 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
+  geom_smooth(aes(color = cut), se = FALSE) + 
   labs(title = "Carat size vs. Price",
        subtitle = "Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.",
        caption = "Data by Hadley Wickham")
@@ -333,7 +347,8 @@ p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 So for example, we could use `annotate()` to add text to our plot. 
 
 ```{r}
-p1 + annotate("text", x = 4, y = 7500, label = "There are no cheap,\nlarge diamonds")
+p1 + 
+  annotate("text", x = 4, y = 7500, label = "There are no cheap,\nlarge diamonds")
 ```
 
 Notice that I select `geom_text()` with `"text"`, the suffix of the function name in quotation marks.
@@ -349,8 +364,11 @@ One of the most effective ways to control the look of your plot is with a theme.
 A theme describes how the non-data elements of your plot should look. For example, these two plots show the same data, but they use two very different themes.
 
 ```{r echo = FALSE, out.width ="50%", message = FALSE, warning = FALSE}
-p1 + theme_bw()
-p1 + theme_economist()
+p1 + 
+  theme_bw()
+
+p1 + 
+  theme_economist()
 ```
 
 ### Theme functions
@@ -369,11 +387,13 @@ To change the theme of your plot, add a `theme_` function to your plot call. The
 Use the box below to plot `p1` with each of the themes. Which theme do you prefer? Which theme does ggplot2 apply by default?
 
 ```{r r7, exercise = TRUE}
-p1 + theme_bw()
+p1 + 
+  theme_bw()
 ```
 
 ```{r r7-solution}
-p1 + theme_classic()
+p1 + 
+  theme_classic()
 ```
 
 ```{r r7-check}
@@ -412,7 +432,8 @@ p1
 ```
 
 ```{r r8-solution}
-p1 + theme_wsj()
+p1 + 
+  theme_wsj()
 ```
 
 ```{r r8-check}
@@ -426,7 +447,9 @@ If you compare the ggtheme themes to the styles they imitate, you might notice s
 Before we go on, I suggest that we update `p1` to use `theme_bw()`. It will make our next set of modifications easier to see.
 
 ```{r p1, out.width = "80%", messages = FALSE}
-p1 <- p1 + theme_bw()
+p1 <- p1 + 
+  theme_bw()
+
 p1
 ```
 
@@ -445,7 +468,8 @@ ggplot2 chooses a pleasing set of scales to use whenever you make a graph. You c
 For example, the code below plots `p1` in greyscale instead of the default colors.
 
 ```{r}
-p1 + scale_color_grey()
+p1 + 
+  scale_color_grey()
 ```
 
 ### A second example
@@ -488,15 +512,17 @@ question("Which type of variable does `p1` map to the color aesthetic?",
 One of the most useful color palettes for discrete variables is `scale_color_brewer()` (`scale_fill_brewer()` if you are working with fill. Run the code below to see the effect of the scale.
 
 ```{r make_p1, include = FALSE}
-p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-  geom_smooth(mapping = aes(color = cut), se = FALSE) + 
+p1 <- ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
+  geom_smooth(aes(color = cut), se = FALSE) + 
   labs(title = "Carat size vs. Price",
        subtitle = "Fair cut diamonds tend to be large, but they fetch the lowest prices for most carat sizes.",
        caption = "Data by Hadley Wickham") + theme_bw()
 ```
 
 ```{r r9, exercise = TRUE, warning = FALSE, message = FALSE, exercise.setup="make_p1"}
-p1 + scale_color_brewer()
+p1 + 
+  scale_color_brewer()
 ```
 
 ```{r r9-check}
@@ -526,7 +552,8 @@ RColorBrewer::display.brewer.all()
 By default, `scale_color_brewer()` will use the "Blues" palette from the RColorBrewer package. To use a different RColorBrewer palette, set the palette argument of `scale_color_brewer()` to one of the RColorBrewer palette names, surrounded by quotation marks, e.g.
 
 ```{r warnings = FALSE, out.width = "80%"}
-p1 + scale_color_brewer(palette = "Purples")
+p1 + 
+  scale_color_brewer(palette = "Purples")
 ```
 
 ### Exercise - scale_color_brewer()
@@ -534,7 +561,8 @@ p1 + scale_color_brewer(palette = "Purples")
 Recreate the graph below, which uses a different palette from the RColorBrewer package.
 
 ```{r echo = FALSE, out.width = "80%"}
-p1 + scale_color_brewer(palette = "Spectral")
+p1 + 
+  scale_color_brewer(palette = "Spectral")
 ```
 
 ```{r r11, exercise = TRUE, warning = FALSE, message = FALSE, exercise.setup="make_p1"}
@@ -543,7 +571,8 @@ p1 + scale_color_brewer(palette = "Spectral")
 ```
 
 ```{r r11-solution}
-p1 + scale_color_brewer(palette = "Spectral")
+p1 + 
+  scale_color_brewer(palette = "Spectral")
 ```
 
 ```{r r11-check}
@@ -558,7 +587,8 @@ Since we do not have a plot that applies color to a continuous variable, let's m
 
 ```{r}
 p_cont <- ggplot(data = mpg) + 
-  geom_jitter(mapping = aes(x = displ, y = hwy, color = hwy)) +
+  aes(x = displ, y = hwy, color = hwy) +
+  geom_jitter() +
   theme_bw()
 
 p_cont
@@ -569,7 +599,8 @@ p_cont
 If we apply `scale_color_brewer()` to our new plot, we get an error message that confirms what you know: you cannot use a scale that is built for discrete variables to customize the mapping to a continuous variable.
 
 ```{r}
-p_cont + scale_color_brewer()
+p_cont + 
+  scale_color_brewer()
 ```
 
 ### distiller
@@ -581,7 +612,8 @@ Use `scale_color_distiller()` just as you would `scale_color_brewer()`. `scale_c
 So for example, we could reuse the Spectral palette in our continuous plot
 
 ```{r}
-p_cont + scale_color_distiller(palette = "Spectral")
+p_cont + 
+  scale_color_distiller(palette = "Spectral")
 ```
 
 ### Exercise - scale_color_distiller()
@@ -589,7 +621,8 @@ p_cont + scale_color_distiller(palette = "Spectral")
 Recreate the graph below, which uses a different palette from the RColorBrewer package.
 
 ```{r echo = FALSE, out.width = "80%"}
-p_cont + scale_color_distiller(palette = "BrBG")
+p_cont + 
+  scale_color_distiller(palette = "BrBG")
 ```
 
 ```{r r12, exercise = TRUE, warning = FALSE, message = FALSE, exercise.setup="make_p1"}
@@ -597,7 +630,8 @@ p_cont + scale_color_distiller(palette = "BrBG")
 ```
 
 ```{r r12-solution}
-p_cont + scale_color_distiller(palette = "BrBG")
+p_cont + 
+  scale_color_distiller(palette = "BrBG")
 ```
 
 ```{r r12-check}
@@ -611,7 +645,8 @@ The viridis package contains a collection of very good looking color palettes fo
 To add a viridis palette, use `scale_color_viridis()` or `scale_fill_viridis()`, both of which come in the viridis package.
 
 ```{r}
-p_cont + scale_color_viridis()
+p_cont + 
+  scale_color_viridis()
 ```
 
 ### viridis options
@@ -627,7 +662,8 @@ Try each option with `p_cont` below. Determine which is the default.
 ```
 
 ```{r r13-solution}
-p_cont + scale_color_viridis(option = "D")
+p_cont + 
+  scale_color_viridis(option = "D")
 ```
 
 ```{r r13-check}
@@ -662,7 +698,8 @@ Try this now. Move the legend in `p_cont` to the bottom of the graph.
 ```
 
 ```{r r14-solution}
-p_cont + theme(legend.position = "bottom")
+p_cont + 
+  theme(legend.position = "bottom")
 ```
 
 ```{r r14-check}
@@ -675,7 +712,8 @@ Theme functions like `theme_grey()` and `theme_bw()` also adjust the legend posi
 
 ```{r r15, exercise = TRUE, exercise.eval = TRUE, out.width = "80%"}
 ggplot(data = mpg) + 
-  geom_jitter(mapping = aes(x = displ, y = hwy, color = hwy)) +
+  aes(x = displ, y = hwy, color = hwy) +
+  geom_jitter() +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
@@ -690,8 +728,8 @@ If you map color (or fill) to a continuous legend, your legend will look like a 
 
 ```{r plegend}
 p_legend <- ggplot(data = mpg) + 
-  geom_jitter(mapping = aes(x = displ, y = hwy, color = class, fill = hwy), 
-              shape = 21, size = 3, stroke = 1) +
+  aes(x = displ, y = hwy, color = class, fill = hwy) +
+  geom_jitter(shape = 21, size = 3, stroke = 1) +
   theme_bw()
 
 p_legend
@@ -706,7 +744,8 @@ You can use the `guides()` function to change the type or presence of each legen
 * `"none"` - to remove the legend entirely. This is useful when you have redundant aesthetic mappings, but it may make your plot indecipherable otherwise.
 
 ```{r out.width = "80%"}
-p_legend + guides(fill = "legend", color = "none")
+p_legend + 
+  guides(fill = "legend", color = "none")
 ```
 
 ### Exercise - guides()
@@ -718,7 +757,8 @@ Use `guides()` to remove each legend from the `p_legend` plot.
 ```
 
 ```{r r16-solution}
-p_legend + guides(fill = "none", color = "none")
+p_legend + 
+  guides(fill = "none", color = "none")
 ```
 
 ```{r r16-check}
@@ -732,7 +772,9 @@ To control the title and labels of a legend, you must turn to the `scale_` funct
 So for example, you can adjust the legend of p1 with
 
 ```{r out.width = "80%"}
-p1 + scale_color_brewer(name = "Cut Grade", labels = c("Very Bad", "Bad", "Mediocre", "Nice", "Very Nice"))
+p1 + 
+  scale_color_brewer(name = "Cut Grade", 
+                     labels = c("Very Bad", "Bad", "Mediocre", "Nice", "Very Nice"))
 ```
 
 ### What if?
@@ -750,7 +792,8 @@ In this case, you need to identify the default scale used by the plot and then m
 For example, our plot above relies on the default color scale for a discrete variable, which happens to be `scale_color_discrete()`. If you know this, you can relabel the legend like so:
 
 ```{r out.width = "80%"}
-p1 + scale_color_discrete(name = "Cut Grade", labels = c("Very Bad", "Bad", "Mediocre", "Nice", "Very Nice"))
+p1 + scale_color_discrete(name = "Cut Grade", 
+                          labels = c("Very Bad", "Bad", "Mediocre", "Nice", "Very Nice"))
 ```
 
 
@@ -780,7 +823,9 @@ p_cont
 ```
 
 ```{r r17-solution}
-p_cont + scale_color_continuous(name = "Highway MPG") + theme(legend.position = "top")
+p_cont + 
+  scale_color_continuous(name = "Highway MPG") + 
+  theme(legend.position = "top")
 ```
 
 ```{r r17-check}
@@ -793,7 +838,8 @@ p_cont + scale_color_continuous(name = "Highway MPG") + theme(legend.position = 
 In ggplot2, the axes are the "legends" associated with the $x$ and $y$ aesthetics. As a result, you can control axes titles and labels in the same way as you control legend titles and labels:
 
 ```{r}
-p1 + scale_x_continuous(name = "Carat Size", labels = c("Zero", "One", "Two", "Three", "Four", "Five"))
+p1 + scale_x_continuous(name = "Carat Size", 
+                        labels = c("Zero", "One", "Two", "Three", "Four", "Five"))
 ```
 
 ## Quiz
@@ -809,7 +855,8 @@ In this tutorial, you learned how to customize the graphs that you make with ggp
 To cement your skills, combine what you've learned to recreate the plot below.
 
 ```{r echo = FALSE}
-ggplot(diamonds, aes(x = carat, y = price)) +
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
   geom_point() + 
   geom_smooth(aes(color = cut), se = FALSE) +  
   labs(title = "Ideal cut diamonds command the best price for every carat size",
@@ -829,9 +876,10 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 ```
 
 ```{r r18-solution}
-ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+ggplot(data = diamonds) +
+  aes(x = carat, y = price) +
   geom_point() + 
-  geom_smooth(mapping = aes(color = cut), se = FALSE) +  
+  geom_smooth(aes(color = cut), se = FALSE) +   
   labs(title = "Ideal cut diamonds command the best price for every carat size",
        subtitle = "Lines show GAM estimate of mean values for each level of cut",
        caption = "Data provided by Hadley Wickham",
