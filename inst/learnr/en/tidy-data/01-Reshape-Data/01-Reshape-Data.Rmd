@@ -11,9 +11,6 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(tidyverse)
-library(babynames)
 
 cases <- tribble(
   ~Country, ~"2011", ~"2012", ~"2013",
@@ -39,33 +36,35 @@ pollution <- tribble(
    "Beijing", "small",     121
 )
 
+```
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(babynames)
+
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
 }
-tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
+tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r, context="server-start", include=FALSE}
-# Capture metrics only if running an official primer hosted by RStudio
-library(curl)
-library(later)
-tryCatch(
-  source("https://metrics.rstudioprimers.com/learnr/installMetrics", local=TRUE), 
-  error = function(e){ 
-    print("Warning: An error occurred with the tracking code.")
-  }
+question <- purrr::partial(
+  learnr::question, 
+  submit_button = "send answer",
+  try_again_button = "re-try"
 )
 ```
 
-```{r, context = "render", results = 'asis', echo = FALSE}
-tryCatch(
-  source("https://metrics.rstudioprimers.com/learnr/installClient", local=TRUE)$value,
-  error = function(e){ 
-    print("Warning: An error occurred with the client code.")
-  }
-)
+
+
+```{r include=FALSE}
+names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
+babynames <- babynames %>% filter(name %in% names_to_keep)
+# distinct(name) %>% sample_n(100)
 ```
+
+
 
 ## Welcome
 

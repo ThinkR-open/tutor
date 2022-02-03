@@ -13,7 +13,6 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(babynames)
 
 hurricanes <- tribble(
      ~name,  ~wind_speed, ~pressure,        ~date,
@@ -40,30 +39,15 @@ names(who) <- stringr::str_replace(names(who), "newrel", "new_rel")
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
 }
-tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
+tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r, context="server-start", include=FALSE}
-# Capture metrics only if running an official primer hosted by RStudio
-library(curl)
-library(later)
-tryCatch(
-  source("https://metrics.rstudioprimers.com/learnr/installMetrics", local=TRUE), 
-  error = function(e){ 
-    print("Warning: An error occurred with the tracking code.")
-  }
+question <- purrr::partial(
+  learnr::question, 
+  submit_button = "send answer",
+  try_again_button = "re-try"
 )
 ```
 
-```{r, context = "render", results = 'asis', echo = FALSE}
-tryCatch(
-  source("https://metrics.rstudioprimers.com/learnr/installClient", local=TRUE)$value,
-  error = function(e){ 
-    print("Warning: An error occurred with the client code.")
-  }
-)
-```
 
 ## Welcome
 
