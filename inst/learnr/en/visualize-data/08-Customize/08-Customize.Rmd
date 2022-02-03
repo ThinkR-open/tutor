@@ -584,7 +584,7 @@ p_cont
 
 If we apply `scale_color_brewer()` to our new plot, we get an error message that confirms what you know: you cannot use a scale that is built for discrete variables to customize the mapping to a continuous variable.
 
-```{r}
+```{r error=TRUE}
 p_cont + 
   scale_color_brewer()
 ```

@@ -10,7 +10,27 @@ output:
 runtime: shiny_prerendered
 ---
 
+
+
+
 ```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(babynames)
+
+checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
+  list(message = check_code, correct = TRUE, location = "append")
+}
+tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
+knitr::opts_chunk$set(echo = FALSE)
+question <- purrr::partial(
+  learnr::question, 
+  submit_button = "send answer",
+  try_again_button = "re-try"
+)
+```
+
+```{r include=FALSE}
 
 cases <- tribble(
   ~Country, ~"2011", ~"2012", ~"2013",
@@ -37,26 +57,6 @@ pollution <- tribble(
 )
 
 ```
-
-
-```{r setup, include=FALSE}
-library(learnr)
-library(tidyverse)
-library(babynames)
-
-checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
-  list(message = check_code, correct = TRUE, location = "append")
-}
-tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
-knitr::opts_chunk$set(echo = FALSE)
-question <- purrr::partial(
-  learnr::question, 
-  submit_button = "send answer",
-  try_again_button = "re-try"
-)
-```
-
-
 
 ```{r include=FALSE}
 names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
