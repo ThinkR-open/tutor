@@ -4,11 +4,9 @@
 \alias{boxplots_fr}
 \title{Lance boxplots_fr}
 \usage{
-boxplots_fr(file = tutor:::tous_les_programmes()[10], ...)
+boxplots_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

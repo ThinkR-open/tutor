@@ -4,11 +4,9 @@
 \alias{programming_basics_fr}
 \title{Lance programming_basics_fr}
 \usage{
-programming_basics_fr(file = tutor:::tous_les_programmes()[11], ...)
+programming_basics_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

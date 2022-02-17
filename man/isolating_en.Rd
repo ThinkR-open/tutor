@@ -4,11 +4,9 @@
 \alias{isolating_en}
 \title{launch isolating_en}
 \usage{
-isolating_en(file = tutor:::tous_les_programmes(lang = "en")[5], ...)
+isolating_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

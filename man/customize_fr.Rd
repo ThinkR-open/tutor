@@ -4,11 +4,9 @@
 \alias{customize_fr}
 \title{Lance customize_fr}
 \usage{
-customize_fr(file = tutor:::tous_les_programmes()[15], ...)
+customize_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

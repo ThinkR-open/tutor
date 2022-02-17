@@ -4,12 +4,18 @@
 \alias{launch_learn}
 \title{Launch learnr}
 \usage{
-launch_learn(file = sample(tous_les_programmes(), 1), zoom = TRUE)
+launch_learn(
+  file = sample(tous_les_programmes(), 1),
+  zoom = TRUE,
+  auto_kill_delay = 60 * 60 * 4
+)
 }
 \arguments{
 \item{file}{file to launch}
 
 \item{zoom}{zoom on tutorial windows}
+
+\item{auto_kill_delay}{delay in secon to kill jobs}
 }
 \description{
 Launch learnr

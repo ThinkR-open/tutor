@@ -4,11 +4,9 @@
 \alias{overplotting_fr}
 \title{Lance overplotting_fr}
 \usage{
-overplotting_fr(file = tutor:::tous_les_programmes()[14], ...)
+overplotting_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

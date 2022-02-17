@@ -4,11 +4,9 @@
 \alias{deriving_en}
 \title{launch deriving_en}
 \usage{
-deriving_en(file = tutor:::tous_les_programmes(lang = "en")[8], ...)
+deriving_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

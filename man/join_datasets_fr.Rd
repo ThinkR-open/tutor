@@ -4,11 +4,9 @@
 \alias{join_datasets_fr}
 \title{Lance join_datasets_fr}
 \usage{
-join_datasets_fr(file = tutor:::tous_les_programmes()[9], ...)
+join_datasets_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

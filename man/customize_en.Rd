@@ -4,11 +4,9 @@
 \alias{customize_en}
 \title{launch customize_en}
 \usage{
-customize_en(file = tutor:::tous_les_programmes(lang = "en")[16], ...)
+customize_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

@@ -4,11 +4,9 @@
 \alias{reshape_data_en}
 \title{launch reshape_data_en}
 \usage{
-reshape_data_en(file = tutor:::tous_les_programmes(lang = "en")[3], ...)
+reshape_data_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

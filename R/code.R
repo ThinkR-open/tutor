@@ -55,11 +55,12 @@ tous_les_programmes <- function(lang="fr"){
 #'
 #' @param file file to launch
 #' @param zoom zoom on tutorial windows
+#' @param auto_kill_delay delay in secon to kill jobs
 #'
 #' @export
-#'
+#' @importFrom progress progress_bar
 launch_learn <- function(file = sample(tous_les_programmes(), 1),
-                         zoom = TRUE) {
+                         zoom = TRUE,auto_kill_delay = 60*60*4) {
   message(file)
 
 
@@ -72,20 +73,28 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
 
   tuto_env$running_tuto <- .rs.tutorial.registryGet(file, package = "tutor")
 
+
+  later::later(
+    function(){
+      message("tutorial killing")
+      .rs.api.stopJob(tuto_env$running_tuto$job)},delay = auto_kill_delay
+    )
+
+
   if (zoom) {
     tuto_env$loop_tuto <- later::create_loop()
 
 
-    rstudioapi::executeCommand("layoutZoomTutorial")
+    # rstudioapi::executeCommand("layoutZoomTutorial")
 
     if (grepl(file, pattern = "_fr$")) {
       .rs.api.showDialog(
         "Information",
         "Veuillez patienter quelques instants le temps que l'exercice se charge dans l'onglet tutorial.
 
-            Une fois chargé l'exercice se mettra en Plein écran, Pour le quitter cliquez sur le bouton 'stop' qui va apparaitre en haut a gauche.
+            Une fois charg\u00e9 l'exercice se mettra en Plein \u00e9cran, Pour le quitter cliquez sur le bouton 'stop' qui va apparaitre en haut \u00e0 gauche.
 
-            Vous pouvez cliquer des à présent sur OK
+            Vous pouvez cliquer des \u00e0 pr\u00e9sent sur OK
             "
       )
     } else{
@@ -101,20 +110,43 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
     }
 
 
+
+flag <- 0
+seuil <- 50
+pb <- progress_bar$new(total = seuil)
+
+    while ( is.null(tuto_env$running_tuto$browser_url) & flag < seuil ) {
+
+      if ( .rs.api.getJobState(tuto_env$running_tuto$job) %in% c("failed","cancelled")){
+
+        message(.rs.api.getJobState(tuto_env$running_tuto$job))
+
+        break
+      }
+      # print(.rs.api.getJobState(tuto_env$running_tuto$job))
+      # print(tuto_env$running_tuto$browser_url)
+      pb$tick()
+      Sys.sleep(2)
+      flag <- flag + 1
+    }
+message("on sort")
+
+    rstudioapi::executeCommand("layoutZoomTutorial")
+
     dezoom <- function() {
-      if (.rs.api.getJobState(tuto_env$running_tuto$job) != "running") {
+      if ( .rs.api.getJobState(tuto_env$running_tuto$job) != "running" ) {
         rstudioapi::executeCommand("layoutEndZoom")
         rstudioapi::executeCommand('activateConsole')
-        rstudioapi::executeCommand('consoleClear')
+        # rstudioapi::executeCommand('consoleClear')
 
-        later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2, loop = later::global_loop())
+        # later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2, loop = later::global_loop())
 
         later::later(
           function(){later::destroy_loop(tuto_env$loop_tuto)},
           delay = 1,
           loop = later::global_loop())
 
-        later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2)
+        # later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2)
       }
 
 

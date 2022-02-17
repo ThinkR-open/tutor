@@ -4,11 +4,9 @@
 \alias{vis_basics_en}
 \title{launch vis_basics_en}
 \usage{
-vis_basics_en(file = tutor:::tous_les_programmes(lang = "en")[7], ...)
+vis_basics_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{
