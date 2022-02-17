@@ -19,11 +19,6 @@ tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
 # tutorial_options(exercise.timelimit = 60, exercise.checker = gradethis::grade_learnr)
 
 knitr::opts_chunk$set(error = TRUE, out.width = "100%")
-question <- purrr::partial(
-  learnr::question, 
-  submit_button = "Envoyer la réponse",
-  try_again_button = "Réessayer"
-)
 ```
 
 ## Bienvenue

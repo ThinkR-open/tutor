@@ -45,11 +45,6 @@ checker <- function(label, user_code, check_code, envir_result, evaluate_result,
 }
 tutorial_options(exercise.timelimit = 220, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
-question <- purrr::partial(
-  learnr::question, 
-  submit_button = "Envoyer la réponse",
-  try_again_button = "Réessayer"
-)
 ```
 
 ## Bienvenue
