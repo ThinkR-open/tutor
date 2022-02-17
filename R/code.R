@@ -62,87 +62,66 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
                          zoom = TRUE) {
   message(file)
 
-    # if (rstudioapi::isAvailable()) {
-      if (!is.null(tuto_env$running_tuto)) {
-        .rs.api.stopJob(tuto_env$running_tuto$job)
-        try(later::destroy_loop(loop_tuto), silent = TRUE)
-        Sys.sleep(2)
-      }
-      .rs.tutorial.runTutorial(file, package = "tutor")
 
-      tuto_env$running_tuto <-
-        .rs.tutorial.registryGet(file, package = "tutor")
+  if (!is.null(tuto_env$running_tuto)) {
+    .rs.api.stopJob(tuto_env$running_tuto$job)
+    try(later::destroy_loop(tuto_env$loop_tuto))
+    Sys.sleep(2)
+  }
+  .rs.tutorial.runTutorial(file, package = "tutor")
 
-      if (zoom) {
-        tuto_env$loop_tuto <- later::create_loop()
-        # rstudioapi::executeCommand("layoutZoomTutorial")
-        # rstudioapi::executeCommand("layoutZoomTutorial")
-        # rstudioapi::executeCommand("layoutZoomTutorial")
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 5)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 10)
-        later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 1)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 20)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 25)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 30)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 35)
-        # later::later(function(){rstudioapi::executeCommand("layoutZoomTutorial")}, 40)
+  tuto_env$running_tuto <- .rs.tutorial.registryGet(file, package = "tutor")
 
-        if (grepl(file, pattern = "_fr$")) {
-          .rs.api.showDialog(
-            "Information",
-            "Veuillez patienter quelques instants le temps que l'exercice se charge dans l'onglet tutorial.
+  if (zoom) {
+    tuto_env$loop_tuto <- later::create_loop()
 
-            Une fois chargé l'exercice qui se mettra en Plein écran, Pour le quitter cliquez sur le bouton 'stop' qui va apparaitre en haut a gauche.
+
+    rstudioapi::executeCommand("layoutZoomTutorial")
+
+    if (grepl(file, pattern = "_fr$")) {
+      .rs.api.showDialog(
+        "Information",
+        "Veuillez patienter quelques instants le temps que l'exercice se charge dans l'onglet tutorial.
+
+            Une fois chargé l'exercice se mettra en Plein écran, Pour le quitter cliquez sur le bouton 'stop' qui va apparaitre en haut a gauche.
 
             Vous pouvez cliquer des à présent sur OK
             "
-          )
-        } else{
-          .rs.api.showDialog(
-            "Information",
-            "Please wait a few moments for the exercise to load in the tutorial tab.
+      )
+    } else{
+      .rs.api.showDialog(
+        "Information",
+        "Please wait a few moments for the exercise to load in the tutorial tab.
 
             Once the exercise is loaded, it will be displayed in full screen mode. To exit the exercise, click on the 'stop' button that will appear on the top left.
 
             You can now click on OK
             "
-          )
-        }
-
-        dezoom <- function() {
-          message("dezoom1")
-          if (.rs.api.getJobState(tuto_env$running_tuto$job) != "running") {
-
-          message("dezoom2")
-            message(".rs.api.getJobState(tuto_env$running_tuto$job)")
-
-            rstudioapi::executeCommand("layoutEndZoom")
-            # rstudioapi::executeCommand("layoutEndZoom")
-            # rstudioapi::executeCommand('activateConsole')
+      )
+    }
 
 
-            ## premiere aproche
-            # if (grepl(file, pattern = "_fr$")) {
-            #   .rs.api.showDialog("", "On relance votre session.")
-            # } else{
-            #   .rs.api.showDialog("", "We restart your session.")
-            # }
+    dezoom <- function() {
+      if (.rs.api.getJobState(tuto_env$running_tuto$job) != "running") {
+        rstudioapi::executeCommand("layoutEndZoom")
+        rstudioapi::executeCommand('activateConsole')
+        rstudioapi::executeCommand('consoleClear')
 
-            # .rs.restartR("rstudioapi::executeCommand('consoleClear')")
+        later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2, loop = later::global_loop())
 
-            ## second approche
-            later::later(function(){rstudioapi::executeCommand('consoleClear')}, 1)
-#             later::destroy_loop(tuto_env$loop_tuto)
-            stop("fin de loop")
-          }
-          later::later(dezoom, 2, loop = tuto_env$loop_tuto)
-        }
-        later::later(dezoom, 2, loop = tuto_env$loop_tuto)
+        later::later(
+          function(){later::destroy_loop(tuto_env$loop_tuto)},
+          delay = 1,
+          loop = later::global_loop())
 
+        later::later(~ rstudioapi::executeCommand('consoleClear'), delay = 2)
       }
-    # } else{
-    #   stop("Please use this fct with rstudio")
-    # }
+
+
+      later::later(dezoom, 1, loop = tuto_env$loop_tuto)
+    }
+    later::later(dezoom, 1, loop = tuto_env$loop_tuto)
   }
+}
 
 tuto_env <- new.env()
