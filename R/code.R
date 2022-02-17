@@ -74,7 +74,7 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
         .rs.tutorial.registryGet(file, package = "tutor")
 
       if (zoom) {
-        loop_tuto <- later::create_loop()
+        tuto_env$loop_tuto <- later::create_loop()
         rstudioapi::executeCommand("layoutZoomTutorial")
 
         if (grepl(file, pattern = "_fr$")) {
@@ -90,18 +90,22 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
         dezoom <- function() {
           if (.rs.api.getJobState(tuto_env$running_tuto$job) != "running") {
             rstudioapi::executeCommand("layoutEndZoom")
+            rstudioapi::executeCommand('consoleClear')
+            ## premiere aproche
+            # if (grepl(file, pattern = "_fr$")) {
+            #   .rs.api.showDialog("", "On relance votre session.")
+            # } else{
+            #   .rs.api.showDialog("", "We restart your session.")
+            # }
 
-            if (grepl(file, pattern = "_fr$")) {
-              .rs.api.showDialog("", "On relance votre session.")
-            } else{
-              .rs.api.showDialog("", "We restart your session.")
-            }
+            # .rs.restartR("rstudioapi::executeCommand('consoleClear')")
 
-            .rs.restartR("rstudioapi::executeCommand('consoleClear')")
+            suppressMessages(later::destroy_loop(tuto_env$loop_tuto))
+
           }
-          later::later(dezoom, 1, loop = loop_tuto)
+          later::later(dezoom, 1, loop = tuto_env$loop_tuto)
         }
-        later::later(dezoom, 1, loop = loop_tuto)
+        later::later(dezoom, 1, loop = tuto_env$loop_tuto)
 
       }
     # } else{
