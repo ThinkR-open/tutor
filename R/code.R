@@ -90,7 +90,9 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
         dezoom <- function() {
           if (.rs.api.getJobState(tuto_env$running_tuto$job) != "running") {
             rstudioapi::executeCommand("layoutEndZoom")
+            rstudioapi::executeCommand('activateConsole')
             rstudioapi::executeCommand('consoleClear')
+
             ## premiere aproche
             # if (grepl(file, pattern = "_fr$")) {
             #   .rs.api.showDialog("", "On relance votre session.")
@@ -100,7 +102,9 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
 
             # .rs.restartR("rstudioapi::executeCommand('consoleClear')")
 
-            suppressMessages(later::destroy_loop(tuto_env$loop_tuto))
+            ## second approche
+            later::destroy_loop(tuto_env$loop_tuto)
+            rstudioapi::executeCommand('consoleClear')
 
           }
           later::later(dezoom, 1, loop = tuto_env$loop_tuto)
