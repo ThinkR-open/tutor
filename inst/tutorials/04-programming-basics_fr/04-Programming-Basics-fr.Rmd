@@ -15,11 +15,6 @@ checker <- function(label, user_code, check_code, envir_result, evaluate_result,
   list(message = check_code, correct = TRUE, location = "append")
 }
 tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
-question <- purrr::partial(
-  learnr::question, 
-  submit_button = "Envoyer la réponse",
-  try_again_button = "Réessayer"
-)
 ```
 
 ## Bienvenue 
