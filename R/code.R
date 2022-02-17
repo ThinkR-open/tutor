@@ -62,7 +62,7 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
                          zoom = TRUE) {
   message(file)
 
-    if (rstudioapi::isAvailable()) {
+    # if (rstudioapi::isAvailable()) {
       if (!is.null(tuto_env$running_tuto)) {
         .rs.api.stopJob(tuto_env$running_tuto$job)
         try(later::destroy_loop(loop_tuto), silent = TRUE)
@@ -104,9 +104,9 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
         later::later(dezoom, 1, loop = loop_tuto)
 
       }
-    } else{
-      stop("Please use this fct with rstudio")
-    }
+    # } else{
+    #   stop("Please use this fct with rstudio")
+    # }
   }
 
 tuto_env <- new.env()
