@@ -21,12 +21,12 @@ dir.create(path = file.path(path,name),recursive = TRUE,showWarnings = FALSE)
 
 cat(rprofile,file = file.path(path,name,".Rprofile"))
 
-topo <- "# Veuillez patienter le temps que l'exercice se charge.(Une commande automatique va être envoyée dans la console)
+topo <- "# Veuillez patienter le temps que l'exercice se charge.(Une commande automatique va \u00EAtre envoy\u00E9e dans la console)
 # Vous devriez voir un pourcentage d'avancement progresser dans votre console,
 # Certain lancement peuvent etre long (jusque 30 secondes)
 # Si a la fin de la generation un popup s'ouvre, cliquez sur 'try again' pour
 # faire apparaitre l'exercice
-# N'hésitez pas a agrandir le panneau viewer pour etre a l'aise"
+# N'h\u00E9sitez pas a agrandir le panneau viewer pour etre a l'aise"
 
 
 if (lang=="en"){

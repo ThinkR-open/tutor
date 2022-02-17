@@ -2,21 +2,15 @@
 % Please edit documentation in R/code.R
 \name{launch_learn}
 \alias{launch_learn}
-\title{Title}
+\title{Launch learnr}
 \usage{
-launch_learn(
-  file = sample(tous_les_programmes(), 1),
-  port = httpuv::randomPort(),
-  host = "0.0.0.0"
-)
+launch_learn(file = sample(tous_les_programmes(), 1), zoom = TRUE)
 }
 \arguments{
 \item{file}{file to launch}
 
-\item{port}{port to use}
-
-\item{host}{host}
+\item{zoom}{zoom on tutorial windows}
 }
 \description{
-Title
+Launch learnr
 }
