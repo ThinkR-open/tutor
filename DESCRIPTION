@@ -1,6 +1,6 @@
 Package: tutor
 Title: Deploy shiny_prerendered Rmds
-Version: 0.2.0016
+Version: 0.2.16.9000
 Authors@R: 
     person("vincent", "guyader", , "vincent@thinkr.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0671-9270"))
@@ -10,6 +10,7 @@ Imports:
     glue (>= 1.6.0),
     httpuv,
     later (>= 1.3.0),
+    learnr (>= 0.10.1.9019),
     magrittr (>= 2.0.1),
     progress (>= 1.2.2),
     purrr (>= 0.3.4),
@@ -24,3 +25,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
+Remotes: 
+    rstudio/learnr@b6f1d34518ee462e6d73aae9fe5bd832874c6267
