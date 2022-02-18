@@ -59,6 +59,7 @@ tous_les_programmes <- function(lang="fr"){
 #'
 #' @export
 #' @importFrom progress progress_bar
+#' @importFrom httpuv randomPort startServer
 launch_learn <- function(file = sample(tous_les_programmes(), 1),
                          zoom = TRUE,auto_kill_delay = 60*60*4) {
   message(file)
@@ -69,7 +70,8 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
     try(later::destroy_loop(tuto_env$loop_tuto))
     Sys.sleep(2)
   }
-  .rs.tutorial.runTutorial(file, package = "tutor")
+  choosen_port <- httpuv:: randomPort()
+  .rs.tutorial.runTutorial(file, package = "tutor",shiny_args = list(port = choosen_port))
 
   tuto_env$running_tuto <- .rs.tutorial.registryGet(file, package = "tutor")
 
@@ -112,25 +114,49 @@ launch_learn <- function(file = sample(tous_les_programmes(), 1),
 
 
 flag <- 0
+flag2 <- 0
 seuil <- 50
 pb <- progress_bar$new(total = seuil)
 
-    while ( is.null(tuto_env$running_tuto$browser_url) & flag < seuil ) {
+    while ( is.null(tuto_env$running_tuto$shiny_url) & flag < seuil ) {
 
       if ( .rs.api.getJobState(tuto_env$running_tuto$job) %in% c("failed","cancelled")){
-
+        message("")
         message(.rs.api.getJobState(tuto_env$running_tuto$job))
+        print(.rs.api.getJobState(tuto_env$running_tuto$job))
+        print(tuto_env$running_tuto$browser_url)
+        print(tuto_env$running_tuto$shiny_url)
 
-        break
+
+        if (flag2 > 3){
+          if (port_busy(choosen_port)){
+            # rstudioapi::viewer(paste0("http://127.0.0.1:",choosen_port))
+            # tutorial <- .rs.getVar("tutorial.pendingTutorial")
+            # meta <- .rs.scalarListFromList(tutorial)
+
+            meta <- list(shiny_url = structure(paste0("http://127.0.0.1:",choosen_port), class = "rs.scalar"),
+                         job = structure(tuto_env$running_tuto$job, class = "rs.scalar"), package = structure("tutor", class = "rs.scalar"),
+                         name = structure(file, class = "rs.scalar"))
+
+
+            .rs.invokeShinyTutorialViewer(paste0("http://127.0.0.1:",choosen_port),meta= meta)
+          }
+
+
+          break }
+        flag2 <- flag2 + 1
       }
-      # print(.rs.api.getJobState(tuto_env$running_tuto$job))
-      # print(tuto_env$running_tuto$browser_url)
+      print(.rs.api.getJobState(tuto_env$running_tuto$job))
+      print(tuto_env$running_tuto$browser_url)
+      print(tuto_env$running_tuto$shiny_url)
       pb$tick()
       Sys.sleep(2)
       flag <- flag + 1
     }
 message("on sort")
-
+print(.rs.api.getJobState(tuto_env$running_tuto$job))
+print(tuto_env$running_tuto$browser_url)
+print(tuto_env$running_tuto$shiny_url)
     rstudioapi::executeCommand("layoutZoomTutorial")
 
     dezoom <- function() {
@@ -157,3 +183,12 @@ message("on sort")
 }
 
 tuto_env <- new.env()
+
+port_busy <- function(port,host = "127.0.0.1"){
+
+  s <- NULL
+  tryCatch(s <- startServer(host, port, list(), quiet = TRUE),
+           error = function(e) {
+           })
+  is.null(s)
+}
