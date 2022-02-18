@@ -17,15 +17,18 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
  <!-- badges: start -->
-  [![R-CMD-check](https://github.com/VincentGuyader/tutor/workflows/R-CMD-check/badge.svg)](https://github.com/VincentGuyader/tutor/actions)
+
   <!-- badges: end -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/tutor)](https://CRAN.R-project.org/package=tutor)
+[![R-CMD-check](https://github.com/ThinkR-open/tutor/workflows/R-CMD-check/badge.svg)](https://github.com/ThinkR-open/tutor/actions)
 <!-- badges: end -->
 
-The goal of tutor is to ...
+The goal of tutor is to serve learnr tutorial
 
 ## Installation
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("VincentGuyader/tutor")
+remotes::install_github("VincentGuyader/tutor")
 ```
