@@ -4,11 +4,9 @@
 \alias{separate_columns_en}
 \title{launch separate_columns_en}
 \usage{
-separate_columns_en(file = tutor:::tous_les_programmes(lang = "en")[6], ...)
+separate_columns_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

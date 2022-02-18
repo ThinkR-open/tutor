@@ -4,14 +4,9 @@
 \alias{exploratory_data_analysis_en}
 \title{launch exploratory_data_analysis_en}
 \usage{
-exploratory_data_analysis_en(
-  file = tutor:::tous_les_programmes(lang = "en")[2],
-  ...
-)
+exploratory_data_analysis_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

@@ -4,11 +4,9 @@
 \alias{overplotting_en}
 \title{launch overplotting_en}
 \usage{
-overplotting_en(file = tutor:::tous_les_programmes(lang = "en")[15], ...)
+overplotting_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

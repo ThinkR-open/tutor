@@ -4,11 +4,9 @@
 \alias{bar_charts_en}
 \title{launch bar_charts_en}
 \usage{
-bar_charts_en(file = tutor:::tous_les_programmes(lang = "en")[1], ...)
+bar_charts_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

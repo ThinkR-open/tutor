@@ -4,11 +4,9 @@
 \alias{histograms_fr}
 \title{Lance histograms_fr}
 \usage{
-histograms_fr(file = tutor:::tous_les_programmes()[8], ...)
+histograms_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

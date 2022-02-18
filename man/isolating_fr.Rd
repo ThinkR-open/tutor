@@ -4,11 +4,9 @@
 \alias{isolating_fr}
 \title{Lance isolating_fr}
 \usage{
-isolating_fr(file = tutor:::tous_les_programmes()[5], ...)
+isolating_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

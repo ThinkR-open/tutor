@@ -4,11 +4,9 @@
 \alias{line_graphs_fr}
 \title{Lance line_graphs_fr}
 \usage{
-line_graphs_fr(file = tutor:::tous_les_programmes()[13], ...)
+line_graphs_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

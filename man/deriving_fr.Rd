@@ -4,11 +4,9 @@
 \alias{deriving_fr}
 \title{Lance deriving_fr}
 \usage{
-deriving_fr(file = tutor:::tous_les_programmes()[7], ...)
+deriving_fr(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

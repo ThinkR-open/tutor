@@ -4,11 +4,9 @@
 \alias{scatterplots_en}
 \title{launch scatterplots_en}
 \usage{
-scatterplots_en(file = tutor:::tous_les_programmes(lang = "en")[13], ...)
+scatterplots_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{

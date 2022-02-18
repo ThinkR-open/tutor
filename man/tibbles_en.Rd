@@ -4,11 +4,9 @@
 \alias{tibbles_en}
 \title{launch tibbles_en}
 \usage{
-tibbles_en(file = tutor:::tous_les_programmes(lang = "en")[4], ...)
+tibbles_en(...)
 }
 \arguments{
-\item{file}{name of the learnr to launch}
-
 \item{...}{other params}
 }
 \description{
