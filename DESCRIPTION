@@ -1,6 +1,7 @@
 Package: tutor
 Title: Deploy shiny_prerendered Rmds
 Version: 0.2.0016
+
 Authors@R: 
     person("vincent", "guyader", , "vincent@thinkr.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0671-9270"))
