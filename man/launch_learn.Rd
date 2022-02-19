@@ -17,6 +17,8 @@ launch_learn(
 \item{zoom}{zoom on tutorial windows}
 
 \item{auto_kill_delay}{delay in secon to kill jobs}
+
+\item{light}{light mode, boolean. if TRUE it goes direct to the point}
 }
 \description{
 Launch learnr

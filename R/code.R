@@ -60,6 +60,7 @@ tous_les_programmes <- function(lang = "fr") {
 #' @param file file to launch
 #' @param zoom zoom on tutorial windows
 #' @param auto_kill_delay delay in secon to kill jobs
+#' @param light light mode, boolean. if TRUE it goes direct to the point
 #'
 #' @export
 #' @importFrom progress progress_bar
@@ -126,7 +127,7 @@ launch_learn <- function(
 
   if (zoom) {
 
-    message("zoom demandé ")
+    message("zoom demande ")
 
     tuto_env$loop_tuto <- later::create_loop()
 
