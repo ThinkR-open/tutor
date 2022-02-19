@@ -19,6 +19,7 @@ rmd_run <- function(
   resultat <- list(
     res = res,
     output = output
+
   )
   resultat
 }
@@ -27,4 +28,4 @@ some_test <- rmd_run()
 les_erreurs <- some_test$res %>%
   transpose() %>% pluck("error")
 
-expect_true(length(compact(les_erreurs)) == 0)
+testthat::expect_true(length(compact(les_erreurs)) == 0)
