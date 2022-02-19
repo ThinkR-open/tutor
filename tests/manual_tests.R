@@ -24,7 +24,7 @@ rmd_run <- function(
 }
 
 some_test <- rmd_run()
-some_test$res %>%
-  transpose() %>%
-  map(compact) %>%
-  pluck("error")
+les_erreurs <- some_test$res %>%
+  transpose() %>% pluck("error")
+
+expect_true(length(compact(les_erreurs)) == 0)
