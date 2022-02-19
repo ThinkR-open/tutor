@@ -67,8 +67,24 @@ tous_les_programmes <- function(lang = "fr") {
 launch_learn <- function(
   file = sample(tous_les_programmes(), 1),
   zoom = TRUE,
-  auto_kill_delay = 60 * 60 * 4
+  auto_kill_delay = 60 * 60 * 4,
+  light = TRUE
 ) {
+
+
+  if (light){
+    out <- .rs.tutorial.runTutorial(
+      file,
+      package = "tutor"
+    )
+   if (zoom){
+     rstudioapi::executeCommand("layoutZoomTutorial")
+   }
+    return(invisible(out))
+  }
+
+
+
   message(file)
 
   if (!is.null(tuto_env$running_tuto)) {
@@ -123,7 +139,7 @@ launch_learn <- function(
         "Information",
         "Veuillez patienter quelques instants le temps que l'exercice se charge dans l'onglet tutorial.
 
-            Une fois charg\u00e9 l'exercice se mettra en Plein \u00e9cran, Pour le quitter cliquez sur le bouton 'stop' qui va apparaitre en haut \u00e0 gauche.
+            Une fois charg\u00e9 l'exercice se mettra en Plein \u00e9cran, Pour le quitter cliquez sur le bouton rouge 'stop' qui va apparaitre en haut \u00e0 gauche.
 
             Vous pouvez cliquer des \u00e0 pr\u00e9sent sur OK
             "
@@ -133,7 +149,7 @@ launch_learn <- function(
         "Information",
         "Please wait a few moments for the exercise to load in the tutorial tab.
 
-            Once the exercise is loaded, it will be displayed in full screen mode. To exit the exercise, click on the 'stop' button that will appear on the top left.
+            Once the exercise is loaded, it will be displayed in full screen mode. To exit the exercise, click on the red 'stop' button that will appear on the top left.
 
             You can now click on OK
             "

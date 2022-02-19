@@ -33,7 +33,10 @@ Imports:
     gapminder,
     forcats,
     mgcv,
-    ggthemes
+    ggthemes,
+    tidyverse,
+    viridis,
+    prenoms
 Suggests: 
     rmarkdown,
     testthat (>= 3.0.0),
@@ -44,3 +47,4 @@ LazyData: true
 RoxygenNote: 7.1.2
 Remotes: 
     rstudio/learnr@b6f1d34518ee462e6d73aae9fe5bd832874c6267
+    thinkr-open/prenoms
