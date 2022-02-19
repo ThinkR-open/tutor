@@ -41,7 +41,7 @@ tutorial_options(exercise.timelimit = 20, exercise.checker = checker)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r include=FALSE}
+```{r bnames, include=FALSE}
 names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
 babynames <- babynames %>% filter(name %in% names_to_keep)
 # distinct(name) %>% sample_n(100)
