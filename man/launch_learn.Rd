@@ -7,7 +7,8 @@
 launch_learn(
   file = sample(tous_les_programmes(), 1),
   zoom = TRUE,
-  auto_kill_delay = 60 * 60 * 4
+  auto_kill_delay = 60 * 60 * 4,
+  light = TRUE
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ launch_learn(
 \item{zoom}{zoom on tutorial windows}
 
 \item{auto_kill_delay}{delay in secon to kill jobs}
+
+\item{light}{light mode, boolean. if TRUE it goes direct to the point}
 }
 \description{
 Launch learnr

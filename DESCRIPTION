@@ -16,14 +16,32 @@ Imports:
     purrr (>= 0.3.4),
     rstudioapi (>= 0.13),
     stringr (>= 1.4.0),
-    yaml (>= 2.2.2)
-Suggests: 
+    yaml (>= 2.2.2),
     rmarkdown,
-    testthat (>= 3.0.0),
-    tidyverse
+    fs,
+    hexbin,
+    curl,
+    dplyr,
+    babynames,
+    knitr,
+    nycflights13,
+    tibble,
+    ggrepel,
+    maps,
+    mapproj,
+    gapminder,
+    forcats,
+    mgcv,
+    ggthemes,
+    tidyverse,
+    viridis,
+    prenoms
+Suggests: 
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
 Remotes: 
-    rstudio/learnr@b6f1d34518ee462e6d73aae9fe5bd832874c6267
+    rstudio/learnr@b6f1d34518ee462e6d73aae9fe5bd832874c6267,
+    thinkr-open/prenoms
