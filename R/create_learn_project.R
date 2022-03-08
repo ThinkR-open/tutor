@@ -15,7 +15,7 @@ create_learn_project <- function(
 
  setHook('rstudio.sessionInit', function(newSession) {
    for ( i in 1:10){rstudioapi::documentClose()}
-    # rstudioapi::navigateToFile(file = 'explications.R')
+    rstudioapi::navigateToFile(file = 'explications.R')
     later::later(
        function(){rstudioapi::sendToConsole('tutor::*name*()', execute = TRUE)}
     ,3)
