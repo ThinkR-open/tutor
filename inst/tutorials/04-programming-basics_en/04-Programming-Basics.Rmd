@@ -144,7 +144,7 @@ question("Which arguments of R norm are optional?",
 
 ### rnorm() 1
 
-Use `rnrom()` to generate 100 random normal values with a mean of 100 and a standard deviation of 15.
+Use `rnrom()` to generate 100 random normal values with a mean of 100 and a standard deviation of 50.
 
 ```{r arguments-3, exercise = TRUE}
 
