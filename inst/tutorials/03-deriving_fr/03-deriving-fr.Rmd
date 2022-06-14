@@ -19,13 +19,12 @@ library(prenoms)
 
 prenoms <- left_join(prenoms %>% 
                         group_by(name, year, sex) %>%
-                        summarise(n = sum(n)) %>%
+                        summarise(n = sum(n), .groups = "drop") %>%
                         select(year, sex, name, n) %>%
-                        ungroup %>%
                         unite("year_sex", c(year, sex)),
                       prenoms %>% 
                         group_by(year, sex) %>%
-                        summarise(N = sum(n)) %>%
+                        summarise(N = sum(n), .groups = "drop") %>%
                         unite("year_sex", c(year, sex), remove = FALSE),
                       by = "year_sex") %>%
   mutate(prop = n / N) %>%
@@ -34,8 +33,7 @@ prenoms <- left_join(prenoms %>%
 
 tops <- prenoms %>% 
   group_by(name, sex) %>% 
-  summarise(total = sum(n)) %>% 
-  ungroup() %>% 
+  summarise(total = sum(n), .groups = "drop") %>% 
   top_n(10, total)
   
 top_10 <- prenoms %>% 
@@ -230,7 +228,7 @@ Au final, le programme pourrait regrouper tous les résultats dans un seul jeu d
 
 ## group_by()
 
-`group_by()` prend un jeu de données puis les noms d'une ou plusieurs colonnes de ce jeu de données. Il renvoie une copie du jeu de données qui a été "groupé" en ensembles de lignes qui partagent des combinaisons identiques de valeurs dans les colonnes spécifiées.
+`group_by()` prend un jeu de données puis les noms d'une ou plusieurs colonnes de ce jeu de données. Il renvoie une copie du jeu de données qui a été "groupé" en ensemble de lignes qui partagent des combinaisons identiques de valeurs dans les colonnes spécifiées.
 
 ### group_by() en action
 
@@ -245,7 +243,7 @@ prenoms %>%
 
 En soi, `group_by()` ne fait pas grand-chose. Il attribue des critères de regroupement qui sont stockés en tant que métadonnées à côté du jeu de données d' origine. Si votre jeu de données est un tibble, comme ci-dessus, R vous indiquera que les données sont regroupées en haut de l'affichage du tibble. Sur tous les autres aspects, les données sont identiques.
 
-Cependant, lorsque vous appliquez une fonction de {dplyr} comme `summarise()` aux données groupées, {dplyr} exécutera la fonction de manière groupée. Au lieu de calculer un seul résumé pour l'ensemble des données, {dplyr} calculera des résumés individuels pour chaque groupe, et les renverra sous la forme d'un seul jeu de données. Ce dernier possède autant de lignes que le nombre de modalité des variables qui servnet à grouper. Ce jeu de données contiendra les colonnes récapitulatives ainsi que les colonnes des critères de regroupement, ce qui rend le résultat déchiffrable :
+Cependant, lorsque vous appliquez une fonction de {dplyr} comme `summarise()` aux données groupées, {dplyr} exécutera la fonction de manière groupée. Au lieu de calculer un seul résumé pour l'ensemble des données, {dplyr} calculera des résumés individuels pour chaque groupe, et les renverra sous la forme d'un seul jeu de données. Ce dernier possède autant de lignes que le nombre de modalité des variables qui servent à grouper. Ce jeu de données contiendra les colonnes récapitulatives ainsi que les colonnes des critères de regroupement, ce qui rend le résultat déchiffrable :
 
 ```{r grouping-1, exercise = TRUE, exercise.eval = TRUE}
 prenoms %>%
@@ -284,11 +282,13 @@ prenoms %>%
 
 ### Dégrouper 3
 
-Si vous souhaitez supprimer manuellement les critères de regroupement d'un jeu de données, vous pouvez le faire avec `ungroup()`.
+Dans le `summarise()`, `.groups = "drop"` indique de ne pas conserver les groupes après le résumé ({dplyr} > 1.0).
+Si vous souhaitez supprimer manuellement les critères de regroupement d'un jeu de données après toute autre  fonction que `summarise()`, vous pouvez le faire avec `ungroup()`.
 
 ```{r grouping-3, echo = TRUE}
 prenoms %>%
   group_by(year, sex) %>% 
+  filter(n == max(n)) %>% 
   ungroup()
 ```
 
@@ -315,7 +315,7 @@ Dans le bloc de code ci-dessous, utilisez `group_by()`, `summarise()`, et `arran
 ```{r popular-1-solution}
 prenoms %>%
   group_by(name, sex) %>% 
-  summarise(total = sum(n)) %>% 
+  summarise(total = sum(n), .groups = "drop") %>% 
   arrange(desc(total))
 ```
 
@@ -378,7 +378,7 @@ Testez cette théorie dans le bloc ci-dessous. Utilisez `prenoms` et des résum�
 ```{r population-solution}
 prenoms %>% 
   group_by(year) %>% 
-  summarise(n = sum(n)) %>% 
+  summarise(n = sum(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = n) +
     geom_line()
@@ -508,7 +508,7 @@ prenoms %>%
   group_by(year, sex) %>% 
   mutate(rank = min_rank(desc(prop))) %>% 
   group_by(name, sex) %>% 
-  summarise(score = median(rank)) %>% 
+  summarise(score = median(rank), .groups = "drop") %>% 
   arrange(score)
 ```
 
@@ -619,7 +619,7 @@ Dans le bloc ci-dessous, calculez puis tracez le nombre de prénoms distincts ut
 ```{r diversity-1-solution}
 prenoms %>% 
   group_by(year, sex) %>% 
-  summarise(n_names = n_distinct(name)) %>% # or summarise(n_names = n())
+  summarise(n_names = n_distinct(name), .groups = "drop") %>% # or summarise(n_names = n(), .groups = "drop")
   ggplot() +
     aes(x = year, y = n_names, color = sex) +
     geom_line()
@@ -636,7 +636,7 @@ Faisons en sorte de ne pas biaiser notre analyse en fonction du nombre total de 
 ```{r diversity-2-solution}
 prenoms %>% 
   group_by(year, sex) %>% 
-  summarise(n = sum(n)) %>% 
+  summarise(n = sum(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = n, color = sex) +
     geom_line()
@@ -658,7 +658,7 @@ Dans le bloc ci-dessous, calculez et tracez le nombre moyen d'enfants par préno
 ```{r diversity-3-solution}
 prenoms %>% 
   group_by(year, sex) %>% 
-  summarise(per_name = mean(n)) %>% 
+  summarise(per_name = mean(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = per_name, color = sex) +
     geom_line()
