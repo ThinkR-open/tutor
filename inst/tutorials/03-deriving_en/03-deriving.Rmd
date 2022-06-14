@@ -16,8 +16,7 @@ library(babynames)
 
 tops <- babynames::babynames %>% 
   group_by(name, sex) %>% 
-  summarise(total = sum(n)) %>% 
-  ungroup() %>% 
+  summarise(total = sum(n), .groups = "drop") %>% 
   top_n(10, total)
   
 top_10 <- babynames::babynames %>% 
@@ -277,11 +276,13 @@ babynames %>%
 
 ### Ungrouping 3
 
-If you wish to manually remove the grouping criteria from a data set, you can do so with `ungroup()`.
+In the `summarise()`, `.groups = "drop"` indicates not to keep groups after summary ({dplyr} > 1.0).
+If you wish to manually remove the grouping criteria from a data set after any function other than `summarise()`, you can do so with `ungroup()`.
 
 ```{r grouping-3, echo = TRUE}
 babynames %>%
   group_by(year, sex) %>% 
+  filter(n == max(n)) %>% 
   ungroup()
 ```
 
@@ -310,7 +311,7 @@ In the code chunk below, use `group_by()`, `summarise()`, and `arrange()` to dis
 ```{r popular-1-solution}
 babynames %>%
   group_by(name, sex) %>% 
-  summarise(total = sum(n)) %>% 
+  summarise(total = sum(n), .groups = "drop") %>% 
   arrange(desc(total))
 ```
 
@@ -373,7 +374,7 @@ Test this theory in the chunk below. Use `babynames` and groupwise summaries to 
 ```{r population-solution}
 babynames %>% 
   group_by(year) %>% 
-  summarise(n = sum(n)) %>% 
+  summarise(n = sum(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = n) +
     geom_line()
@@ -501,7 +502,7 @@ babynames %>%
   group_by(year, sex) %>% 
   mutate(rank = min_rank(desc(prop))) %>% 
   group_by(name, sex) %>% 
-  summarise(score = median(rank)) %>% 
+  summarise(score = median(rank), .groups = "drop") %>% 
   arrange(score)
 ```
 
@@ -612,7 +613,7 @@ In the chunk below, calculate and then plot the number of distinct names used ea
 ```{r diversity-1-solution}
 babynames %>% 
   group_by(year, sex) %>% 
-  summarise(n_names = n_distinct(name)) %>% # or summarise(n_names = n())
+  summarise(n_names = n_distinct(name), .groups = "drop") %>% # or summarise(n_names = n(), .groups = "drop")
   ggplot() +
     aes(x = year, y = n_names, color = sex) +
     geom_line()
@@ -629,7 +630,7 @@ Let's make sure that we're not confounding our search with the total number of b
 ```{r diversity-2-solution}
 babynames %>% 
   group_by(year, sex) %>% 
-  summarise(n = sum(n)) %>% 
+  summarise(n = sum(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = n, color = sex) +
     geom_line()
@@ -651,7 +652,7 @@ In the chunk below, calculate and plot the average number of children per name b
 ```{r diversity-3-solution}
 babynames %>% 
   group_by(year, sex) %>% 
-  summarise(per_name = mean(n)) %>% 
+  summarise(per_name = mean(n), .groups = "drop") %>% 
   ggplot() +
     aes(x = year, y = per_name, color = sex) +
     geom_line()
