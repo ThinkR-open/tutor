@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/tutor)](https://CRAN.R-project.org/package=tutor)
-[![R-CMD-check](https://github.com/ThinkR-open/tutor/workflows/R-CMD-check/badge.svg)](https://github.com/ThinkR-open/tutor/actions)
+[![check-standard](https://github.com/ThinkR-open/tutor/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/ThinkR-open/tutor/actions/workflows/check-standard.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
