@@ -56,8 +56,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Bienvenue
 
+```{r, echo=FALSE}
+year_max <- prenoms %>% summarise(max(year)) %>% pull()
+```
 
-Dans cette étude de cas, vous allez identifier les prénoms les plus populaires de 1900 à 2018 En faisant cela, vous maîtriserez trois autres fonctions {dplyr} :
+
+Dans cette étude de cas, vous allez identifier les prénoms les plus populaires de 1900 à `r year_max`.
+
+En faisant cela, vous maîtriserez trois autres fonctions {dplyr} :
 
 * `mutate()`, `group_by()`, et `summarise()`, qui permettent d'utiliser vos données pour calculer de nouvelles variables et des statistiques récapitulatives
 
@@ -388,7 +394,7 @@ Deux creux sont observés sur le graphique : le nombre d'enfant nés en France m
 
 ### Popularité basée sur les rangs
 
-Le graphique ci-dessus suggère que notre première définition de la popularité est confondue avec la croissance de la population : les prénoms les plus populaires en 2018 représentent probablement beaucoup plus d'enfants que les prénoms les plus populaires en 1900. Le nombre total d'enfants auxquels on a donné un prénom peut toujours être la meilleure définition de popularité à utiliser, mais il sur-pondérera alors les prénoms qui ont été populaires ces dernières années.
+Le graphique ci-dessus suggère que notre première définition de la popularité est confondue avec la croissance de la population : les prénoms les plus populaires en `r year_max` représentent probablement beaucoup plus d'enfants que les prénoms les plus populaires en 1900. Le nombre total d'enfants auxquels on a donné un prénom peut toujours être la meilleure définition de popularité à utiliser, mais il sur-pondérera alors les prénoms qui ont été populaires ces dernières années.
 
 Il existe également des preuves que notre définition est confondue avec un effet du genre : seulement deux des dix premiers prénoms étaient ceux d'une fille (Jeanne et Marie).
 
