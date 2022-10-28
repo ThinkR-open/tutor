@@ -641,7 +641,10 @@ prenoms %>%
 
 ### Une meilleure façon de regarder les données
 
-Une meilleure façon d'explorer ce phénomène serait de tracer directement un ratio garçons/filles dans le temps. Pour construire un tel graphique, vous avez d'abord besoin de calculer le ratio garçons/filles pour chaque année de 1900 à 2018 :
+```{r, echo=FALSE}
+year_max <- prenoms %>% summarise(max(year)) %>% pull()
+```
+Une meilleure façon d'explorer ce phénomène serait de tracer directement un ratio garçons/filles dans le temps. Pour construire un tel graphique, vous avez d'abord besoin de calculer le ratio garçons/filles pour chaque année de 1900 à `r year_max` :
 
 $$\text{ratio} = \frac{\text{total garçons (M)}}{\text{total filles (F)}}$$
 

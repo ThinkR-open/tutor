@@ -386,7 +386,7 @@ arrange(prenoms, n, prop)
 
 Si vous préférez organiser les lignes dans l'ordre inverse, c'est-à-dire des valeurs _les plus grandes_ aux valeurs _les plus petites_, entourez un nom de colonne avec la fonction `desc()`. `arrange()` réordonnera les lignes des plus grandes valeurs aux plus petites.
 
-Ajoutez un `desc()` au code ci-dessous pour afficher le prénom le plus populaire pour 2018 (la plus grande année du jeu de données) au lieu de 1900 (la plus petite année du jeu de données).
+Ajoutez un `desc()` au code ci-dessous pour afficher le prénom le plus populaire pour la plus grande année du jeu de données au lieu de 1900 (la plus petite année du jeu de données).
 
 ```{r arrange-3, exercise = TRUE, exercise.eval = TRUE}
 arrange(prenoms, year, desc(prop))
@@ -443,7 +443,7 @@ boys_2018
 
 ### Redondance
 
-Le résultat nous montre les prénoms de garçons les plus populaires de 2018 qui est l'année la plus récente disponible dans le jeu de données. Mais jetez un œil au code. Remarquez-vous comment nous recréons `boys_2018` à chaque étape afin que nous ayons quelque chose à passer à l'étape suivante ? 
+Le résultat nous montre les prénoms de garçons les plus populaires de 2018. Mais jetez un œil au code. Remarquez-vous comment nous recréons `boys_2018` à chaque étape afin que nous ayons quelque chose à passer à l'étape suivante ? 
 
 Vous pouvez éviter de créer `boys_2018` à chaque fois. Pour cela, une première stratégie consiste à imbriquer vos fonctions les unes dans les autres. Cependant, cela crée du code difficile à lire :
 
