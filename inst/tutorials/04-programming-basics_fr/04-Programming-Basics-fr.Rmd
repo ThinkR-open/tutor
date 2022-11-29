@@ -560,14 +560,14 @@ En général, vous devez toujours utiliser des guillemets, sauf si vous écrivez
 
 ### Installer des packages
 
-Mais que faire si le package que vous souhaitez charger n'est pas installé sur votre ordinateur ? Comment installer le package `{dplyr}` sur votre propre ordinateur ?
+Mais que faire si le package que vous souhaitez charger n'est pas installé sur votre ordinateur ? Comment installer le package `{sudoku}` sur votre propre ordinateur ?
 
 ```{r packages3, exercise = TRUE}
 
 ```
 
 ```{r packages3-solution}
-# install.packages("dplyr")
+# install.packages("sudoku")
 ```
 
 ```{r packages3-check}
