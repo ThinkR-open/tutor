@@ -559,14 +559,14 @@ In general, you should always use quotes unless you are writing the _name_ of so
 
 ### Install packages
 
-But what if the package that you want to load is not installed on your computer? How would you install the dplyr package on your own computer?
+But what if the package that you want to load is not installed on your computer? How would you install the {sudoku} package on your own computer?
 
 ```{r packages3, exercise = TRUE}
 
 ```
 
 ```{r packages3-solution}
-# install.packages("dplyr")
+# install.packages("sudoku")
 ```
 
 ```{r packages3-check}
