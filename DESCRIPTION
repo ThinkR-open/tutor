@@ -43,5 +43,4 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.0
 Remotes: 
-    rstudio/learnr@b6f1d34518ee462e6d73aae9fe5bd832874c6267,
     thinkr-open/prenoms
