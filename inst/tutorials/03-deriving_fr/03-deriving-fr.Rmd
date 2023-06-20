@@ -88,9 +88,13 @@ Nous suggérons que nous nous concentrions sur deux définitions de _populaire_,
 1. **Sommes** - Un prénom est populaire _si le nombre total d'enfants qui le portent est important lorsque vous l'additionnez sur plusieurs années_.
 2. **Rangs** - Un prénom est populaire _s'il se classe régulièrement parmi les meilleurs prénoms d'une année à l'autre_.
 
-Revenons à notre question :
+Revenons à notre question : quels sont les prénoms les plus populaires de tous les temps ?
 
-Utilisons `prenoms` pour répondre à la question : quels sont les prénoms les plus populaires de tous les temps ?
+```{r, echo = TRUE}
+prenoms %>%
+  head()
+```
+
 
 ```{r q1}
 question(
@@ -134,10 +138,10 @@ Pour utiliser `summarise()`, passez-lui un jeu de données puis un ou plusieurs 
 
 ### Exemple
 
-Nous avons utilisé `summarise()` ci-dessus pour calculer le nombre total de garçons prénommés "Margot", mais complétons ce code pour calculer également :
+Nous avons utilisé `summarise()` ci-dessus pour calculer le nombre total de filles prénommés "Margot", mais complétons ce code pour calculer également :
 
-* `max` - le nombre maximum de garçons prénommés "Margot" en une seule année
-* `mean` - le nombre moyen de garçons prénommés "Margot" par an
+* `max` - le nombre maximum de filles prénommés "Margot" en une seule année
+* `mean` - le nombre moyen de filles prénommés "Margot" par an
 
 ```{r echo = TRUE}
 prenoms %>% 
