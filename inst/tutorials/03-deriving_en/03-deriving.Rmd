@@ -73,7 +73,12 @@ I suggest that we focus on two definitions of _popular_, one that uses sums and 
 1. **Sums** - A name is popular _if the total number of children that have the name is large when you sum across years_.
 2. **Ranks** - A name is popular _if it consistently ranks among the top names from year to year_.
 
-This raises a question:
+Let's go back to our question : what are the most popular names of all time?
+
+```{r, echo = TRUE}
+babynames %>%
+  head()
+```
 
 ```{r q1}
 question(
