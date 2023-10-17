@@ -158,15 +158,15 @@ table1
 Pour voir pourquoi les tidy data sont plus faciles à utiliser, focalisons-nous sur une tâche de base. Chaque bloc de code ci-dessous extrait les valeurs de la variable `cases` sous la forme d'un vecteur et calcule la moyenne de la variable. On utilise une table bien ordonnée, `table1` :
 
 ```{r echo = TRUE}
-table1 %>% 
+table1 |> 
   summarise(moyenne = mean(cases))
 ```
 
 L'autre utilise une table désordonnée, `table2`:
 
 ```{r echo = TRUE}
-table2 %>%
-  slice(c(1, 3, 5, 7, 9, 11)) %>%
+table2 |>
+  slice(c(1, 3, 5, 7, 9, 11)) |>
   summarise(moyenne = mean(count))
 ```
 
@@ -179,26 +179,26 @@ Non seulement le code de `table1` est plus facile à écrire, mais il est plus f
 D'abord avec `table1` :
 
 ```{r ex4, exercise = TRUE}
-table1 %>% 
+table1 |> 
   summarise(moyenne = mean(cases))
 ```
 
 ```{r ex4-solution}
-table1 %>% 
+table1 |> 
   summarise(moyenne = mean(population))
 ```
 
 Puis avec `table2` :
 
 ```{r ex5, exercise = TRUE}
-table2 %>%
-  slice(c(1, 3, 5, 7, 9, 11)) %>%
+table2 |>
+  slice(c(1, 3, 5, 7, 9, 11)) |>
   summarise(moyenne = mean(count))
 ```
 
 ```{r ex5-solution}
-table2 %>%
-  slice(c(2, 4, 6, 8, 10, 12)) %>%
+table2 |>
+  slice(c(2, 4, 6, 8, 10, 12)) |>
   summarise(moyenne = mean(count))
 ```
 
@@ -213,7 +213,7 @@ Supposons que vous souhaitiez calculer les ratios `cases`/`population` pour chaq
 Une fois de plus, c'est plus compliqué à faire avec la table désordonnée `table2`:
 
 ```{r echo = TRUE}
-table2 %>% slice(c(1, 3, 5, 7, 9, 11)) %>% select(count) / table2 %>% slice(c(2, 4, 6, 8, 10, 12)) %>% select(count)
+table2 |> slice(c(1, 3, 5, 7, 9, 11)) |> select(count) / table2 |> slice(c(2, 4, 6, 8, 10, 12)) |> select(count)
 ```
 
 Alors que c'est beaucoup plus simple avec `table1`. Regardez par vous-même :
@@ -223,7 +223,7 @@ Alors que c'est beaucoup plus simple avec `table1`. Regardez par vous-même :
 ```
 
 ```{r ex6-solution}
-table1 %>% select(cases) / table1 %>% select(population)
+table1 |> select(cases) / table1 |> select(population)
 ```
 
 Ces petites différences peuvent sembler minimes ; mais lorsqu'elles s'additionnent tout au long du processus d'analyse de données, elles permettent de gagner du temps et d'éviter des erreurs.
@@ -299,7 +299,7 @@ question("Quelles sont les variables dans cases?",
 Vous pouvez utiliser la fonction `pivot_longer()` du package **{tidyr}** pour convertir des données larges en données longues. Attention, notez que `pivot_longer()` renvoie une copie ordonnée du jeu de données, mais ne modifie pas le jeu de données d'origine. Si vous souhaitez utiliser cette copie ultérieurement, vous devrez la sauvegarder quelque part en utilisant `<-`.
 
 ```{r echo = TRUE}
-cases %>%
+cases |>
   pivot_longer(cols = c(2, 3, 4), names_to = "year", values_to = "n")
 ```
 
@@ -307,7 +307,7 @@ Regardons d'un peu plus près la syntaxe de `pivot_longer()`.
 
 ### Syntaxe de pivot_longer()
 
-Voici le même code écrit sans l'opérateur pipe (%>%), ce qui rend la compréhension du bloc de code un peu plus ardue.
+Voici le même code écrit sans l'opérateur pipe (|>), ce qui rend la compréhension du bloc de code un peu plus ardue.
 
 ```{r echo = TRUE, eval = FALSE}
 pivot_longer(cases, cols = c(2, 3, 4), names_to = "year", values_to = "n")
@@ -331,14 +331,14 @@ table4a
 Le résultat devrait contenir trois colonnes : `country`, `year`, et `cases`. Commencez par modifier le code ci-dessous.
 
 ```{r ex7, exercise = TRUE}
-cases %>%
+cases |>
   pivot_longer(cols = c(2, 3, 4), 
                names_to = "year", 
                values_to = "n")
 ```
 
 ```{r ex7-solution}
-table4a %>%
+table4a |>
   pivot_longer(cols = c(2, 3), 
                names_to = "year", 
                values_to = "cases")
@@ -353,22 +353,22 @@ table4a %>%
 Jusqu'à présent, nous avons utilisé des nombres pour décrire les colonnes à restructurer avec `pivot_longer()`, mais ce n'est pas nécessaire. `pivot_longer()` reconnaît également les noms de colonnes ainsi que tous les outils `select()` dont vous avez entendu parler dans [Isoler les données avec {dplyr}](). Ainsi, par exemple, ces expressions feraient toutes la même chose :
 
 ```{r echo = TRUE, eval = FALSE}
-table4a %>%
+table4a |>
   pivot_longer(cols = c(2, 3), 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = c(`1999`, `2000`), 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = one_of(c("1999", "2000")), 
                names_to = "year", 
                values_to = "cases")
@@ -389,7 +389,7 @@ table4b
 ```
 
 ```{r ex8-solution}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
@@ -406,14 +406,14 @@ Si vous avez examiné de près vos résultats des exercices précédents, vous a
 Vous pouvez demander à R de convertir chaque nouvelle colonne en un type de données approprié en utilisant l'argument `names_transform` à l'appel `pivot_longer()`. Cet argument doit être renseigné sous la forme `names_transform = list(year = as.integer)`. R transformera le contenu de la colonne `year` en entiers (integer). Essayez-le dans le code ci-dessus !
 
 ```{r ex9, exercise = TRUE}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
 ```
 
 ```{r ex9-solution}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population", 
@@ -444,7 +444,7 @@ Pour ordonner ces données, vous souhaitez conserver les trois premières colonn
 ```
 
 ```{r ex10-solution}
-cases2 %>% 
+cases2 |> 
   pivot_longer(cols = c(4, 5, 6), 
                names_to = "year", 
                values_to = "cases")
@@ -500,10 +500,10 @@ question("Quelle colonne du jeu de données pollution contient les valeurs assoc
 
 ### pivot_wider()
 
-Vous pouvez "étendre" les noms des variables sur leur propre ensemble de colonnes avec la fonction `pivot_wider()` du package **{tidyr}**. Pour utiliser `pivot_wider()`, passez-lui le nom d'un ensemble de données à étendre (fourni ici par le pipe `%>%`). Indiquez ensuite à `pivot_wider()` quelle colonne contient les noms des variables et quelle colonne contient les valeurs associées à ces variables.
+Vous pouvez "étendre" les noms des variables sur leur propre ensemble de colonnes avec la fonction `pivot_wider()` du package **{tidyr}**. Pour utiliser `pivot_wider()`, passez-lui le nom d'un ensemble de données à étendre (fourni ici par le pipe `|>`). Indiquez ensuite à `pivot_wider()` quelle colonne contient les noms des variables et quelle colonne contient les valeurs associées à ces variables.
 
 ```{r echo = TRUE}
-pollution %>% 
+pollution |> 
   pivot_wider(names_from = size, 
               values_from = amount)
 ```
@@ -524,7 +524,7 @@ table2
 ```
 
 ```{r ex11-solution}
-table2 %>% 
+table2 |> 
   pivot_wider(names_from = type, 
               values_from = count)
 ```
@@ -539,12 +539,12 @@ table2 %>%
 Vous remarquerez peut-être que `pivot_longer()` et `pivot_wider()` prennent tous les deux des arguments `names_` et `values_`. Et, dans cas cas-là, les arguments sont définis sur des noms de colonnes. Mais dans `pivot_longer()` vous devez entourer les noms avec des guillemets et dans le cas de `pivot_wider()` vous ne le faites pas. Pourquoi ?
 
 ```{r echo = TRUE, eval = FALSE}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
 
-pollution %>% 
+pollution |> 
   pivot_wider(names_from = size, 
               values_from = amount)
 ```
@@ -568,9 +568,9 @@ En pratique, l'utilisation ou non de guillemets dépendra de la façon dont l'au
 Appliquons `pivot_wider()` à des données réelles. Le graphique ci-dessous visualise un aspect du jeu de données `prenoms` du package **prenoms**.
 
 ```{r out.width = "80%"}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(n = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(n = sum(n)) |> 
   ggplot() +
     aes(year, n, color = sex) +
     geom_line()
@@ -581,9 +581,9 @@ Le ratio filles/garçons dans `prenoms` n'est pas le même en fonction du temps.
 ### Créer les données
 
 ```{r out.width = "80%"}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(year, total, color = sex) +
     geom_line()
@@ -598,8 +598,8 @@ Utilisez les fonctions de {dplyr} pour récréer ce processus :
 ```
 
 ```{r ex12-solution}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -610,9 +610,9 @@ prenoms %>%
 ### Construire le graphique
 
 ```{r out.width = "80%"}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(year, total, color = sex) +
     geom_line()
@@ -621,15 +621,15 @@ prenoms %>%
 Utilisez les données ci-dessous pour construire le graphique (qui a été créé avec les fonctions {ggplot2}).
 
 ```{r ex13, exercise = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
 ```{r ex13-solution}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(year, n, color = sex)+
     geom_line()
@@ -642,7 +642,7 @@ prenoms %>%
 ### Une meilleure façon de regarder les données
 
 ```{r, echo=FALSE}
-year_max <- prenoms %>% summarise(max(year)) %>% pull()
+year_max <- prenoms |> summarise(max(year)) |> pull()
 ```
 Une meilleure façon d'explorer ce phénomène serait de tracer directement un ratio garçons/filles dans le temps. Pour construire un tel graphique, vous avez d'abord besoin de calculer le ratio garçons/filles pour chaque année de 1900 à `r year_max` :
 
@@ -651,8 +651,8 @@ $$\text{ratio} = \frac{\text{total garçons (M)}}{\text{total filles (F)}}$$
 Mais comment pouvons-nous tracer ces données ? Notre version actuelle de `prenoms` indique le nombre total de garçons et de filles pour chaque année dans la même colonne, ce qui rend difficile l'utilisation des deux totaux dans le même calcul.
 
 ```{r echo = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -661,9 +661,9 @@ prenoms %>%
 Il serait plus facile de calculer le ratio garçons/filles si nous pouvions restructurer nos données dans l'objectif d'avoir le nombre total de garçons nés par an dans une colonne et le nombre total de filles nées par an dans une autre :
 
 ```{r}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   pivot_wider(names_from = sex, 
               values_from = total)
 ```
@@ -681,17 +681,17 @@ Transformer le code ci-dessous pour :
 3. Afficher sur le graphique le ratio garçons/filles au cours du temps.
 
 ```{r ex14, exercise = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
 ```{r ex14-solution}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>%
-  pivot_wider(names_from = sex, values_from = total) %>%
-  mutate(ratio = M / F) %>%
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |>
+  pivot_wider(names_from = sex, values_from = total) |>
+  mutate(ratio = M / F) |>
   ggplot() + 
     aes(year, ratio) +
     geom_line()

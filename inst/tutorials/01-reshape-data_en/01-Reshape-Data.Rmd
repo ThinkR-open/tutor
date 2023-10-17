@@ -52,9 +52,9 @@ pollution <- tribble(
 ```
 
 ```{r include=FALSE}
-names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
-babynames <- babynames %>% filter(name %in% names_to_keep)
-# distinct(name) %>% sample_n(100)
+names_to_keep <- babynames |> group_by(year) |> top_n(50,prop) |> pull(name) |> unique() |> append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
+babynames <- babynames |> filter(name %in% names_to_keep)
+# distinct(name) |> sample_n(100)
 ```
 
 
@@ -170,15 +170,15 @@ table1
 To see why tidy data is easier to use, consider a basic task. Each code chunk below extracts the values of the `cases` variable as a vector and computes the mean of the variable. One uses a tidy table, `table1`:
 
 ```{r echo = TRUE}
-table1 %>% 
+table1 |> 
   summarise(mean_cases = mean(cases))
 ```
 
 The other uses an untidy table, `table2`:
 
 ```{r echo = TRUE}
-table2 %>%
-  slice(c(1, 3, 5, 7, 9, 11)) %>%
+table2 |>
+  slice(c(1, 3, 5, 7, 9, 11)) |>
   summarise(mean_count = mean(count))
 ```
 
@@ -191,26 +191,26 @@ Not only is the code for `table1` easier to write, it is easier to reuse. To see
 First with `table1`:
 
 ```{r ex4, exercise = TRUE}
-table1 %>% 
+table1 |> 
   summarise(mean_cases = mean(cases))
 ```
 
 ```{r ex4-solution}
-table1 %>% 
+table1 |> 
   summarise(mean_population = mean(population))
 ```
 
 Then with `table2`:
 
 ```{r ex5, exercise = TRUE}
-table2 %>%
-  slice(c(1, 3, 5, 7, 9, 11)) %>%
+table2 |>
+  slice(c(1, 3, 5, 7, 9, 11)) |>
   summarise(mean_count = mean(count))
 ```
 
 ```{r ex5-solution}
-table2 %>%
-  slice(c(2, 4, 6, 8, 10, 12)) %>%
+table2 |>
+  slice(c(2, 4, 6, 8, 10, 12)) |>
   summarise(mean_count = mean(count))
 ```
 
@@ -225,7 +225,7 @@ Suppose you would like to compute the ratios of `cases` to `population` for each
 Again, this is hard to do with untidy `table2`:
 
 ```{r echo = TRUE}
-table2 %>% slice(c(1, 3, 5, 7, 9, 11)) %>% select(count) / table2 %>% slice(c(2, 4, 6, 8, 10, 12)) %>% select(count)
+table2 |> slice(c(1, 3, 5, 7, 9, 11)) |> select(count) / table2 |> slice(c(2, 4, 6, 8, 10, 12)) |> select(count)
 ```
 
 But it is easy to do with tidy `table1`. Give it a try below:
@@ -235,7 +235,7 @@ But it is easy to do with tidy `table1`. Give it a try below:
 ```
 
 ```{r ex6-solution}
-table1 %>% select(cases) / table1 %>% select(population)
+table1 |> select(cases) / table1 |> select(population)
 ```
 
 These small differences may seem petty, but they add up over the course of a data analysis, stealing time and inviting mistakes.
@@ -311,7 +311,7 @@ question("What are the variables in cases?",
 You can use the `pivot_longer()` function in the **{tidyr}** package to convert wide data to long data. Notice that `pivot_longer()` returns a tidy copy of the dataset, but does not alter the original dataset. If you wish to use this copy later, you'll need to save it somewhere.
 
 ```{r echo = TRUE}
-cases %>%
+cases |>
   pivot_longer(cols = c(2, 3, 4), 
                names_to = "year", 
                values_to = "n")
@@ -349,14 +349,14 @@ table4a
 The result should contain three columns: `country`, `year`, and `cases`. Start by modifying the code below.
 
 ```{r ex7, exercise = TRUE}
-cases %>%
+cases |>
   pivot_longer(cols = c(2, 3, 4), 
                names_to = "year", 
                values_to = "n")
 ```
 
 ```{r ex7-solution}
-table4a %>%
+table4a |>
   pivot_longer(cols = c(2, 3), 
                names_to = "year", 
                values_to = "cases")
@@ -371,22 +371,22 @@ table4a %>%
 So far we've used numbers to describe which columns to reshape with `pivot_longer()`, but this isn't necessary. `pivot_longer()` also recognizes column names as well as all of the `select()` helpers that you learned about in [Isolating Data with dplyr](). So for example, these expressions would all do the same thing:
 
 ```{r echo = TRUE, eval = FALSE}
-table4a %>%
+table4a |>
   pivot_longer(cols = c(2, 3), 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = c(`1999`, `2000`), 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "cases")
 
-table4a %>%
+table4a |>
   pivot_longer(cols = one_of(c("1999", "2000")), 
                names_to = "year", 
                values_to = "cases")
@@ -407,7 +407,7 @@ table4b
 ```
 
 ```{r ex8-solution}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
@@ -424,14 +424,14 @@ If you looked closely at your results in the previous exercises, you may have no
 You can ask R to convert each new column to an appropriate data type by using the `names_transform` argument to the `pivot_longer()` call. This argument must be set to `names_transform = list(year = as.integer)`. R will transform the contents of the `year` column into integers. Try it in the code above!
 
 ```{r ex9, exercise = TRUE}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
 ```
 
 ```{r ex9-solution}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population", 
@@ -462,7 +462,7 @@ To tidy this data, you would want to keep the first three columns as they are. C
 ```
 
 ```{r ex10-solution}
-cases2 %>% 
+cases2 |> 
   pivot_longer(cols = c(4, 5, 6), 
                names_to = "year", 
                values_to = "cases")
@@ -518,10 +518,10 @@ question("Which column in pollution contains the values associated with the key 
 
 ### pivot_wider()
 
-You can "expand" the variable names on their own set of columns with the `pivot_wider()` function in the **{tidyr}** package. To use `pivot_wider()`, pass it the name of a a data set to spread (provided here by the `%>%` pipe). Then tell `pivot_wider()` which column contains the variable names and which column contains the values associated with those variables.
+You can "expand" the variable names on their own set of columns with the `pivot_wider()` function in the **{tidyr}** package. To use `pivot_wider()`, pass it the name of a a data set to spread (provided here by the `|>` pipe). Then tell `pivot_wider()` which column contains the variable names and which column contains the values associated with those variables.
 
 ```{r echo = TRUE}
-pollution %>% 
+pollution |> 
   pivot_wider(names_from = size, 
               values_from = amount)
 ```
@@ -542,7 +542,7 @@ table2
 ```
 
 ```{r ex11-solution}
-table2 %>% 
+table2 |> 
   pivot_wider(names_from = type, 
               values_from = count)
 ```
@@ -557,12 +557,12 @@ table2 %>%
 You may notice that both `pivot_longer()` and `pivot_wider()` take `names_` et `values_`. And, in each case the arguments are set to column names. But in the `pivot_longer()` you must surround the names with quotes and in the `pivot_wider()` case you do not. Why is this?
 
 ```{r echo = TRUE, eval = FALSE}
-table4b %>% 
+table4b |> 
   pivot_longer(cols = -country, 
                names_to = "year", 
                values_to = "population")
 
-pollution %>% 
+pollution |> 
   pivot_wider(names_from = size, 
               values_from = amount)
 ```
@@ -585,9 +585,9 @@ In practice, whether or not you need to use quotation marks will depend on how t
 Let's apply `pivot_wider()` to a real world inquiry. The plot below visualizes an aspect of the `babynames` data set from the **babynames** package. (See [Work with Data]() for an introduction to the babynames data set.)
 
 ```{r out.width = "80%"}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(n = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(n = sum(n)) |> 
   ggplot() +
     aes(x = year, y = n, color = sex) +
     geom_line()
@@ -598,9 +598,9 @@ The ratio of girls to boys in `babynames` is not constant across time. We can ex
 ### Review - Make the data
 
 ```{r out.width = "80%"}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(x = year, y = total, color = sex) +
     geom_line()
@@ -615,8 +615,8 @@ Use {dplyr} functions to recreate this process in the chunk below.
 ```
 
 ```{r ex12-solution}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -627,9 +627,9 @@ babynames %>%
 ### Review - Make the plot
 
 ```{r out.width = "80%"}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(x = year, y = total, color = sex) +
     geom_line()
@@ -638,15 +638,15 @@ babynames %>%
 Use the data below to make the plot above, which was built with {ggplot2} functions.
 
 ```{r ex13, exercise = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
 ```{r ex13-solution}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   ggplot() +
     aes(x = year, y = total, color = sex) +
     geom_line()
@@ -665,8 +665,8 @@ $$\text{ratio male} = \frac{\text{total male}}{\text{total female}}$$
 But how can we plot this data? Our current iteration of `babynames` places the total number of boys and girls for each year in the same column, which makes it hard to use both totals in the same calculation.
 
 ```{r echo = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -675,9 +675,9 @@ babynames %>%
 It would be easier to calculate the ratio of boys to girls if we could reshape our data to place the total number of boys born per year in one column and the total number of girls born per year in another:
 
 ```{r}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   pivot_wider(names_from = sex, 
               values_from = total)
 ```
@@ -693,18 +693,18 @@ Add to the code below to:
 3. Plot the ratio of boys to girls over time.
 
 ```{r ex14, exercise = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
 ```{r ex14-solution}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>%
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |>
   pivot_wider(names_from = sex, 
-              values_from = total) %>%
-  mutate(ratio = M / F) %>%
+              values_from = total) |>
+  mutate(ratio = M / F) |>
   ggplot() + 
     aes(x = year, y = ratio) +
     geom_line()
@@ -719,12 +719,12 @@ babynames %>%
 Our results reveal a conspicuous oddity, that is easier to interpret if we turn the ratio into a percentage.
 
 ```{r out.width = "80%"}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>%
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |>
   pivot_wider(names_from = sex, 
-              values_from = total) %>%
-  mutate(percent_male = M / (M + F) * 100, ratio = M / F) %>%
+              values_from = total) |>
+  mutate(percent_male = M / (M + F) * 100, ratio = M / F) |>
   ggplot(aes(year, percent_male)) + geom_line()
 ```
 

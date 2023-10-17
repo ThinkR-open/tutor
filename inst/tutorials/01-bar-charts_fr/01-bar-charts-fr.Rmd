@@ -54,7 +54,7 @@ Ne renseignez pas de $y$ dans la fonction `aes` lorsque vous utilisez `geom_bar(
 Vous pouvez calculer cette information manuellement avec la fonction `count()` du package dplyr.
 
 ```{r}
-diamonds %>% 
+diamonds |> 
   count(cut)
 ```
 
@@ -145,8 +145,8 @@ Recréez un diagramme en barres avec la variable `color` de l’exercice précé
 ```
 
 ```{r r4-solution}
-diamonds %>% 
-  count(color) %>% 
+diamonds |> 
+  count(color) |> 
   ggplot() +  
   aes(x = color, y = n) + 
   geom_col()

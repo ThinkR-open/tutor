@@ -17,15 +17,15 @@ library(gapminder)
 library(forcats)
 
 asia <- 
-  gapminder %>% 
-  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) %>% 
+  gapminder |> 
+  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) |> 
   mutate(country = fct_recode(country, "North Korea" = "Korea, Dem. Rep.", "South Korea" = "Korea, Rep."))
 
 tx <- map_data("state", region = "texas")
 us <- map_data("state")
 
-USArrests2 <- USArrests %>% 
-  rownames_to_column("region") %>% 
+USArrests2 <- USArrests |> 
+  rownames_to_column("region") |> 
   mutate(region = tolower(region))
 
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
@@ -61,7 +61,7 @@ Like scatterplots, line graphs display the relationship between two continuous v
 For example, in the plot below, there is only one value of `unemploy` for each value of date. 
 
 ```{r echo = FALSE, out.width = "80%"}
-economics %>% 
+economics |> 
   ggplot() +
     aes(x = date, y = unemploy) +
     geom_line()
@@ -317,7 +317,7 @@ It starts with the observation in row one of the data and connects it to the obs
 To see how `geom_path()` does this, let's rearrange the rows in the `economics` dataset. We can reorder them by `unemploy` value. Now the data set will begin with the observation that had the lowest value of `unemploy`.
 
 ```{r}
-economics2 <- economics %>% 
+economics2 <- economics |> 
   arrange(unemploy)
 economics2
 ```
@@ -384,7 +384,7 @@ What do you think went wrong in the plot of Texas below?
 set.seed(100)
 rows <- c(rep(c(1:10), 100) + rep(sample(0:99 * 10), each = 10), 1001:1088)
 
-tx[rows, ] %>% 
+tx[rows, ] |> 
   ggplot() +
     aes(x = long, y = lat) +
     geom_polygon()
@@ -506,8 +506,8 @@ To use `geom_map()`, we first need to ensure that a common set of region names a
 At the moment, this isn't the case. `USArrests` uses capitalized state names and hides them outside of the dataset in the row names (instead of in a column). In contrast, `us` uses a column of lower case state names. The code below fixes this.
 
 ```{r}
-USArrests2 <- USArrests %>% 
-  rownames_to_column("region") %>% 
+USArrests2 <- USArrests |> 
+  rownames_to_column("region") |> 
   mutate(region = tolower(region))
 
 USArrests2

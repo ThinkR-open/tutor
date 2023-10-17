@@ -53,7 +53,7 @@ You should not supply a $y$ aesthetic when you use `geom_bar()`; ggplot2 will co
 You can compute this information manually with the `count()` function from the dplyr package.
 
 ```{r}
-diamonds %>% 
+diamonds |> 
   count(cut)
 ```
 
@@ -144,8 +144,8 @@ Recreate the bar graph of `color` from exercise one, but this time first use `co
 ```
 
 ```{r r4-solution}
-diamonds %>% 
-  count(color) %>% 
+diamonds |> 
+  count(color) |> 
   ggplot() +  
     aes(x = color, y = n) + 
     geom_col()

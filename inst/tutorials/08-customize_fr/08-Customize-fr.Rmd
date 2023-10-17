@@ -111,8 +111,8 @@ p
 Notre graphique montre quelque chose de surprenant : lorsque vous regroupez les diamants par taille, les diamants les plus mal taillés ont le prix médian le plus élevé. C'est un peu difficile à voir dans le graphique, mais vous pouvez le vérifier par une manipulation des données.
 
 ```{r}
-diamonds %>% 
-  group_by(cut) %>% 
+diamonds |> 
+  group_by(cut) |> 
   summarise(median = median(price))
 ```
 

@@ -90,7 +90,7 @@ Vous afficherez presque toujours ces variables ensemble pour faire une date, car
 Cependant, il y a des moments où il est commode de traiter chaque élément d'une date séparément. Par exemple, que se passe-t-il si vous souhaitez filtrer les ouragans uniquement pour les tempêtes qui se sont produites en juin (c'est-à-dire ``month == 6`) ? Il serait alors pratique de réorganiser les données pour ressembler à ceci :
 
 ```{r}
-hurricanes %>% 
+hurricanes |> 
   separate(date, c("year","month","day"), sep = "-", convert = TRUE)
 ```
 
@@ -103,7 +103,7 @@ Vous pouvez séparer les éléments de `date` avec la fonction `separate()`. `se
 Exécutez le code ci-dessous pour voir `separate()` en action. Cliquez ensuite sur "Continue" pour en savoir plus sur la syntaxe.
 
 ```{r ex1, exercise = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year","month","day"), sep = "-")
 ```
 
@@ -113,7 +113,7 @@ hurricanes %>%
 
 ### Syntaxe
 
-Réécrivons notre commande ci-dessus sans le pipe (%>%). Cela permettra de décrypter plus facilement la syntaxe de `separate()`.
+Réécrivons notre commande ci-dessus sans le pipe (|>). Cela permettra de décrypter plus facilement la syntaxe de `separate()`.
 
 ```{r echo = TRUE, eval = FALSE}
 separate(data = hurricanes, 
@@ -133,7 +133,7 @@ La séparation selon le symbole `-` divisera chaque date en trois dates : une an
 Par défaut, `separate()` séparera les valeurs à l'emplacement de _chaque_ caractère non alphanumérique, comme `-`, `,`,`/ `, etc. Ainsi, nous aurions pu exécuter notre code précédent sans l'argument `sep = "-"` et obtenir le même résultat. Lancer le code ci-dessous pour voir si c'est bien le cas.
 
 ```{r ex2, exercise = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year","month","day"))
 ```
 
@@ -152,19 +152,19 @@ Si vous définissez `sep` égal à un (ou des) entier(s), `separate()` séparera
 Vous pensez avoir compris ce fonctionnement ? Alors créez cette version de `hurricanes` en ajoutant un deuxième appel à `separate()` qui utilise un séparateur entier :
 
 ```{r}
-hurricanes %>% 
-  separate(col = date, into = c("year","month","day")) %>% 
+hurricanes |> 
+  separate(col = date, into = c("year","month","day")) |> 
   separate(col = year, into = c("century", "year"), sep = 2)
 ```
 
 ```{r ex3, exercise = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year","month","day"))
 ```
 
 ```{r ex3-solution}
-hurricanes %>% 
-  separate(col = date, into = c("year","month","day")) %>% 
+hurricanes |> 
+  separate(col = date, into = c("year","month","day")) |> 
   separate(col = year, into = c("century", "year"), sep = 2)
 ```
 
@@ -177,7 +177,7 @@ hurricanes %>%
 Ces deux commandes renverraient-elles le même résultat ? Selon vous, pourquoi ? Une fois que vous pensez avoir la réponse, exécutez le code ci-dessous pour voir si vous aviez raison.
 
 ```{r ex4, exercise = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = pressure, into = c("first", "last"), sep = 1)
 ```
 
@@ -187,7 +187,7 @@ hurricanes %>%
 
 
 ```{r ex5, exercise = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = pressure, into = c("first", "last"), sep = "1")
 ```
 
@@ -204,12 +204,12 @@ Vous pouvez demander à `separate()` de convertir les nouvelles colonnes en un t
 Identifiez les types de données de `year`, `month`, et `day`. Ils apparaissent sous les noms de colonnes lorsque vous affichez le jeu de données (comme dans la sortie ci-dessous). Ajoutez ensuite `convert = TRUE` et ré-exécutez le code. Quels changements  observez-vous ?
 
 ```{r ex6, exercise = TRUE, exercise.eval = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year", "month", "day"))
 ```
 
 ```{r ex6-solution}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year", "month", "day"), convert = TRUE)
 ```
 
@@ -222,7 +222,7 @@ hurricanes %>%
 Jetons maintenant un coup d’œil à un dernier argument de `separate()`. Si vous ajoutez `remove = FALSE` à votre appel `separate()`, R conservera la colonne d'origine dans les résultats.
 
 ```{r echo = TRUE}
-hurricanes %>% 
+hurricanes |> 
   separate(col = date, into = c("year", "month", "day"), convert = TRUE, remove = FALSE)
 ```
 
@@ -233,16 +233,16 @@ hurricanes %>%
 Vous pouvez faire l'inverse de `separate()` avec `unite()`. `unite()` utilise plusieurs colonnes en entrée pour créer une seule colonne en sortie. Cette fonction construit cette colonne en collant ensemble les cellules des colonnes d'origine avec un séparateur.
 
 ```{r ex7, exercise = TRUE, exercise.eval = TRUE}
-hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
+hurricanes |>
+  separate(date, c("year", "month", "day"), sep = "-") |>
   unite(col = "date", month, day, year, sep = ":")
 ```
 
 ### Syntaxe
 
 ```{r echo = TRUE, eval = FALSE}
-hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
+hurricanes |>
+  separate(date, c("year", "month", "day"), sep = "-") |>
   unite(col = "date", month, day, year, sep = ":")
 ```
 
@@ -262,8 +262,8 @@ Utilisez `separate()` et `unite()` pour ré-écrire les dates de `hurricanes` av
 ```
 
 ```{r ex8-solution}
-hurricanes %>%
-  separate(date, c("year", "month", "day"), sep = "-") %>%
+hurricanes |>
+  separate(date, c("year", "month", "day"), sep = "-") |>
   unite(col = "date", month, day, year, sep = "/")
 ```
 
@@ -284,9 +284,9 @@ Utilisez le bloc ci-dessous pour :
 ```
 
 ```{r ex9-solution}
-hurricanes %>%
-  separate(col = date, c("century", "rest"), sep = 2) %>%
-  filter(century == 19) %>% 
+hurricanes |>
+  separate(col = date, c("century", "rest"), sep = 2) |>
+  filter(century == 19) |> 
   unite(col = "date", century, rest, sep = "")
 ```
 
@@ -336,18 +336,18 @@ knitr::include_graphics("www/images/codes.png")
 Pour que `who` soit plus facile à utiliser dans R, nous devons l'agencer dans le format ci-dessous. Ce jeu de données contient six variables non redondantes : _country_, _year_, _type_, _sex_, _age (group)_, et _n_ (le nombre de cas de tuberculose signalés pour chaque groupe).
 
 ```{r}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>%
-  separate(codes, c("new", "type", "sexage"), sep = "_") %>%
-  select(-new) %>%
-  separate(sexage, c("sex", "age"), sep = 1) %>%
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |>
+  separate(codes, c("new", "type", "sexage"), sep = "_") |>
+  select(-new) |>
+  separate(sexage, c("sex", "age"), sep = 1) |>
   drop_na(n)
 ```
 
 ### Échauffement
 
-Il faudra un certain nombre d'opérations pour ordonner le jeu de données `who`. Lorsque vous regardez le résultat final, la tâche peut sembler longue et difficile, mais chaque opération individuelle sera assez concise (et vous y êtes déjà familier). Nous utiliserons un chaînage d'opérations avec le pipe `%>%` pour enchaîner ces opérations.
+Il faudra un certain nombre d'opérations pour ordonner le jeu de données `who`. Lorsque vous regardez le résultat final, la tâche peut sembler longue et difficile, mais chaque opération individuelle sera assez concise (et vous y êtes déjà familier). Nous utiliserons un chaînage d'opérations avec le pipe `|>` pour enchaîner ces opérations.
 
 Commençons le processus en supprimant les variables redondantes `iso2` et` iso3` de `who`. En d'autres termes, utilisons une fonction de {dplyr} pour sélectionner chaque colonne sauf `iso2` et` iso3`. Rappelez-vous qu'il existe un moyen de le faire sans avoir à taper beaucoup de code.
 
@@ -356,7 +356,7 @@ Commençons le processus en supprimant les variables redondantes `iso2` et` iso3
 ```
 
 ```{r ex10-solution}
-who %>% 
+who |> 
   select(-iso2, -iso3)
 ```
 
@@ -381,13 +381,13 @@ Continuez le code ci-dessous. Utilisez une fonction du package {tidyr} pour rest
 Vous pouvez considérer chaque nom de colonne comme une clé (key) qui combine les valeurs (values) de plusieurs variables. Nous voulons déplacer ces clés dans leur propre colonne de clés.
 
 ```{r ex11, exercise = TRUE}
-who %>% 
+who |> 
   select(-iso2, -iso3)
 ```
 
 ```{r ex11-solution}
-who %>%
-  select(-iso2, -iso3) %>% 
+who |>
+  select(-iso2, -iso3) |> 
   pivot_longer(cols = 3:58, names_to = "codes", values_to = "n")
 ```
 
@@ -400,15 +400,15 @@ who %>%
 Ajoutez au processus le moyen de séparer les codes contenus dans `codes` en trois colonnes nommées "new", "type", et "sexage". Sur quel type de séparateur devez-vous effectuer la séparation ?
 
 ```{r ex12, exercise = TRUE}
-who %>%
-  select(-iso2, -iso3) %>% 
+who |>
+  select(-iso2, -iso3) |> 
   pivot_longer(cols = 3:58, names_to = "codes", values_to = "n")
 ```
 
 ```{r ex12-solution}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
   separate(codes, into = c("new", "type", "sexage"), sep = "_")
 ```
 
@@ -423,17 +423,17 @@ Notre dernière opération a permis d'isoler les variables `new` et `type` dans 
 Regardez la structure de la colonne `sexage` d'un peu plus près. Vous pouvez voir que chaque cellule commence par une seule lettre (qui représente un sexe, `m` ou `f`) suivie de trois chiffres ou plus (qui représentent un groupe d'âge). Utilisez ces informations pour effectuer une seconde séparation qui isole les variables `sex` et `age` :
 
 ```{r ex13, exercise = TRUE}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
   separate(codes, into = c("new", "type", "sexage"), sep = "_")
 ```
 
 ```{r ex13-solution}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
-  separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
+  separate(codes, into = c("new", "type", "sexage"), sep = "_") |> 
   separate(sexage, into = c("sex", "age"), sep = 1)
 ```
 
@@ -446,19 +446,19 @@ who %>%
 Continuez le processus pour supprimer la variable `new`, qui ne fournit aucune information utile. (Chaque ligne du jeu de données montre de nouveaux cas de tuberculose et a la même valeur de `new`).
 
 ```{r ex14, exercise = TRUE}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
-  separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
+  separate(codes, into = c("new", "type", "sexage"), sep = "_") |> 
   separate(sexage, into = c("sex", "age"), sep = 1)
 ```
 
 ```{r ex14-solution}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
-  separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
-  separate(sexage, into = c("sex", "age"), sep = 1) %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
+  separate(codes, into = c("new", "type", "sexage"), sep = "_") |> 
+  separate(sexage, into = c("sex", "age"), sep = 1) |> 
   select(-new)
 ```
 
@@ -478,10 +478,10 @@ En revanche, le format de données long ne nécessite pas d'espace réservé pou
 
 ### drop_na()
 
-Le package {tidyr} fournit une fonction très pratique pour supprimer des lignes contenant un `NA` dans une colonne spécifique : `drop_na()`. Pour l'utiliser, donnez à `drop_na()` un jeu de données (qui peut provenir d'un pipe `%>%`), puis listez une ou plusieurs colonnes de ce jeu de données. Par exemple :
+Le package {tidyr} fournit une fonction très pratique pour supprimer des lignes contenant un `NA` dans une colonne spécifique : `drop_na()`. Pour l'utiliser, donnez à `drop_na()` un jeu de données (qui peut provenir d'un pipe `|>`), puis listez une ou plusieurs colonnes de ce jeu de données. Par exemple :
 
 ```{r echo = TRUE, eval = FALSE}
-data %>% 
+data |> 
   drop_na(colonne1, colonne2)
 ```
 
@@ -490,21 +490,21 @@ data %>%
 Ajoutez `drop_na()` au pipe ci-dessous pour supprimer chaque ligne qui a un NA dans la colonne `n`.
 
 ```{r ex15, exercise = TRUE}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
-  separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
-  separate(sexage, into = c("sex", "age"), sep = 1) %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
+  separate(codes, into = c("new", "type", "sexage"), sep = "_") |> 
+  separate(sexage, into = c("sex", "age"), sep = 1) |> 
   select(-new)
 ```
 
 ```{r ex15-solution}
-who %>%
-  select(-iso2, -iso3) %>% 
-  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") %>% 
-  separate(codes, into = c("new", "type", "sexage"), sep = "_") %>% 
-  separate(sexage, into = c("sex", "age"), sep = 1) %>% 
-  select(-new) %>% 
+who |>
+  select(-iso2, -iso3) |> 
+  pivot_longer(cols = 3:58, names_to = "codes", values_to = "n") |> 
+  separate(codes, into = c("new", "type", "sexage"), sep = "_") |> 
+  separate(sexage, into = c("sex", "age"), sep = 1) |> 
+  select(-new) |> 
   drop_na(n)
 ```
 

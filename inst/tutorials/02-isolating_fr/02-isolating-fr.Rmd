@@ -30,7 +30,7 @@ Dans cette étude de cas, vous allez explorer la popularité de votre propre pr�
 
 * `select()` et `filter()`, permettent de selectionner des colonnes et des lignes d'un jeu de données
 * `arrange()`, permet de réorganiser les lignes de vos données
-* `%>%`, organise votre code en "pipes" ("flux" de traitement) faciles à lire
+* `|>`, organise votre code en "pipes" ("flux" de traitement) faciles à lire
 
 Ce module de cours utilise les [packages de base du tidyverse](http://tidyverse.org/), notamment `{ggplot2}`, `{tibble}` et `{dplyr}`, ainsi que le package `{prenoms}`. Tous ces packages ont été préinstallés et préchargés.
 
@@ -45,19 +45,19 @@ library(tidyverse)
 ### La popularité d'un prénom au cours du temps
 
 ```{r bnames, echo = FALSE}
-prenoms <- left_join(prenoms %>% 
-                        group_by(name, year, sex) %>%
-                        summarise(n = sum(n)) %>%
-                        select(year, sex, name, n) %>%
-                        ungroup %>%
+prenoms <- left_join(prenoms |> 
+                        group_by(name, year, sex) |>
+                        summarise(n = sum(n)) |>
+                        select(year, sex, name, n) |>
+                        ungroup() |>
                         unite("year_sex", c(year, sex)),
-                      prenoms %>% 
-                        group_by(year, sex) %>%
-                        summarise(N = sum(n)) %>%
+                      prenoms |> 
+                        group_by(year, sex) |>
+                        summarise(N = sum(n)) |>
                         unite("year_sex", c(year, sex), remove = FALSE),
-                      by = "year_sex") %>%
-  mutate(prop = n / N) %>%
-  select(year, sex, name, n, prop) %>%
+                      by = "year_sex") |>
+  mutate(prop = n / N) |>
+  select(year, sex, name, n, prop) |>
   arrange(year)
 ```
 
@@ -70,8 +70,8 @@ prenoms
 Vous pouvez utiliser les données de `prenoms` pour créer des graphiques comme celui-ci, qui révèlent la popularité d'un prénom au cours du temps, peut-être votre prénom.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "90%"}
-prenoms %>% 
-  filter(name == "Margot", sex == "F") %>% 
+prenoms |> 
+  filter(name == "Margot", sex == "F") |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_line() +
@@ -94,8 +94,8 @@ ggplot(prenoms) +
 Nous avons ensuite réduit les données aux seules lignes contenant le prénom "Margot" de sexe féminin, avant de tracer les données avec un graphique. Voici à quoi ressemblent les lignes avec ce prénom comme un nuage de points.
 
 ```{r out.width = "60%", cached = TRUE}
-prenoms %>% 
-  filter(name == "Margot", sex == "F") %>% 
+prenoms |> 
+  filter(name == "Margot", sex == "F") |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_point() +
@@ -424,7 +424,7 @@ arrange(prenoms, desc(n))
 "Exactement !"
 ```
 
-## %>%
+## |>
 
 ### Étapes
 
@@ -451,20 +451,20 @@ Vous pouvez éviter de créer `boys_2018` à chaque fois. Pour cela, une premiè
 arrange(select(filter(prenoms, year == 2018, sex == "M"), name, n), desc(n))
 ```
 
-Le package {dplyr} fournit une troisième façon d'écrire des séquences de fonctions : le pipe %>%. Le pipe peut être vu comme un flux, dans lequel nous réalisons une série d'opérations sur les données.
+Une autre façon d'écrire des séquences de fonctions est possible: le pipe |>. Le pipe peut être vu comme un flux, dans lequel nous réalisons une série d'opérations sur les données.
 
-### %>%
+### |>
 
-L'opérateur pipe `%>%` effectue la tâche suivante : il passe l'objet à gauche en premier argument de la fonction à droite. Ou en d'autres termes, `x %>% f(y)` est identique à `f(x, y)`. Cette manière d'écrire du code facilite l'écriture et la lecture d'une série de fonctions qui sont appliquées étape par étape. Par exemple, nous pouvons utiliser le pipe pour réécrire notre code ci-dessus :
+L'opérateur pipe `|>` effectue la tâche suivante : il passe l'objet à gauche en premier argument de la fonction à droite. Ou en d'autres termes, `x |> f(y)` est identique à `f(x, y)`. Cette manière d'écrire du code facilite l'écriture et la lecture d'une série de fonctions qui sont appliquées étape par étape. Par exemple, nous pouvons utiliser le pipe pour réécrire notre code ci-dessus :
 
 ```{r echo = TRUE}
-prenoms %>% 
-  filter(year == 2018, sex == "M") %>% 
-  select(name, n) %>% 
+prenoms |> 
+  filter(year == 2018, sex == "M") |> 
+  select(name, n) |> 
   arrange(desc(n))
 ```
 
-Lorsque vous lisez le code, prononcez `%>%` comme "puis". Vous remarquerez que {dplyr} facilite la lecture des opérations qui arrivent aux données. Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par année et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
+Lorsque vous lisez le code, prononcez `|>` comme "puis". Si nous considérons que chaque nom de fonction est un verbe, notre code ressemble à la déclaration : "Prenez les prénoms, _puis_ filtrez-les par année et par sexe, _puis_ sélectionnez les colonnes `name` et `n`, _puis_ organisez les résultats dans l'ordre descendant des valeurs de `n`."
 
 {dplyr} facilite également l'écriture des pipes. Chaque fonction de {dplyr} renvoie un jeu de données qui peut être utilisé dans une autre fonction de {dplyr} (qui acceptera alors le jeu de données comme premier argument). En fait, les fonctions de dplyr sont écrites pour permettre l'usage du pipe : chaque fonction fait une tâche simple, et {dplyr} s'attend à ce que vous utilisiez des pipes pour combiner ces tâches simples pour produire des résultats plus sophistiqués.
 
@@ -483,30 +483,30 @@ Essayez d'écrire votre propre pipe, sans copier ni coller le code ci-dessus.
 ```
 
 ```{r pipe-1-solution}
-prenoms %>% 
-  filter(year == 2018, sex == "F") %>% 
-  select(name, n) %>% 
+prenoms |> 
+  filter(year == 2018, sex == "F") |> 
+  select(name, n) |> 
   arrange(desc(n))
 ```
 
 ### Tester un autre prénom
 
-Vous maîtrisez maintenant un ensemble de compétences qui vont vous permettre de tracer facilement la popularité de n'importe quel prénom au fil du temps (pourquoi pas le votre ?). Dans le bloc de code ci-dessous, utilisez une combinaison de fonctions de {dplyr} et de {ggplot2} avec `%>%` pour :
+Vous maîtrisez maintenant un ensemble de compétences qui vont vous permettre de tracer facilement la popularité de n'importe quel prénom au fil du temps (pourquoi pas le votre ?). Dans le bloc de code ci-dessous, utilisez une combinaison de fonctions de {dplyr} et de {ggplot2} avec `|>` pour :
 
 1. Réduire `prenoms` aux seules lignes qui contiennent le prénom et le sexe que vous souhaitez étudier
 2. Réduire le résultat aux seules colonnes qui apparaîtront dans votre graphique (pas strictement nécessaire, mais pratique pour avoir une meilleure visibilité)
 3. Tracer les résultats sous la forme d'un graphique linéaire avec `year` sur l'axe des x et `prop` sur l'axe des y
 
-Notez que le premier argument de `ggplot()` est un jeu de données. Cela signifie que vous pouvez ajouter `ggplot()` directement à la fin d'un pipe. Cependant, vous devrez passer de `%>%` à `+` pour terminer l'ajout de couches à votre graphique.
+Notez que le premier argument de `ggplot()` est un jeu de données. Cela signifie que vous pouvez ajouter `ggplot()` directement à la fin d'un pipe. Cependant, vous devrez passer de `|>` à `+` pour terminer l'ajout de couches à votre graphique.
 
 ```{r your-name-1, exercise = TRUE, exercise.setup = "bnames"}
 
 ```
 
 ```{r your-name-1-solution}
-prenoms %>% 
-  filter(name == "Louis", sex == "M") %>% 
-  select(year, prop) %>% 
+prenoms |> 
+  filter(name == "Louis", sex == "M") |> 
+  select(year, prop) |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_line() +
@@ -519,4 +519,4 @@ Ensemble, `select()`, `filter()` et `arrange()` vous permettent de trouver rapid
 
 Le module suivant vous montrera comment calculer des informations implicites dans vos données, mais non disponibles telles quelles dans le jeu de données.
 
-Dans ce module, vous continuerez à utiliser l'opérateur `%>%`, qui est une partie essentielle de la programmation dans le tidyverse. Dans le tidyverse, les fonctions sont comme des verbes : chacune accomplit une tâche simple. Vous pouvez combiner ces tâches en un flux de traitements avec `%>%` pour effectuer des procédures complexes et personnalisées. C'est ainsi que les pipes contribuent à rendre R intelligible, comme une langue parlée. Les langues parlées sont en effet constituées de mots simples que vous combinez en phrases complexes pour créer des pensées sophistiquées.
+Dans ce module, vous continuerez à utiliser l'opérateur `|>`, qui est une partie essentielle de la programmation dans le tidyverse. Dans le tidyverse, les fonctions sont comme des verbes : chacune accomplit une tâche simple. Vous pouvez combiner ces tâches en un flux de traitements avec `|>` pour effectuer des procédures complexes et personnalisées. C'est ainsi que les pipes contribuent à rendre R intelligible, comme une langue parlée. Les langues parlées sont en effet constituées de mots simples que vous combinez en phrases complexes pour créer des pensées sophistiquées.

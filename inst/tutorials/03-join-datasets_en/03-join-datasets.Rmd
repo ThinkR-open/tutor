@@ -115,10 +115,10 @@ Use dplyr functions in the code chunk below to enact this strategy. Which airlin
 ```
 
 ```{r ex1-solution}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
   arrange(desc(avg_delay))
 ```
 
@@ -178,7 +178,7 @@ knitr::include_graphics("www/images/left-join.png")
 To see what this result looks like in R, run the code below.
 
 ```{r ex2, exercise = TRUE}
-band %>% left_join(instrument, by = "name")
+band |> left_join(instrument, by = "name")
 ```
 
 ### right_join()
@@ -192,7 +192,7 @@ knitr::include_graphics("www/images/right-join.png")
 You can think of `left_join()` as prioritizing the first data set, and `right_join()` as prioritizing the second. To see the results in R, run the code below.
 
 ```{r ex3, exercise = TRUE}
-band %>% 
+band |> 
   right_join(instrument, by = "name")
 ```
 
@@ -205,12 +205,12 @@ knitr::include_graphics("www/images/right-join.png")
 ```
 
 ```{r ex4, exercise = TRUE}
-band %>% 
+band |> 
   left_join(instrument, by = "name")
 ```
 
 ```{r ex4-solution}
-instrument %>% 
+instrument |> 
   left_join(band, by = "name")
 ```
 
@@ -231,7 +231,7 @@ knitr::include_graphics("www/images/full-join.png")
 To see what this result looks like in R, run the code below.
 
 ```{r ex5, exercise = TRUE}
-band %>% 
+band |> 
   full_join(instrument, by = "name")
 ```
 
@@ -246,7 +246,7 @@ knitr::include_graphics("www/images/inner-join.png")
 To see what this result looks like in R, run the code below.
 
 ```{r ex6, exercise = TRUE}
-band %>% 
+band |> 
   inner_join(instrument, by = "name")
 ```
 
@@ -277,20 +277,20 @@ Now that you've familiarized yourself with the mutating join functions, let's us
 2. In the second, select just the `name` and `avg_delay` columns in that order.
 
 ```{r ex7, exercise = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
   arrange(desc(avg_delay))
 ```
 
 ```{r ex7-solution}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
-  arrange(desc(avg_delay)) %>% 
-  left_join(airlines, by = "carrier") %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
+  arrange(desc(avg_delay)) |> 
+  left_join(airlines, by = "carrier") |> 
   select(name, avg_delay)
 ```
 
@@ -319,10 +319,10 @@ knitr::include_graphics("www/images/nycflights13.png")
 Let's repeat our last investigation to see which destinations have the largest average arrival delays. By swapping `carrier` with `dest` we arrive at 
 
 ```{r echo = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
   arrange(desc(avg_delay))
 ```
 
@@ -385,7 +385,7 @@ Named vectors are a basic feature of R. Let's look at how we can use them to sol
 To match on columns with different names, change the `by` argument of your join function from a vector of character strings to a _named_ vector of character strings. 
 
 ```{r echo = TRUE}
-band %>% 
+band |> 
   left_join(instrument2, by = c("name" = "artist"))
 ```
 
@@ -398,7 +398,7 @@ knitr::include_graphics("www/images/match-names.png")
 To see what the result looks like in R, run the code below.
 
 ```{r ex9, exercise = TRUE}
-band %>% 
+band |> 
   left_join(instrument2, by = c("name" = "artist"))
 ```
 
@@ -407,14 +407,14 @@ band %>%
 You can use this syntax to describe multiple pairs of columns. For example,
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% 
+foo |> 
   left_join(foo2, by = c("first" = "artist1", "last" = "artist2"))
 ```
 
 Technically, you do not need to surround the names of the vector with quotes. This would work.
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% 
+foo |> 
   left_join(foo2, by = c(first = "artist1", last = "artist2"))
 ```
 
@@ -425,20 +425,20 @@ But you do need to use quotes in the elements of the vector, which are character
 Complete our code below to show the name of each destination paired with its average arrival delay.
 
 ```{r ex10, exercise = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
   arrange(desc(avg_delay))
 ```
 
 ```{r ex10-solution}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
-  arrange(desc(avg_delay)) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
+  arrange(desc(avg_delay)) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(name, avg_delay)
 ```
 
@@ -485,7 +485,7 @@ knitr::include_graphics("www/images/semi-join.png")
 To see what the results look like in R, run the code below.
 
 ```{r ex11, exercise = TRUE}
-band %>% 
+band |> 
   semi_join(instrument, by = "name")
 ```
 
@@ -500,7 +500,7 @@ knitr::include_graphics("www/images/anti-join.png")
 To see what the results look like in R, run the code below.
 
 ```{r ex12, exercise = TRUE}
-band %>% 
+band |> 
   anti_join(instrument, by = "name")
 ```
 
@@ -510,7 +510,7 @@ band %>%
 We will also use a new function that comes in dplyr: `distinct()`. `distinct()` isn't a join function, but it is incredibly useful. `distinct()` returns the _distinct_ values of a column.
 
 ```{r ex13, exercise = TRUE}
-instrument %>% 
+instrument |> 
   distinct(plays)
 ```
 
@@ -531,7 +531,7 @@ Use `distinct()` below to determine how many airports New York City connects to.
 ```
 
 ```{r ex14-solution}
-flights %>% 
+flights |> 
   distinct(dest)
 ```
 
@@ -544,14 +544,14 @@ flights %>%
 Now let's replace these codes with recognizable names. Add to the code below to left join our results to `airports`. Remember that the two data sets use different column names. Then select just the `name` column.
 
 ```{r ex15, exercise = TRUE}
-flights %>% 
+flights |> 
   distinct(dest)
 ```
 
 ```{r ex15-solution}
-flights %>% 
-  distinct(dest) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  distinct(dest) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(name)
 ```
 
@@ -564,9 +564,9 @@ flights %>%
 Rolling back our results just a bit, you can see that some codes did not have a match with in the `airports` data set. 
 
 ```{r echo = TRUE}
-flights %>% 
-  distinct(dest) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  distinct(dest) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(dest, name)
 ```
 
@@ -575,13 +575,13 @@ flights %>%
 This is unexpected. It would be useful to see which codes did not have a match. Extend the code below with a filtering join to return just the rows that do not have a match in `airports`.
 
 ```{r ex16, exercise = TRUE}
-flights %>%
+flights |>
   distinct(dest)
 ```
 
 ```{r ex16-solution}
-flights %>%
-  distinct(dest) %>% 
+flights |>
+  distinct(dest) |> 
   anti_join(airports, by = c("dest" = "faa"))
 ```
 
@@ -606,7 +606,7 @@ Let's gauge how this affects our data. Use the code chunk below to return all of
 ```
 
 ```{r ex17-solution}
-flights %>% 
+flights |> 
   semi_join(airports, by = c("dest" = "faa")) 
 ```
 
@@ -644,7 +644,7 @@ Then you can run a `semi_join()` against the data set. Use `criteria` and `semi_
 ```
 
 ```{r ex18-solution}
-flights %>% 
+flights |> 
   semi_join(criteria, by = c("month", "carrier"))
 ```
 
@@ -688,7 +688,7 @@ knitr::include_graphics("www/images/bind-cols.png")
 Run the code below to see what the results look like in R.
 
 ```{r ex19, exercise = TRUE}
-beatles1 %>% 
+beatles1 |> 
   bind_cols(beatles2)
 ```
 
@@ -713,7 +713,7 @@ knitr::include_graphics("www/images/bind-rows.png")
 Run the code below to see what the results look like in R.
 
 ```{r ex20, exercise = TRUE}
-band %>% 
+band |> 
   bind_rows(band2)
 ```
 
@@ -737,7 +737,7 @@ Add a `.id` argument ot the code below to create the output displayed in the dia
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% 
+bands |> 
   bind_rows()
 ```
 
@@ -745,7 +745,7 @@ bands %>%
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% 
+bands |> 
   bind_rows(.id = "origin")
 ```
 
@@ -767,13 +767,13 @@ knitr::include_graphics("www/images/band2.png")
 Imagine what each of the set operations below will return when applied to the data sets above. Then run the code to check if you are right.
 
 ```{r ex22, exercise = TRUE}
-band %>% 
+band |> 
   union(band2)
-band %>% 
+band |> 
   intersect(band2)
-band %>% 
+band |> 
   setdiff(band2)
-band2 %>% 
+band2 |> 
   setdiff(band)
 ```
 
@@ -782,7 +782,7 @@ band2 %>%
 `union()` returns every row that appears in either data set, but it removes duplicate copies of the rows.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   union(band2)
 ```
 
@@ -795,7 +795,7 @@ knitr::include_graphics("www/images/union.png")
 `intersect()` returns only the rows that appear in _both_ data sets. It too removes duplicate copies of these rows.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   intersect(band2)
 ```
 
@@ -808,7 +808,7 @@ knitr::include_graphics("www/images/intersect.png")
 `setdiff()` returns all of the rows that appear in the first data set but not the second.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   setdiff(band2)
 ```
 
