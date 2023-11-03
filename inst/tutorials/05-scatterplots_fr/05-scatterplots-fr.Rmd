@@ -45,23 +45,23 @@ Dans le module [Bases de la visualisation de données](), vous avez appris à fa
 Le code ci-dessous résume le jeu de données mpg et commence à tracer les résultats. Terminez le tracé avec `geom_point()`. Mettez `mean_cty` sur l'axe $x$ et `mean_hwy` sur l'axe $y$.
 
 ```{r r1, exercise = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot()
 ```
 
 ```{r r1-solution}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point()
 ```
 
 ```{r r1-check}
-"Bon travail ! Il peut être difficile de se rappeler quand il faut utiliser %>% et quand il faut utiliser +. Utilisez %>% pour ajouter une étape complète à un flux de code (pipe). Utilisez + pour ajouter une ligne de plus à un appel {ggplot2}."
+"Bon travail ! Il peut être difficile de se rappeler quand il faut utiliser |> et quand il faut utiliser +. Utilisez |> pour ajouter une étape complète à un flux de code (pipe). Utilisez + pour ajouter une ligne de plus à un appel {ggplot2}."
 ```
 
 ### geom_text()
@@ -71,25 +71,25 @@ mpg %>%
 Convertissez le graphique ci-dessous de `geom_point()` à `geom_text()` et utilisez pour le paramètre `label` la variable `class`. Lorsque vous avez terminé, convertissez le code en `geom_label()` et relancez le graphique. Repérez-vous la différence ?
 
 ```{r r2, exercise = TRUE, exercise.eval = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point()
 ```
 
 ```{r r2-solution}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy, label = class) +
     geom_text()
 
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy, label = class) +
     geom_label()
@@ -107,18 +107,18 @@ Dans le module [Bases de la visualisation de données](), vous avez rencontré `
 `geom_smooth()` utilise un modèle pour ajuster une ligne lissée aux données, puis affiche les résultats. Par défaut, `geom_smooth()` ajuste une fonction de lissage 'loess' aux jeux de données de moins de 1 000 observations, et un modèle additif généralisé aux jeux de données de plus de 1 000 observations. 
 
 ```{r echo = FALSE, out.width="50%", message = FALSE, warning = FALSE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
     ggtitle("geom_point)") +
     ylim(16, 30)
 
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_smooth(se = FALSE) +
@@ -133,16 +133,16 @@ Vous pouvez utiliser le paramètre `method` de `geom_smooth()` pour ajuster et a
 Dans le code ci-dessous, utilisez `geom_smooth()` pour dessiner la ligne du modèle linéaire qui correspond aux données.
 
 ```{r r3, exercise = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() 
 ```
 
 ```{r r3-solution}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_smooth(method = lm)
@@ -164,9 +164,9 @@ mpg %>%
 Dans {ggplot2}, vous pouvez ajouter plusieurs geoms à un graphique en ajoutant plusieurs fonctions géométriques `geom_`à l'appel du graphique. Par exemple, le code ci-dessous crée un tracé qui contient à la fois des points et une ligne de lissage. Imaginez à quoi ressembleront les résultats dans votre tête, puis lancez le code pour voir si vous avez raison.
 
 ```{r r4, exercise = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
@@ -184,9 +184,9 @@ Vous souvenez-vous de la façon dont les étiquettes que nous avons fabriquées 
 Utilisez `geom_label_repel()` pour ajouter une nouvelle couche au graphique ci-dessous. `geom_label_repel()` requiert les même paramètres esthétique que `geom_label()` : x, y, et label (ici fixé à `class`).
 
 ```{r r5, exercise = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
@@ -194,9 +194,9 @@ mpg %>%
 ```
 
 ```{r r5-solution}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
@@ -213,9 +213,9 @@ mpg %>%
 Une autre manière de créer le graphique précédent aurait été d’utiliser le code suivant : 
 
 ```{r eval = FALSE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
     geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm) +
@@ -227,9 +227,9 @@ Si vous étudiez ce code, vous constaterez un certain nombre de duplications. Il
 Vous devez essayer d'éviter les doublons chaque fois que vous le pouvez dans le code, car le code en double invite aux fautes de frappe, est difficile à mettre à jour et prend plus de temps que nécessaire à écrire. C'est pourquoi nous préférons utiliser le code suivant :  
 
 ```{r eval = FALSE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +
@@ -267,9 +267,9 @@ ggplot(data = mpg) +
 Réduisez les doublons dans le code ci-dessous en déplaçant autant de paramètres esthétiques locaux que possible dans les paramètres globaux. Relancez le nouveau code pour vous assurer qu'il crée le même graphique.
 
 ```{r r6, exercise = TRUE, exercise.eval = TRUE}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     geom_point(mapping = aes(x = mean_cty, y = mean_hwy)) +
     geom_smooth(mapping = aes(x = mean_cty, y = mean_hwy), method = lm) +
@@ -277,9 +277,9 @@ mpg %>%
 ```
 
 ```{r r6-solution}
-mpg %>% 
-  group_by(class) %>% 
-  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) %>% 
+mpg |> 
+  group_by(class) |> 
+  summarise(mean_cty = mean(cty), mean_hwy = mean(hwy)) |> 
   ggplot() +
     aes(x = mean_cty, y = mean_hwy) +
     geom_point() +

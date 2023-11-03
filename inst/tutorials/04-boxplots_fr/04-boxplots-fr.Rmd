@@ -397,7 +397,7 @@ Vous pouvez utiliser la fonction `count()` du package  **{dplyr}** pour calculer
 Ainsi, par exemple, le code ci-dessous renvoie les comptages que vous avez visualisés dans l'exercice 8.
 
 ```{r}
- diamonds %>% 
+ diamonds |> 
    count(cut, clarity)
 ```
 
@@ -412,8 +412,8 @@ Les heatmaps, parfois aussi appelées *cartes de chaleur*, fournissent une deuxi
 Pour ce faire, définissez les paramètres esthétiques x et y de `geom_tile()` aux variables que vous passez à `count()`. Ensuite, utilisez la variable `n` calculée par `count()` pour le paramètre esthétique de remplissage (fill). Le graphique ci-dessous affiche les mêmes comptages que le graphique de l'exercice 8.
 
 ```{r}
- diamonds %>% 
-   count(cut, clarity) %>% 
+ diamonds |> 
+   count(cut, clarity) |> 
    ggplot() +
      aes(x = cut, y = clarity, fill = n) +
      geom_tile()
@@ -424,8 +424,8 @@ Pour ce faire, définissez les paramètres esthétiques x et y de `geom_tile()` 
 Pratiquez la méthode ci-dessus en recréant la heatmap ci-dessous.
 
 ```{r echo = FALSE, out.width = "80%"}
- diamonds %>% 
-   count(color, cut) %>% 
+ diamonds |> 
+   count(color, cut) |> 
    ggplot() +
      aes(x = color, y = cut, fill = n) +
      geom_tile()
@@ -436,8 +436,8 @@ Pratiquez la méthode ci-dessus en recréant la heatmap ci-dessous.
 ```
 
 ```{r r10-solution}
- diamonds %>% 
-   count(color, cut) %>% 
+ diamonds |> 
+   count(color, cut) |> 
    ggplot() +
      aes(x = color, y = cut, fill = n) + 
      geom_tile()

@@ -17,15 +17,15 @@ library(gapminder)
 library(forcats)
 
 asia <- 
-  gapminder %>% 
-  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) %>% 
+  gapminder |> 
+  filter(country %in% c("China", "Korea, Dem. Rep.", "Korea, Rep.", "Japan")) |> 
   mutate(country = fct_recode(country, "North Korea" = "Korea, Dem. Rep.", "South Korea" = "Korea, Rep."))
 
 tx <- map_data("state", region = "texas")
 us <- map_data("state")
 
-USArrests2 <- USArrests %>% 
-  rownames_to_column("region") %>% 
+USArrests2 <- USArrests |> 
+  rownames_to_column("region") |> 
   mutate(region = tolower(region))
 
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
@@ -57,7 +57,7 @@ Comme les graphiques de dispersion (ou nuages de points), les graphiques linéai
 Par exemple, dans le graphique ci-dessous, il n'y a qu'une valeur de `unemploy` pour chaque valeur de `date`. 
 
 ```{r echo = FALSE, out.width = "80%"}
-economics %>% 
+economics |> 
   ggplot() +
   aes(x = date, y = unemploy) +
     geom_line()
@@ -314,7 +314,7 @@ Elle commence par l'observation de la première ligne du jeu de données et la r
 Pour voir comment `geom_path()` fait cela, réorganisons les lignes du jeu de données `economics`. Nous pouvons les réarranger par valeur de la variable `unemploy`. Ainsi, le jeu données commencera par l'observation qui avait la valeur la plus basse de `unemploy`.
 
 ```{r}
-economics2 <- economics %>% 
+economics2 <- economics |> 
   arrange(unemploy)
 economics2
 ```
@@ -379,7 +379,7 @@ Selon vous, qu'est-ce qui a mal tourné dans le graphique du Texas ci-dessous ?
 set.seed(100)
 rows <- c(rep(c(1:10), 100) + rep(sample(0:99 * 10), each = 10), 1001:1088)
 
-tx[rows, ] %>% 
+tx[rows, ] |> 
   ggplot() +
     aes(x = long, y = lat) +
     geom_polygon()
@@ -500,8 +500,8 @@ Pour utiliser `geom_map()`, nous devons d'abord nous assurer qu'un ensemble comm
 Pour l'instant, ce n'est pas le cas. `USArrests` utilise des noms d'états en majuscules et les cache en dehors du jeu de données dans les noms de lignes (plutôt que dans une colonne). Au contraire, `us` utilise une colonne de noms d'états en minuscules. Le code ci-dessous permet de résoudre ce problème.
 
 ```{r}
-USArrests2 <- USArrests %>% 
-  rownames_to_column("region") %>% 
+USArrests2 <- USArrests |> 
+  rownames_to_column("region") |> 
   mutate(region = tolower(region))
 
 USArrests2

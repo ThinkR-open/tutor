@@ -281,8 +281,8 @@ Si la variabilité décrit le comportement _à l'intérieur_ d'une variable, la 
 Vous pouvez représenter la relation entre deux variables catégorielles avec un heatmap ou avec un geom_count :
 
 ```{r echo = FALSE, out.width = "50%"}
-diamonds %>% 
-  count(color, cut) %>% 
+diamonds |> 
+  count(color, cut) |> 
   ggplot() +
     aes(x = color, y = cut, fill = n) +
     geom_tile() +

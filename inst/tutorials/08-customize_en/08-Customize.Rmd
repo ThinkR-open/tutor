@@ -108,8 +108,8 @@ p
 Our plot shows something surprising: when you group diamonds by cut, the worst cut diamonds have the highest median price. It's a little hard to see in the plot, but you can verify it with some data manipulation.
 
 ```{r}
-diamonds %>% 
-  group_by(cut) %>% 
+diamonds |> 
+  group_by(cut) |> 
   summarise(median = median(price))
 ```
 

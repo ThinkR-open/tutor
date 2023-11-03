@@ -30,7 +30,7 @@ Dans ce module, vous allez explorer la popularité de différents prénoms au fi
 * les tibbles et `View()`, qui permettent d'inspecter vos données brutes
 * `select()` et `filter()`, qui permettent de selectionner des colonnes et des lignes d'un jeu de données
 * `arrange()`, qui vous permet de réordonner les lignes d'un jeu de données
-* `%>%`, qui organise votre code sous la forme de "pipes" faciles à déchiffer (un pipe peut être vu comme un flux dans lequel divers traitements sur les données sont enchaînés)
+* `|>`, qui organise votre code sous la forme de "pipes" faciles à déchiffer (un pipe peut être vu comme un flux dans lequel divers traitements sur les données sont enchaînés)
 * `mutate()`, `group_by()`, et `summarize()`,  servent à calculer des statistiques descriptives
 
 Ce sont quelques-unes des fonctions R les plus utiles pour la data science, et les modules qui suivent vous fourniront tout ce dont vous avez besoin pour apprendre à les manipuler.

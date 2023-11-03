@@ -24,9 +24,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 ```{r include=FALSE}
-names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
-babynames <- babynames %>% filter(name %in% names_to_keep)
-# distinct(name) %>% sample_n(100)
+names_to_keep <- babynames |> group_by(year) |> top_n(50,prop) |> pull(name) |> unique() |> append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
+babynames <- babynames |> filter(name %in% names_to_keep)
+# distinct(name) |> sample_n(100)
 ```
 
 
@@ -36,7 +36,7 @@ In this case study, you will explore the popularity of your own name over time. 
 
 * `select()` and `filter()`, which let you extract rows and columns from a data frame
 * `arrange()`, which lets you reorder the rows in your data
-* `%>%`, which organizes your code into reader-friendly "pipes"
+* `|>`, which organizes your code into reader-friendly "pipes"
 
 This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
@@ -54,8 +54,8 @@ library(tidyverse)
 You can use the data in `babynames` to make graphs like this, which reveal the history of a name, perhaps your name.
 
 ```{r bnames, echo = FALSE, message = FALSE, warning = FALSE, out.width = "90%"}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_line() +
@@ -78,8 +78,8 @@ ggplot(babynames) +
 I then narrowed the data to just the rows that contain my name, before plotting the data with a line geom. Here's how the rows with just my name look as a scatterplot.
 
 ```{r out.width = "60%", cached = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_point() +
@@ -409,7 +409,7 @@ arrange(babynames, desc(n))
 "The number of children represented by each proportion grew over time as the population grew."
 ```
 
-## %>%
+## |>
 
 ### Steps
 
@@ -436,20 +436,20 @@ You could avoid creating `boys_2017` by nesting your functions inside of each ot
 arrange(select(filter(babynames, year == 2017, sex == "M"), name, n), desc(n))
 ```
 
-The dplyr package provides a third way to write sequences of functions: the pipe.
+Another way of writing sequences of functions is to use : the pipe.
 
-### %>%
+### |>
 
-The pipe operator `%>%` performs an extremely simple task: it passes the result on its left into the first argument of the function on its right. Or put another way, `x %>% f(y)` is the same as `f(x, y)`. This piece of code punctuation makes it easy to write and read series of functions that are applied in a step by step way. For example, we can use the pipe to rewrite our code above:
+The pipe operator `|>` performs an extremely simple task: it passes the result on its left into the first argument of the function on its right. Or put another way, `x |> f(y)` is the same as `f(x, y)`. This piece of code punctuation makes it easy to write and read series of functions that are applied in a step by step way. For example, we can use the pipe to rewrite our code above:
 
 ```{r echo = TRUE}
-babynames %>% 
-  filter(year == 2017, sex == "M") %>% 
-  select(name, n) %>% 
+babynames |> 
+  filter(year == 2017, sex == "M") |> 
+  select(name, n) |> 
   arrange(desc(n))
 ```
 
-As you read the code, pronounce `%>%` as "then". You'll notice that dplyr makes it easy to read pipes. Each function name is a verb, so our code resembles the statement, "Take babynames, _then_ filter it by name and sex, _then_ select the name and n columns, _then_ arrange the results by descending values of n."
+As you read the code, pronounce `|>` as "then". Each function name is a verb, so our code resembles the statement, "Take babynames, _then_ filter it by name and sex, _then_ select the name and n columns, _then_ arrange the results by descending values of n."
 
 dplyr also makes it easy to write pipes. Each dplyr function returns a data frame that can be piped into another dplyr function, which will accept the data frame as its first argument. In fact, dplyr functions are written with pipes in mind: each function does one simple task. dplyr expects you to use pipes to combine these simple tasks to produce sophisticated results.
 
@@ -468,30 +468,30 @@ Try to write your pipe without copying and pasting the code from above.
 ```
 
 ```{r pipe-1-solution}
-babynames %>% 
-  filter(year == 2017, sex == "F") %>% 
-  select(name, n) %>% 
+babynames |> 
+  filter(year == 2017, sex == "F") |> 
+  select(name, n) |> 
   arrange(desc(n))
 ```
 
 ### Your name
 
-You've now mastered a set of skills that will let you easily plot the popularity of your name over time. In the code chunk below, use a combination of dplyr and ggplot2 functions with `%>%` to:
+You've now mastered a set of skills that will let you easily plot the popularity of your name over time. In the code chunk below, use a combination of dplyr and ggplot2 functions with `|>` to:
 
 1. Trim `babynames` to just the rows that contain your name and your sex
 2. Trim the result to just the columns that will appear in your graph (not strictly necessary, but useful practice)
 3. Plot the results as a line graph with `year` on the x axis and `prop` on the y axis
 
-Note that the first argument of `ggplot()` takes a data frame, which means you can add `ggplot()` directly to the end of a pipe. However, you will need to switch from `%>%` to `+` to finish adding layers to your plot.
+Note that the first argument of `ggplot()` takes a data frame, which means you can add `ggplot()` directly to the end of a pipe. However, you will need to switch from `|>` to `+` to finish adding layers to your plot.
 
 ```{r your-name-1, exercise = TRUE, exercise.setup = "bnames"}
 
 ```
 
 ```{r your-name-1-solution}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
-  select(year, prop) %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
+  select(year, prop) |> 
   ggplot() +
     aes(x = year, y = prop) +
     geom_line() +
@@ -504,10 +504,10 @@ Together, `select()`, `filter()`, and `arrange()` let you quickly find informati
 
 The next tutorial will show you how to derive information that is implied by your data, but not displayed within your data set.
 
-In that tutorial, you will continue to use the `%>%` operator, which is an essential part of programming with the dplyr library.
+In that tutorial, you will continue to use the `|>` operator, which is an essential part of programming with the dplyr library.
 
 Pipes help make R expressive, like a spoken language. Spoken languages consist of simple words that you combine into sentences to create sophisticated thoughts.
 
-In the tidyverse, functions are like words: each does one simple task well. You can combine these tasks into pipes with `%>%` to perform complex, customized procedures.
+In the tidyverse, functions are like words: each does one simple task well. You can combine these tasks into pipes with `|>` to perform complex, customized procedures.
 
 

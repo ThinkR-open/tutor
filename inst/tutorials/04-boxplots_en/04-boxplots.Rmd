@@ -389,7 +389,7 @@ You can use the `count()` function in the **dplyr** package to compute the count
 So for example, the code below returns the counts that you visualized in Exercise 8.
 
 ```{r}
-diamonds %>% 
+diamonds |> 
    count(cut, clarity)
 ```
 
@@ -404,8 +404,8 @@ ggplot2 does not provide a geom function for heat maps, but you can construct a 
 To do this, set the x and y aesthetics of `geom_tile()` to the variables that you pass to `count()`. Then map the fill aesthetic to the `n` variable computed by `count()`. The plot below displays the same counts as the plot in Exercise 8.
 
 ```{r}
-diamonds %>% 
-  count(cut, clarity) %>% 
+diamonds |> 
+  count(cut, clarity) |> 
   ggplot() +
     aes(x = cut, y = clarity, fill = n) +
     geom_tile()
@@ -416,8 +416,8 @@ diamonds %>%
 Practice the method above by re-creating the heat map below.
 
 ```{r echo = FALSE, out.width = "80%"}
-diamonds %>% 
-  count(color, cut) %>% 
+diamonds |> 
+  count(color, cut) |> 
   ggplot() +
     aes(x = color, y = cut, fill = n) +
     geom_tile()
@@ -428,8 +428,8 @@ diamonds %>%
 ```
 
 ```{r r10-solution}
-diamonds %>% 
-  count(color, cut) %>% 
+diamonds |> 
+  count(color, cut) |> 
   ggplot() +
     aes(x = color, y = cut, fill = n) + 
     geom_tile()

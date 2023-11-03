@@ -117,10 +117,10 @@ Utilisez les fonctions de {dplyr} dans le bloc de code ci-dessous pour répondre
 ```
 
 ```{r ex1-solution}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
   arrange(desc(avg_delay))
 ```
 
@@ -180,7 +180,7 @@ knitr::include_graphics("www/images/left-join.png")
 Pour voir à quoi ressemble ce résultat dans R, exécutez le code ci-dessous.
 
 ```{r ex2, exercise = TRUE}
-band %>% 
+band |> 
   left_join(instrument, by = "name")
 ```
 
@@ -195,7 +195,7 @@ knitr::include_graphics("www/images/right-join.png")
 Vous pouvez penser à `left_join()` comme priorisant le premier jeu de données, et à `right_join()` comme priorisant le second. Pour voir les résultats dans R, exécutez le code ci-dessous.
 
 ```{r ex3, exercise = TRUE}
-band %>% 
+band |> 
   right_join(instrument, by = "name")
 ```
 
@@ -208,12 +208,12 @@ knitr::include_graphics("www/images/right-join.png")
 ```
 
 ```{r ex4, exercise = TRUE}
-band %>% 
+band |> 
   left_join(instrument, by = "name")
 ```
 
 ```{r ex4-solution}
-instrument %>% 
+instrument |> 
   left_join(band, by = "name")
 ```
 
@@ -234,7 +234,7 @@ knitr::include_graphics("www/images/full-join.png")
 Pour voir à quoi ressemble ce résultat dans R, exécutez le code ci-dessous.
 
 ```{r ex5, exercise = TRUE}
-band %>% 
+band |> 
   full_join(instrument, by = "name")
 ```
 
@@ -249,7 +249,7 @@ knitr::include_graphics("www/images/inner-join.png")
 Pour voir à quoi ressemble ce résultat dans R, exécutez le code ci-dessous.
 
 ```{r ex6, exercise = TRUE}
-band %>% 
+band |> 
   inner_join(instrument, by = "name")
 ```
 
@@ -280,20 +280,20 @@ Maintenant que vous vous êtes familiarisé avec les fonctions de jointure trans
 2. Dans la seconde, sélectionnez uniquement les colonnes `name` et `avg_delay`, dans cet ordre.
 
 ```{r ex7, exercise = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
   arrange(desc(avg_delay))
 ```
 
 ```{r ex7-solution}
-flights %>% 
-  drop_na(arr_delay) %>% 
-  group_by(carrier) %>% 
-  summarise(avg_delay = mean(arr_delay)) %>% 
-  arrange(desc(avg_delay)) %>% 
-  left_join(airlines, by = "carrier") %>% 
+flights |> 
+  drop_na(arr_delay) |> 
+  group_by(carrier) |> 
+  summarise(avg_delay = mean(arr_delay)) |> 
+  arrange(desc(avg_delay)) |> 
+  left_join(airlines, by = "carrier") |> 
   select(name, avg_delay)
 ```
 
@@ -322,10 +322,10 @@ knitr::include_graphics("www/images/nycflights13.png")
 Répétons notre dernière investigation pour voir quelles destinations ont les retards à l'arrivée moyens les plus importants. En échangeant `carrier` avec `dest`, nous obtenons :
 
 ```{r echo = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
   arrange(desc(avg_delay))
 ```
 
@@ -390,7 +390,7 @@ Les vecteurs nommés sont une fonctionnalité de base de R. Voyons comment nous 
 Pour faire correspondre des colonnes avec des noms différents, changez l'argument `by` de votre fonction de jointure pour passer d'un vecteur de chaînes de caractères à un vecteur _nommé_ de chaînes de caractères.
 
 ```{r echo = TRUE}
-band %>% 
+band |> 
   left_join(instrument2, by = c("name" = "artist"))
 ```
 
@@ -403,7 +403,7 @@ knitr::include_graphics("www/images/match-names.png")
 Pour voir à quoi ressemble le résultat dans R, exécutez le code ci-dessous.
 
 ```{r ex9, exercise = TRUE}
-band %>% 
+band |> 
   left_join(instrument2, by = c("name" = "artist"))
 ```
 
@@ -412,14 +412,14 @@ band %>%
 Vous pouvez utiliser cette syntaxe pour décrire plusieurs paires de colonnes. Par exemple :
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% 
+foo |> 
   left_join(foo2, by = c("first" = "artist1", "last" = "artist2"))
 ```
 
 Techniquement, vous n'avez pas besoin d'entourer les noms du vecteur de guillemets. Cela fonctionnerait sans.
 
 ```{r echo = TRUE, eval = FALSE}
-foo %>% 
+foo |> 
   left_join(foo2, by = c(first = "artist1", last = "artist2"))
 ```
 
@@ -430,20 +430,20 @@ Mais vous devez obligatoirement utiliser des guillemets dans les éléments du v
 Complétez le code ci-dessous pour afficher le nom de chaque destination jumelé à son retard à l'arrivée moyen.
 
 ```{r ex10, exercise = TRUE}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
   arrange(desc(avg_delay))
 ```
 
 ```{r ex10-solution}
-flights %>% 
-  drop_na(arr_delay) %>%
-  group_by(dest) %>%
-  summarise(avg_delay = mean(arr_delay)) %>%
-  arrange(desc(avg_delay)) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  drop_na(arr_delay) |>
+  group_by(dest) |>
+  summarise(avg_delay = mean(arr_delay)) |>
+  arrange(desc(avg_delay)) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(name, avg_delay)
 ```
 
@@ -490,7 +490,7 @@ knitr::include_graphics("www/images/semi-join.png")
 Pour voir à quoi ressemblent les résultats dans R, exécutez le code ci-dessous.
 
 ```{r ex11, exercise = TRUE}
-band %>% 
+band |> 
   semi_join(instrument, by = "name")
 ```
 
@@ -505,7 +505,7 @@ knitr::include_graphics("www/images/anti-join.png")
 Pour voir à quoi ressemblent les résultats dans R, exécutez le code ci-dessous.
 
 ```{r ex12, exercise = TRUE}
-band %>% 
+band |> 
   anti_join(instrument, by = "name")
 ```
 
@@ -514,7 +514,7 @@ band %>%
 Nous utiliserons également une nouvelle fonction de {dplyr} : `distinct()`. `distinct()` n'est pas une fonction de jointure, mais elle est incroyablement utile. `distinct()` renvoie les valeurs _distinctes_ d'une colonne.
 
 ```{r ex13, exercise = TRUE}
-instrument %>% 
+instrument |> 
   distinct(plays)
 ```
 
@@ -535,7 +535,7 @@ Utilisez `distinct()` ci-dessous pour déterminer le nombre d'aéroports auxquel
 ```
 
 ```{r ex14-solution}
-flights %>% 
+flights |> 
   distinct(dest)
 ```
 
@@ -548,14 +548,14 @@ flights %>%
 Remplaçons maintenant ces codes par des noms interprétables. Complétez le code ci-dessous pour joindre à gauche nos résultats aux aéroports (jeu de données `airports`). N'oubliez pas que les deux jeux de données utilisent des noms de colonne différents. Sélectionnez ensuite uniquement la colonne `name`.
 
 ```{r ex15, exercise = TRUE}
-flights %>% 
+flights |> 
   distinct(dest)
 ```
 
 ```{r ex15-solution}
-flights %>% 
-  distinct(dest) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  distinct(dest) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(name)
 ```
 
@@ -568,9 +568,9 @@ flights %>%
 Si nous revenons un peu en arrière sur nos résultats, nous pouvons voir que certains codes ne correspondaient pas au jeu de données `airports`.
 
 ```{r echo = TRUE}
-flights %>% 
-  distinct(dest) %>% 
-  left_join(airports, by = c("dest" = "faa")) %>% 
+flights |> 
+  distinct(dest) |> 
+  left_join(airports, by = c("dest" = "faa")) |> 
   select(dest, name)
 ```
 
@@ -579,13 +579,13 @@ flights %>%
 C'est inattendu. Il serait utile de voir quels codes ne correspondent pas. Complétez le code ci-dessous avec une jointure filtrante pour renvoyer uniquement les lignes qui n'ont pas de correspondance dans `airports`.
 
 ```{r ex16, exercise = TRUE}
-flights %>%
+flights |>
   distinct(dest)
 ```
 
 ```{r ex16-solution}
-flights %>%
-  distinct(dest) %>% 
+flights |>
+  distinct(dest) |> 
   anti_join(airports, by = c("dest" = "faa"))
 ```
 
@@ -610,7 +610,7 @@ Voyons comment cela affecte nos données. Utilisez le bloc de code ci-dessous po
 ```
 
 ```{r ex17-solution}
-flights %>% 
+flights |> 
   semi_join(airports, by = c("dest" = "faa")) 
 ```
 
@@ -647,7 +647,7 @@ Ensuite, vous pouvez exécuter un `semi_join()` sur le jeu de données. Utilisez
 ```
 
 ```{r ex18-solution}
-flights %>% 
+flights |> 
   semi_join(criteria, by = c("month", "carrier"))
 ```
 
@@ -691,7 +691,7 @@ knitr::include_graphics("www/images/bind-cols.png")
 Exécutez le code ci-dessous pour voir à quoi ressemblent les résultats dans R.
 
 ```{r ex19, exercise = TRUE}
-beatles1 %>% 
+beatles1 |> 
   bind_cols(beatles2)
 ```
 
@@ -716,7 +716,7 @@ knitr::include_graphics("www/images/bind-rows.png")
 Exécutez le code ci-dessous pour voir à quoi ressemblent les résultats dans R.
 
 ```{r ex20, exercise = TRUE}
-band %>% 
+band |> 
   bind_rows(band2)
 ```
 
@@ -740,7 +740,7 @@ Ajoutez l'argument `.id` au code ci-dessous pour créer la sortie affichée sur 
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% 
+bands |> 
   bind_rows()
 ```
 
@@ -748,7 +748,7 @@ bands %>%
 bands <- list(df1 = band, 
               df2 = band2)
 
-bands %>% 
+bands |> 
   bind_rows(.id = "origin")
 ```
 
@@ -769,16 +769,16 @@ knitr::include_graphics("www/images/band2.png")
 Imaginez ce que chacune des opérations d'ensemble ci-dessous renverra lorsqu'elle sera appliquée aux jeux de données ci-dessus. Exécutez ensuite le code pour vérifier si vous aviez raison.
 
 ```{r ex22, exercise = TRUE}
-band %>% 
+band |> 
   union(band2)
 
-band %>% 
+band |> 
   intersect(band2)
 
-band %>% 
+band |> 
   setdiff(band2)
 
-band2 %>% 
+band2 |> 
   setdiff(band)
 ```
 
@@ -787,7 +787,7 @@ band2 %>%
 `union()` renvoie chaque ligne qui apparaît dans l'un ou l'autre des jeux de données, mais elle supprime les copies en double des lignes.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   union(band2)
 ```
 
@@ -800,7 +800,7 @@ knitr::include_graphics("www/images/union.png")
 `intersect()` renvoie uniquement les lignes qui apparaissent dans les deux jeux de données. Elle supprime également les copies en double de ces lignes.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   intersect(band2)
 ```
 
@@ -813,7 +813,7 @@ knitr::include_graphics("www/images/intersect.png")
 `setdiff()` retourne toutes les lignes qui apparaissent dans le premier jeu de données mais pas dans le second.
 
 ```{r echo = TRUE, eval = FALSE}
-band %>% 
+band |> 
   setdiff(band2)
 ```
 

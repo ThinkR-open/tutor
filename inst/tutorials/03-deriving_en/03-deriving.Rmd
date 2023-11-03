@@ -14,21 +14,21 @@ library(learnr)
 library(tidyverse)
 library(babynames)
 
-tops <- babynames::babynames %>% 
-  group_by(name, sex) %>% 
-  summarise(total = sum(n), .groups = "drop") %>% 
+tops <- babynames::babynames |> 
+  group_by(name, sex) |> 
+  summarise(total = sum(n), .groups = "drop") |> 
   top_n(10, total)
   
-top_10 <- babynames::babynames %>% 
+top_10 <- babynames::babynames |> 
   semi_join(tops, by = c("name", "sex"))
 
-number_ones <- babynames::babynames %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "M") %>% 
-  ungroup() %>% 
-  distinct(name) %>% 
-  .$name
+number_ones <- babynames::babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "M") |> 
+  ungroup() |> 
+  distinct(name) |>  
+  pull(name)
 
 
 
@@ -41,9 +41,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r bnames, include=FALSE}
-names_to_keep <- babynames %>% group_by(year) %>% top_n(50,prop) %>% pull(name) %>% unique() %>% append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
-babynames <- babynames %>% filter(name %in% names_to_keep)
-# distinct(name) %>% sample_n(100)
+names_to_keep <- babynames |> group_by(year) |> top_n(50,prop) |> pull(name) |> unique() |> append(c("Garrett","Sea","Khaleesi","Anemone","Acura", "Lexus", "Yugo"))
+babynames <- babynames |> filter(name %in% names_to_keep)
+# distinct(name) |> sample_n(100)
 ```
 
 ## Welcome
@@ -76,7 +76,7 @@ I suggest that we focus on two definitions of _popular_, one that uses sums and 
 Let's go back to our question : what are the most popular names of all time?
 
 ```{r, echo = TRUE}
-babynames %>%
+babynames |>
   head()
 ```
 
@@ -95,8 +95,8 @@ question(
 Every data frame that you meet implies more information than it displays. For example, `babynames` does not display the total number of children who had your name, but `babynames` certainly implies what that number is. To discover the number, you only need to do a calculation:
 
 ```{r echo = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarise(total = sum(n))
 ```
 
@@ -128,14 +128,14 @@ I used `summarise()` above to calculate the total number of boys named "Garrett"
 * `mean` - the mean number of boys named "Garrett" per year
 
 ```{r echo = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarise(total = sum(n), 
             max = max(n), 
             mean = mean(n))
 ```
 
-Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `%>%`. Here the first argument will be the data frame that is returned by `babynames %>% filter(name == "Garrett", sex == "M")`.
+Don't let the code above fool you. The first argument of `summarise()` is always a data frame, but when you use `summarise()` in a pipe, the first argument is provided by the pipe operator, `|>`. Here the first argument will be the data frame that is returned by `babynames |> filter(name == "Garrett", sex == "M")`.
 
 ### Exercise - summarise()
 
@@ -152,8 +152,8 @@ If you cannot think of an R function that would compute each statistic, click th
 ```
 
 ```{r summarise-1-solution}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarise(total = sum(n), 
             max = max(n), 
             mean = mean(n))
@@ -180,8 +180,8 @@ Let's apply some of these summary functions. Click Continue to test your underst
 ```
 
 ```{r khaleesi-solution}
-babynames %>% 
-  filter(name == "Khaleesi") %>% 
+babynames |> 
+  filter(name == "Khaleesi") |> 
   summarise(year = first(year))
 ```
 
@@ -199,7 +199,7 @@ Will these numbers be different? Why or why not?
 ```
 
 ```{r distinct-solution}
-babynames %>% 
+babynames |> 
   summarise(n = n(), 
             distinct = n_distinct(name))
 ```
@@ -213,8 +213,8 @@ babynames %>%
 How can we apply `summarise()` to find the most popular names in `babynames`? You've seen how to calculate the total number of children that have your name, which provides one of our measures of popularity, i.e. the total number of children that have a name:
 
 ```{r eval = FALSE, echo = TRUE}
-babynames %>% 
-  filter(name == "Garrett", sex == "M") %>% 
+babynames |> 
+  filter(name == "Garrett", sex == "M") |> 
   summarise(total = sum(n))
 ```
 
@@ -234,7 +234,7 @@ Eventually, the program could combine all of the results back into a single data
 For example, the result below is grouped into rows that have the same combination of `year` and `sex` values: boys in 1880 are treated as one group, girls in 1880 as another group and so on.
 
 ```{r echo = TRUE}
-babynames %>%
+babynames |>
   group_by(year, sex)
 ```
 
@@ -245,20 +245,20 @@ By itself, `group_by()` doesn't do much. It assigns grouping criteria that is st
 However, when you apply a dplyr function like `summarise()` to grouped data, dplyr will execute the function in a groupwise manner. Instead of computing a single summary for the entire data set, dplyr will compute individual summaries for each group and return them as a single data frame. The data frame will contain the summary columns as well as the columns in the grouping criteria, which makes the result decipherable:
 
 ```{r grouping-1, exercise = TRUE, exercise.eval = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
-To understand exactly what `group_by()` is doing, remove the line `group_by(year, sex) %>%` from the code above and rerun it. How do the results change?
+To understand exactly what `group_by()` is doing, remove the line `group_by(year, sex) |>` from the code above and rerun it. How do the results change?
 
 ### Ungrouping 1
 
 If you apply `summarise()` to grouped data, `summarise()` will return data that is grouped in a similar, but not identical fashion. `summarise()` will remove the last variable in the grouping criteria, which creates a data frame that is grouped at a higher level. For example, this `summarise()` statement receives a data frame that is grouped by year and sex, but it returns a data frame that is grouped only by year.
 
 ```{r grouping-2, echo = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -273,9 +273,9 @@ If we add another `summarise()` to our pipe,
 1. _Then_ be summarised into a final data set that is not grouped.
 
 ```{r echo = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   summarise(total = sum(total))
 ```
 
@@ -285,9 +285,9 @@ In the `summarise()`, `.groups = "drop"` indicates not to keep groups after summ
 If you wish to manually remove the grouping criteria from a data set after any function other than `summarise()`, you can do so with `ungroup()`.
 
 ```{r grouping-3, echo = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
-  filter(n == max(n)) %>% 
+babynames |>
+  group_by(year, sex) |> 
+  filter(n == max(n)) |> 
   ungroup()
 ```
 
@@ -296,8 +296,8 @@ babynames %>%
 And, you can override the current grouping information with a new call to `group_by()`.
 
 ```{r grouping-4, echo = TRUE}
-babynames %>%
-  group_by(year, sex) %>% 
+babynames |>
+  group_by(year, sex) |> 
   group_by(name)
 ```
 
@@ -314,9 +314,9 @@ In the code chunk below, use `group_by()`, `summarise()`, and `arrange()` to dis
 ```
 
 ```{r popular-1-solution}
-babynames %>%
-  group_by(name, sex) %>% 
-  summarise(total = sum(n), .groups = "drop") %>% 
+babynames |>
+  group_by(name, sex) |> 
+  summarise(total = sum(n), .groups = "drop") |> 
   arrange(desc(total))
 ```
 
@@ -337,7 +337,7 @@ Use the code block below to plot a line graph of `prop` vs `year` for each name 
 ```
 
 ```{r popular-2-solution}
-top_10 %>%
+top_10 |>
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -352,7 +352,7 @@ Now use `top_10` to plot `n` vs `year` for each of the names. How are the plots 
 ```
 
 ```{r popular-3-solution}
-top_10 %>%
+top_10 |>
   ggplot() +
     aes(x = year, y = n, color = name) +
     geom_line()
@@ -377,9 +377,9 @@ Test this theory in the chunk below. Use `babynames` and groupwise summaries to 
 ```
 
 ```{r population-solution}
-babynames %>% 
-  group_by(year) %>% 
-  summarise(n = sum(n), .groups = "drop") %>% 
+babynames |> 
+  group_by(year) |> 
+  summarise(n = sum(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = n) +
     geom_line()
@@ -407,7 +407,7 @@ To do this, we will need to learn one last dplyr function.
 `mutate()` uses a data frame to compute new variables. It then returns a copy of the data frame that includes the new variables. For example, we can use `mutate()` to compute a `percent` variable for `babynames`. Here percent is just the `prop` multiplied by 100 and rounded to two decimal places.
 
 ```{r echo = TRUE}
-babynames %>%
+babynames |>
   mutate(percent = round(prop * 100, 2))
 ```
 
@@ -422,7 +422,7 @@ Use `mutate()` in the chunk below to create a `births` column, the result of div
 ```
 
 ```{r mutate-1-solution}
-babynames %>% 
+babynames |> 
   mutate(births = n / prop)
 ```
 
@@ -464,7 +464,7 @@ Let's practice by ranking the entire dataset based on `prop`. In the chunk below
 ```
 
 ```{r mutate-2-solution}
-babynames %>% 
+babynames |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
@@ -477,13 +477,13 @@ To rank within groups, combine `mutate()` with `group_by()`. Like dplyr's other 
 Add `group_by()` to our code from above, to calculate ranking within year and sex combinations. Do you notice the numbers change?
 
 ```{r mutate-3, exercise = TRUE, exercise.setup = "bnames"}
-babynames %>% 
+babynames |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
 ```{r mutate-3-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
+babynames |> 
+  group_by(year, sex) |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
@@ -503,11 +503,11 @@ babynames %>%
 
 
 ```{r mutate-4-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(prop))) %>% 
-  group_by(name, sex) %>% 
-  summarise(score = median(rank), .groups = "drop") %>% 
+babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(prop))) |> 
+  group_by(name, sex) |> 
+  summarise(score = median(rank), .groups = "drop") |> 
   arrange(score)
 ```
 
@@ -549,11 +549,11 @@ How many distinct boys names acheived a rank of Number 1 in any year?
 ```
 
 ```{r ones-1-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "M") %>% 
-  ungroup() %>% 
+babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "M") |> 
+  ungroup() |> 
   summarise(distinct = n_distinct(name))
 ```
 
@@ -566,11 +566,11 @@ How many distinct girls names acheived a rank of Number 1 in any year?
 ```
 
 ```{r ones-2-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "F") %>% 
-  ungroup() %>% 
+babynames |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "F") |> 
+  ungroup() |> 
   summarise(distinct = n_distinct(name))
 ```
 
@@ -585,8 +585,8 @@ number_ones
 Use `number_ones` with `babynames` to recreate the plot below, which shows the popularity over time for every name in `number_ones`.
 
 ```{r, fig.height=5, out.width="100%"}
-babynames %>% 
-  filter(name %in% number_ones, sex == "M") %>% 
+babynames |> 
+  filter(name %in% number_ones, sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -597,8 +597,8 @@ babynames %>%
 ```
 
 ```{r ones-3-solution}
-babynames %>% 
-  filter(name %in% number_ones, sex == "M") %>% 
+babynames |> 
+  filter(name %in% number_ones, sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -616,9 +616,9 @@ In the chunk below, calculate and then plot the number of distinct names used ea
 
 
 ```{r diversity-1-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  summarise(n_names = n_distinct(name), .groups = "drop") %>% # or summarise(n_names = n(), .groups = "drop")
+babynames |> 
+  group_by(year, sex) |> 
+  summarise(n_names = n_distinct(name), .groups = "drop") |> # or summarise(n_names = n(), .groups = "drop")
   ggplot() +
     aes(x = year, y = n_names, color = sex) +
     geom_line()
@@ -633,9 +633,9 @@ Let's make sure that we're not confounding our search with the total number of b
 ```
 
 ```{r diversity-2-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  summarise(n = sum(n), .groups = "drop") %>% 
+babynames |> 
+  group_by(year, sex) |> 
+  summarise(n = sum(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = n, color = sex) +
     geom_line()
@@ -655,9 +655,9 @@ In the chunk below, calculate and plot the average number of children per name b
 
 
 ```{r diversity-3-solution}
-babynames %>% 
-  group_by(year, sex) %>% 
-  summarise(per_name = mean(n), .groups = "drop") %>% 
+babynames |> 
+  group_by(year, sex) |> 
+  summarise(per_name = mean(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = per_name, color = sex) +
     geom_line()

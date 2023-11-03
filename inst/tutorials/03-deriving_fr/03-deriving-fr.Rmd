@@ -17,35 +17,35 @@ library(learnr)
 library(tidyverse)
 library(prenoms)
 
-prenoms <- left_join(prenoms %>% 
-                        group_by(name, year, sex) %>%
-                        summarise(n = sum(n), .groups = "drop") %>%
-                        select(year, sex, name, n) %>%
+prenoms <- left_join(prenoms |> 
+                        group_by(name, year, sex) |>
+                        summarise(n = sum(n), .groups = "drop") |>
+                        select(year, sex, name, n) |>
                         unite("year_sex", c(year, sex)),
-                      prenoms %>% 
-                        group_by(year, sex) %>%
-                        summarise(N = sum(n), .groups = "drop") %>%
+                      prenoms |> 
+                        group_by(year, sex) |>
+                        summarise(N = sum(n), .groups = "drop") |>
                         unite("year_sex", c(year, sex), remove = FALSE),
-                      by = "year_sex") %>%
-  mutate(prop = n / N) %>%
-  select(year, sex, name, n, prop) %>%
+                      by = "year_sex") |>
+  mutate(prop = n / N) |>
+  select(year, sex, name, n, prop) |>
   arrange(year)
 
-tops <- prenoms %>% 
-  group_by(name, sex) %>% 
-  summarise(total = sum(n), .groups = "drop") %>% 
+tops <- prenoms |> 
+  group_by(name, sex) |> 
+  summarise(total = sum(n), .groups = "drop") |> 
   top_n(10, total)
   
-top_10 <- prenoms %>% 
+top_10 <- prenoms |> 
   semi_join(tops, by = c("name", "sex"))
 
-number_ones <- prenoms %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "M") %>% 
-  ungroup() %>% 
-  distinct(name) %>% 
-  .$name
+number_ones <- prenoms |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "M") |> 
+  ungroup() |> 
+  distinct(name) |> 
+  pull(name)
 
 checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
   list(message = check_code, correct = TRUE, location = "append")
@@ -57,7 +57,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Bienvenue
 
 ```{r, echo=FALSE}
-year_max <- prenoms %>% summarise(max(year)) %>% pull()
+year_max <- prenoms |> summarise(max(year)) |> pull()
 ```
 
 
@@ -91,7 +91,7 @@ Nous suggérons que nous nous concentrions sur deux définitions de _populaire_,
 Revenons à notre question : quels sont les prénoms les plus populaires de tous les temps ?
 
 ```{r, echo = TRUE}
-prenoms %>%
+prenoms |>
   head()
 ```
 
@@ -111,8 +111,8 @@ question(
 Chaque jeu de données que vous rencontrez contient et permet de trouver plus d'informations qu'il n'en affiche. Par exemple, `prenoms` n'affiche pas le nombre total d'enfants qui portaient un prénom donné, mais il contient cette information. Pour découvrir la découvrir, il faut opérer un calcul :
 
 ```{r echo = TRUE}
-prenoms %>% 
-  filter(name == "Margot", sex == "F") %>% 
+prenoms |> 
+  filter(name == "Margot", sex == "F") |> 
   summarise(total = sum(n))
 ```
 
@@ -124,7 +124,7 @@ prenoms %>%
 * `group_by()`  
 * `mutate()`
 
-Tout comme `select()`, `filter()` et `arrange()`, ces fonctions prennent toutes un jeu de données comme premier argument et renvoient un nouveau jeu de données comme sortie, et nous utiliserons le pipe ( %>% ) oour les articuler.
+Tout comme `select()`, `filter()` et `arrange()`, ces fonctions prennent toutes un jeu de données comme premier argument et renvoient un nouveau jeu de données comme sortie, et nous utiliserons le pipe ( |> ) pour les articuler.
 
 Étudions chaque fonction et utilisons-les pour analyser la popularité au fur et à mesure.
 
@@ -144,12 +144,12 @@ Nous avons utilisé `summarise()` ci-dessus pour calculer le nombre total de fil
 * `mean` - le nombre moyen de filles prénommés "Margot" par an
 
 ```{r echo = TRUE}
-prenoms %>% 
-  filter(name == "Margot", sex == "F") %>% 
+prenoms |> 
+  filter(name == "Margot", sex == "F") |> 
   summarise(total = sum(n), max = max(n), mean = mean(n))
 ```
 
-Ne laissez pas le code ci-dessus vous tromper. Le premier argument de `summarise()` est toujours un jeu de données, mais lorsque vous utilisez `summarise()` dans un pipe, le premier argument est fourni par l'opérateur `%>%`. Ici, le premier argument sera le jeu de données qui est retourné par `prenoms %>% filter(name == "Margot", sex == "F")`.
+Ne laissez pas le code ci-dessus vous tromper. Le premier argument de `summarise()` est toujours un jeu de données, mais lorsque vous utilisez `summarise()` dans un pipe, le premier argument est fourni par l'opérateur `|>`. Ici, le premier argument sera le jeu de données qui est retourné par `prenoms |> filter(name == "Margot", sex == "F")`.
 
 ### Exercice - summarise()
 
@@ -166,8 +166,8 @@ Si vous ne parvenez pas à trouver la fonction R qui calculerait chaque statisti
 ```
 
 ```{r summarise-1-solution}
-prenoms %>% 
-  filter(name == "Marie", sex == "F") %>% 
+prenoms |> 
+  filter(name == "Marie", sex == "F") |> 
   summarise(total = sum(n), max = max(n), mean = mean(n))
 ```
 
@@ -192,8 +192,8 @@ Appliquons certaines de ces fonctions de résumés. Cliquez sur "Continue" pour 
 ```
 
 ```{r khaleesi-solution}
-prenoms %>% 
-  filter(name == "Aria") %>% 
+prenoms |> 
+  filter(name == "Aria") |> 
   summarise(year = first(year))
 ```
 
@@ -211,7 +211,7 @@ A votre avis, ces chiffres seront-ils différents ? Pourquoi ?
 ```
 
 ```{r distinct-solution}
-prenoms %>% 
+prenoms |> 
   summarise(n = n(), distinct = n_distinct(name))
 ```
 
@@ -224,8 +224,8 @@ prenoms %>%
 Comment pouvons-nous appliquer `summarise()` pour trouver les prénoms les plus populaires dans `prenoms` ? Vous avez vu comment calculer le nombre total d'enfants qui portent un prénom donné, ce qui fournit l'une de nos mesures de popularité (le nombre total d'enfants qui ont un prénom donné) :
 
 ```{r eval = FALSE, echo = TRUE}
-prenoms %>% 
-  filter(name == "Vincent", sex == "M") %>% 
+prenoms |> 
+  filter(name == "Vincent", sex == "M") |> 
   summarise(total = sum(n))
 ```
 
@@ -245,7 +245,7 @@ Au final, le programme pourrait regrouper tous les résultats dans un seul jeu d
 Par exemple, le résultat ci-dessous est regroupé en lignes qui ont la même combinaison des valeurs `year` et `sex` : les garçons en 1900 sont traités comme un groupe, les filles en 1900 comme un autre groupe, etc.
 
 ```{r echo = TRUE}
-prenoms %>%
+prenoms |>
   group_by(year, sex)
 ```
 
@@ -256,20 +256,20 @@ En soi, `group_by()` ne fait pas grand-chose. Il attribue des critères de regro
 Cependant, lorsque vous appliquez une fonction de {dplyr} comme `summarise()` aux données groupées, {dplyr} exécutera la fonction de manière groupée. Au lieu de calculer un seul résumé pour l'ensemble des données, {dplyr} calculera des résumés individuels pour chaque groupe, et les renverra sous la forme d'un seul jeu de données. Ce dernier possède autant de lignes que le nombre de modalité des variables qui servent à grouper. Ce jeu de données contiendra les colonnes récapitulatives ainsi que les colonnes des critères de regroupement, ce qui rend le résultat déchiffrable :
 
 ```{r grouping-1, exercise = TRUE, exercise.eval = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
-Pour comprendre exactement ce que fait `group_by()`, commentez la ligne `group_by(year, sex) %>%` du code ci-dessus et ré-exécutez-la. Comment les résultats changent-ils ?
+Pour comprendre exactement ce que fait `group_by()`, commentez la ligne `group_by(year, sex) |>` du code ci-dessus et ré-exécutez-la. Comment les résultats changent-ils ?
 
 ### Dégrouper 1
 
 Si vous appliquez `summarise()` à des données groupées sur plusieurs variables, `summarise()` renverra des données elle aussi groupées mais sur une variable de moins . `summarise()`  supprimera la dernière variable dans les critères de regroupement, ce qui crée un jeu de données regroupé à un niveau supérieur. Par exemple, cette instruction `summarise()`  reçoit un jeu de données qui est regroupé par année et par sexe, mais elle renvoie un jeu de données qui n'est regroupée que par année.
 
 ```{r grouping-2, echo = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   summarise(total = sum(n))
 ```
 
@@ -284,9 +284,9 @@ Si nous ajoutons un autre `summarise()` à notre pipe,
 1. _Puis_ il sera résumé dans un jeu de données final qui n'est pas groupé.
 
 ```{r echo = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
-  summarise(total = sum(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  summarise(total = sum(n)) |> 
   summarise(total = sum(total))
 ```
 
@@ -296,17 +296,17 @@ Dans le `summarise()`, `.groups = "drop"` indique de ne pas conserver les groupe
 Si vous souhaitez supprimer manuellement les critères de regroupement d'un jeu de données après toute autre  fonction que `summarise()`, vous pouvez le faire avec `ungroup()`.
 
 ```{r grouping-3, echo = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
-  filter(n == max(n)) %>% 
+prenoms |>
+  group_by(year, sex) |> 
+  filter(n == max(n)) |> 
   ungroup()
 ```
 
 Et vous pouvez remplacer les informations de regroupement actuelles par un nouvel appel à `group_by()`.
 
 ```{r grouping-4, echo = TRUE}
-prenoms %>%
-  group_by(year, sex) %>% 
+prenoms |>
+  group_by(year, sex) |> 
   group_by(name)
 ```
 
@@ -323,9 +323,9 @@ Dans le bloc de code ci-dessous, utilisez `group_by()`, `summarise()`, et `arran
 ```
 
 ```{r popular-1-solution}
-prenoms %>%
-  group_by(name, sex) %>% 
-  summarise(total = sum(n), .groups = "drop") %>% 
+prenoms |>
+  group_by(name, sex) |> 
+  summarise(total = sum(n), .groups = "drop") |> 
   arrange(desc(total))
 ```
 
@@ -346,7 +346,7 @@ Utilisez le bloc de code ci-dessous pour tracer un graphique linéaire de `prop`
 ```
 
 ```{r popular-2-solution}
-top_10 %>%
+top_10 |>
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -361,7 +361,7 @@ Utilisez maintenant `top_10` pour tracer `n` vs `year` pour chacun des prénoms.
 ```
 
 ```{r popular-3-solution}
-top_10 %>%
+top_10 |>
   ggplot() +
     aes(x = year, y = n, color = name) +
     geom_line()
@@ -386,9 +386,9 @@ Testez cette théorie dans le bloc ci-dessous. Utilisez `prenoms` et des résum�
 ```
 
 ```{r population-solution}
-prenoms %>% 
-  group_by(year) %>% 
-  summarise(n = sum(n), .groups = "drop") %>% 
+prenoms |> 
+  group_by(year) |> 
+  summarise(n = sum(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = n) +
     geom_line()
@@ -418,7 +418,7 @@ Pour ce faire, nous allons devoir apprendre une dernière fonction de {dplyr} : 
 `mutate()` utilise un jeu de données pour calculer de nouvelles variables. Elle renvoie ensuite une copie du jeu de données qui inclut les nouvelles variables. Par exemple, nous pouvons utiliser `mutate()` pour calculer une variable `percent` pour `prenoms`. Ici, le pourcentage est la proportion `prop` multiplié par 100 et arrondie à deux décimales.
 
 ```{r echo = TRUE}
-prenoms %>%
+prenoms |>
   mutate(percent = round(prop * 100, digits = 2))
 ```
 
@@ -433,7 +433,7 @@ Utilisez `mutate()` dans le bloc ci-dessous pour créer une colonne `births` (na
 ```
 
 ```{r mutate-1-solution}
-prenoms %>% 
+prenoms |> 
   mutate(births = n / prop)
 ```
 
@@ -475,7 +475,7 @@ Exerçons-nous en classant le jeu de données en fonction de `prop`. Dans le blo
 ```
 
 ```{r mutate-2-solution}
-prenoms %>% 
+prenoms |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
@@ -488,13 +488,13 @@ Pour classer les valeurs au sein des groupes, combinez `mutate()` avec `group_by
 Ajoutez `group_by()` au code ci-dessous pour calculer le classement dans les combinaisons d'année et de sexe. Remarquez-vous que les chiffres changent ?
 
 ```{r mutate-3, exercise = TRUE}
-prenoms %>% 
+prenoms |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
 ```{r mutate-3-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
+prenoms |> 
+  group_by(year, sex) |> 
   mutate(rank = min_rank(desc(prop)))
 ```
 
@@ -514,11 +514,11 @@ prenoms %>%
 
 
 ```{r mutate-4-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(prop))) %>% 
-  group_by(name, sex) %>% 
-  summarise(score = median(rank), .groups = "drop") %>% 
+prenoms |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(prop))) |> 
+  group_by(name, sex) |> 
+  summarise(score = median(rank), .groups = "drop") |> 
   arrange(score)
 ```
 
@@ -560,11 +560,11 @@ Combien de prénoms de garçons distincts ont atteint le rang de numéro 1 au co
 ```
 
 ```{r ones-1-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "M") %>% 
-  ungroup() %>% 
+prenoms |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "M") |> 
+  ungroup() |> 
   summarise(distinct = n_distinct(name))
 ```
 
@@ -577,11 +577,11 @@ Combien de prénoms de filles distincts ont atteint le rang de numéro 1 au cour
 ```
 
 ```{r ones-2-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  mutate(rank = min_rank(desc(n))) %>% 
-  filter(rank == 1, sex == "F") %>% 
-  ungroup() %>% 
+prenoms |> 
+  group_by(year, sex) |> 
+  mutate(rank = min_rank(desc(n))) |> 
+  filter(rank == 1, sex == "F") |> 
+  ungroup() |> 
   summarise(distinct = n_distinct(name))
 ```
 
@@ -596,8 +596,8 @@ number_ones
 Utilisez `number_ones` avec `prenoms` pour recréer le graphique ci-dessous, qui montre la popularité au fil du temps pour chaque prénom de `number_ones`.
 
 ```{r, fig.height=5, out.width="100%"}
-prenoms %>% 
-  filter(name %in% number_ones, sex == "M") %>% 
+prenoms |> 
+  filter(name %in% number_ones, sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -608,8 +608,8 @@ prenoms %>%
 ```
 
 ```{r ones-3-solution}
-prenoms %>% 
-  filter(name %in% number_ones, sex == "M") %>% 
+prenoms |> 
+  filter(name %in% number_ones, sex == "M") |> 
   ggplot() +
     aes(x = year, y = prop, color = name) +
     geom_line()
@@ -627,9 +627,9 @@ Dans le bloc ci-dessous, calculez puis tracez le nombre de prénoms distincts ut
 
 
 ```{r diversity-1-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  summarise(n_names = n_distinct(name), .groups = "drop") %>% # or summarise(n_names = n(), .groups = "drop")
+prenoms |> 
+  group_by(year, sex) |> 
+  summarise(n_names = n_distinct(name), .groups = "drop") |> # or summarise(n_names = n(), .groups = "drop")
   ggplot() +
     aes(x = year, y = n_names, color = sex) +
     geom_line()
@@ -644,9 +644,9 @@ Faisons en sorte de ne pas biaiser notre analyse en fonction du nombre total de 
 ```
 
 ```{r diversity-2-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  summarise(n = sum(n), .groups = "drop") %>% 
+prenoms |> 
+  group_by(year, sex) |> 
+  summarise(n = sum(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = n, color = sex) +
     geom_line()
@@ -666,9 +666,9 @@ Dans le bloc ci-dessous, calculez et tracez le nombre moyen d'enfants par préno
 
 
 ```{r diversity-3-solution}
-prenoms %>% 
-  group_by(year, sex) %>% 
-  summarise(per_name = mean(n), .groups = "drop") %>% 
+prenoms |> 
+  group_by(year, sex) |> 
+  summarise(per_name = mean(n), .groups = "drop") |> 
   ggplot() +
     aes(x = year, y = per_name, color = sex) +
     geom_line()
