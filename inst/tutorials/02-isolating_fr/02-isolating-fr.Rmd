@@ -374,7 +374,7 @@ arrange(prenoms, n)
 
 Si vous renseignez plusieurs noms de colonnes, `arrange()` les utilisera successivement pour réorganiser les lignes qui ont des valeurs identiques dans les colonnes précédentes. Complétez le code ci-dessous avec la colonne `prop` pour illustrer ce fonctionnement. Le résultat doit d'abord classer les lignes en fonction de la valeur de `n`, puis réorganiser les lignes de chaque valeur de `n` en fonction des valeurs de `prop`.
 
-```{r arrange-2, exercise = TRUE, exercise.eval = TRUE}
+```{r arrange-2, exercise = TRUE, exercise.eval = TRUE, exercise.setup = "bnames"}
 arrange(prenoms, n)
 ```
 
@@ -388,7 +388,7 @@ Si vous préférez organiser les lignes dans l'ordre inverse, c'est-à-dire des 
 
 Ajoutez un `desc()` au code ci-dessous pour afficher le prénom le plus populaire pour la plus grande année du jeu de données au lieu de 1900 (la plus petite année du jeu de données).
 
-```{r arrange-3, exercise = TRUE, exercise.eval = TRUE}
+```{r arrange-3, exercise = TRUE, exercise.eval = TRUE, exercise.setup = "bnames"}
 arrange(prenoms, year, desc(prop))
 ```
 
