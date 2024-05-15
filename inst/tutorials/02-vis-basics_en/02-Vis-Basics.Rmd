@@ -38,11 +38,11 @@ The tutorial focuses on three basic skills:
 1. How to add variables to a graph with **aesthetics**
 1. How to make different "types" of graphs with **geoms** 
 
-In this tutorial, we will use the [core tidyverse packages](http://tidyverse.org/), including `ggplot2`. I've already loaded the packages for you, so let's begin! 
+In this tutorial, we will use the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including `ggplot2`. I've already loaded the packages for you, so let's begin! 
 
 ***
 
-These examples are excerpted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+These examples are excerpted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 
 ## A code template
@@ -576,7 +576,7 @@ ggplot(data = mpg) +
 
 ggplot2 provides over 30 geom functions that you can use to make plots, and extension packages provide even more (see <https://exts.ggplot2.tidyverse.org/gallery/> for a sampling). You'll learn how to use these geoms to explore data in the [Visualize Data]() primer. 
 
-Until then, the best way to get a comprehensive overview of the available geoms is with the [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf). To learn more about any single geom, look at its help page, e.g. `?geom_smooth`.
+Until then, the best way to get a comprehensive overview of the available geoms is with the [ggplot2 cheatsheet](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf){target="_blank}. To learn more about any single geom, look at its help page, e.g. `?geom_smooth`.
 
 ### Exercise 1
 
@@ -605,7 +605,7 @@ The Grammar of Graphics provides a systematic way to build any graph, and it und
 
 The best way to understand the Grammar of Graphics is to see it explained in action:
 
-![](https://vimeo.com/223812632)
+![](https://vimeo.com/223812632){target="_blank}
 
 ## The ggplot2 package
 

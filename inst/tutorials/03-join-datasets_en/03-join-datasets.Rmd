@@ -83,7 +83,7 @@ Data often comes as multiple data sets that are related to each other. When this
 
 Each of these functions come in the **dplyr** package, not the tidyr package. You may wonder why we are learning about them in the Tidy Data primer. Joins are a useful component of data tidying; your data can hardly be tidy if observations are split across multiple data frames where they are listed in different orders.
 
-This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including dplyr, as well as the nycflights13 package. All of these packages have been pre-installed and pre-loaded for your convenience.
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including dplyr, as well as the nycflights13 package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -727,7 +727,7 @@ knitr::include_graphics("www/images/bind-rows-id.png")
 
 The easiest way to do this is to save the input data sets as a named list and call _`bind_rows` on the list_. Then add the argument `.id` to your `bind_rows()` call and set `.id` to a character string. `bind_rows()` will use the character string as the name of a new column that displays the name of the data set that each row comes from (as determined by the names in the list). 
 
-If you'd like to refresh your understanding of lists in R, revisit the [Programming Basics](https://rstudio.cloud/learn/primers/1.2) tutorial.
+If you'd like to refresh your understanding of lists in R, revisit the [Programming Basics](https://rstudio.cloud/learn/primers/1.2){target="_blank} tutorial.
 
 ###  
 

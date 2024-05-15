@@ -68,7 +68,7 @@ Au contraire, des données sont dites 'dans un format large' (*wide* en anglais)
 knitr::include_graphics("www/images/wide.png")
 ```
 
-Ce module utilise les [packages qui composent le coeur du tidyverse ](http://tidyverse.org/), notamment {ggplot2}, {dplyr} et {tidyr}. Nous utiliserons également le package `{prenoms}` made in ThinkR (voir [ici](https://github.com/ThinkR-open/prenoms) pour l'installer). Tous ces packages ont été préinstallés et préchargés pour vous dans ce module. Nul besoin donc de les installer et les charger de nouveau.
+Ce module utilise les [packages qui composent le coeur du tidyverse ](http://tidyverse.org/){target="_blank}, notamment {ggplot2}, {dplyr} et {tidyr}. Nous utiliserons également le package `{prenoms}` made in ThinkR (voir [ici](https://github.com/ThinkR-open/prenoms){target="_blank} pour l'installer). Tous ces packages ont été préinstallés et préchargés pour vous dans ce module. Nul besoin donc de les installer et les charger de nouveau.
 
 Cliquez sur le bouton pour commencer.
 
@@ -263,7 +263,7 @@ Dans les sections suivantes, vous allez découvrir les fonctions :
 
 Nous y reviendrons par la suite, mais voici un aperçu du fonctionnement de ces deux fonctions : 
 
-![](https://www.fromthebottomoftheheap.net/assets/img/posts/tidyr-longer-wider.gif)
+![](https://www.fromthebottomoftheheap.net/assets/img/posts/tidyr-longer-wider.gif){target="_blank}
 
 ## Rassembler des colonnes
 

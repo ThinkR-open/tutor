@@ -85,7 +85,7 @@ Les données se présentent souvent sous la forme de plusieurs jeux de données 
 
 Chacune de ces fonctions est incluse dans le package **{dplyr}**, et non dans le package {tidyr}. Vous vous demandez donc peut-être pourquoi nous en parlons dans cet ensemble de module relatif aux tidy data (données ordonnées). C'est en fait car les jointures sont des composantes utilisées du rangement des données : vos données peuvent difficilement être ordonnées si les observations sont réparties dans plusieurs jeux de données dans lesquels elles sont enregistrées dans des ordres différents.
 
-Ce module utilise les [packages de base du tidyverse](http://tidyverse.org/), notamment {dplyr}, ainsi que le package {nycflights13}. Tous ces packages ont été préinstallés et préchargés.
+Ce module utilise les [packages de base du tidyverse](http://tidyverse.org/){target="_blank}, notamment {dplyr}, ainsi que le package {nycflights13}. Tous ces packages ont été préinstallés et préchargés.
 
 Cliquez sur le bouton "Suivant" pour commencer.
 

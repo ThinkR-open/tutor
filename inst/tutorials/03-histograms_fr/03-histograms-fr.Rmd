@@ -27,7 +27,7 @@ Les **histogrammes** sont la façon la plus populaire de visualiser des distribu
 * Ajuster le **binwidth** d'un histogramme pour révéler de l'information
 * Utiliser des geoms similaires à l'histogramme, comme __dotplots__, __frequency polygons__, et __densities__
 
-Ce module est adapté du livre _R for Data Science_ d'Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez obtenir le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Ce module est adapté du livre _R for Data Science_ d'Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez obtenir le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 Ce module utilise les packages {ggplot2} et {dplyr}, qui ont été chargés pour votre convenance.
 

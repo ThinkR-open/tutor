@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Welcome 
 
-A **scatterplot** displays the relationship between two continuous variables. Scatterplots are one of the most common types of graphs---in fact, you've met scatterplots already in [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/). 
+A **scatterplot** displays the relationship between two continuous variables. Scatterplots are one of the most common types of graphs---in fact, you've met scatterplots already in [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}. 
 
 In this tutorial, you'll learn how to:
 
@@ -33,7 +33,7 @@ In this tutorial, you'll learn how to:
 * Enhance scatterplots with `geom_smooth()`, `geom_rug()`, and `geom_repel()`
 * Change the **coordinate system** of a plot
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 The tutorial uses the ggplot2, ggrepel, and dplyr packages, which have been pre-loaded for your convenience.
 
@@ -41,7 +41,7 @@ The tutorial uses the ggplot2, ggrepel, and dplyr packages, which have been pre-
 
 ### Review 1 - geom_point()
 
-In [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/), you learned how to make a scatterplot with `geom_point()`.
+In [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}, you learned how to make a scatterplot with `geom_point()`.
 
 The code below summarises the mpg data set and begins to plot the results. Finish the plot with `geom_point()`. Put `mean_cty` on the $x$ axis and `mean_hwy` on the $y$ axis.
 
@@ -104,7 +104,7 @@ mpg |>
 
 ### geom_smooth()
 
-In [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/), you met `geom_smooth()`, which provides a summarised version of a scatterplot.
+In [Visualization Basics](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}, you met `geom_smooth()`, which provides a summarised version of a scatterplot.
 
 `geom_smooth()` uses a model to fit a smoothed line to the data and then visualizes the results. By default, `geom_smooth()` fits a loess smooth to data sets with less than 1,000 observations, and a generalized additive model to data sets with more than 1,000 observations. 
 
@@ -480,7 +480,7 @@ ggplot(data = mpg) +
 
 ### coord_flip()
 
-One way to customize a scatterplot is to plot it in a new coordinate system. ggplot2 provides several helper functions that change the coordinate system of a plot. You've already seen one of these in action in the [boxplots tutorial](https://tutorials.shinyapps.io/04-boxplots): `coord_flip()` flips the $x$ and $y$ axes of a plot.
+One way to customize a scatterplot is to plot it in a new coordinate system. ggplot2 provides several helper functions that change the coordinate system of a plot. You've already seen one of these in action in the [boxplots tutorial](https://tutorials.shinyapps.io/04-boxplots){target="_blank}: `coord_flip()` flips the $x$ and $y$ axes of a plot.
 
 ```{r out.width = "80%", message = FALSE, warning = FALSE}
 ggplot(data = mpg) +

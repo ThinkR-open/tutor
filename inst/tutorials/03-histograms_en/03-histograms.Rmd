@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = FALSE)
 * Adjust the **binwidth** of a histogram to reveal new information
 * Use geoms that are similar to histograms, such as __dotplots__, __frequency polygons__, and __densities__
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for your convenience.
 
@@ -37,11 +37,11 @@ The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for
 
 ### Introduction
 
-![](https://vimeo.com/221607341)
+![](https://vimeo.com/221607341){target="_blank}
 
 ### How to make a histogram
 
-To make a histogram with ggplot2, add `geom_histogram()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/). For example, the code below plots a histogram of the `carat` variable in the `diamonds` dataset, which comes with ggplot2. 
+To make a histogram with ggplot2, add `geom_histogram()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}. For example, the code below plots a histogram of the `carat` variable in the `diamonds` dataset, which comes with ggplot2. 
 
 ```{r hist1, exercise = TRUE, out.width = "80%", message = FALSE}
 ggplot(data = diamonds) +

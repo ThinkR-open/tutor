@@ -30,7 +30,7 @@ This tutorial will show you how to make and enhance **bar charts** with the ggpl
 * use **position adjustments**
 * use **facets** to create subplots
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for your convenience.
 
@@ -38,7 +38,7 @@ The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for
 
 ### How to make a bar chart
 
-To make a bar chart with ggplot2, add `geom_bar()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/). For example, the code below plots a bar chart of the `cut` variable in the `diamonds` dataset, which comes with ggplot2. 
+To make a bar chart with ggplot2, add `geom_bar()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}. For example, the code below plots a bar chart of the `cut` variable in the `diamonds` dataset, which comes with ggplot2. 
 
 ```{r out.width = "80%"}
 ggplot(data = diamonds) +

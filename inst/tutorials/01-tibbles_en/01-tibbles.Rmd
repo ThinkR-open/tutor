@@ -47,7 +47,7 @@ In the tutorials, we'll use a dataset named `babynames`, which comes in a packag
 
 This tutorial introduces `babynames` as well as a new data structure that makes working with data in R easy: the tibble.
 
-In addition to `babynames`, this tutorial uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, tibble, and dplyr. All of these packages have been pre-installed for your convenience. But they haven't been pre-loaded---something you will soon learn more about!
+In addition to `babynames`, this tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including ggplot2, tibble, and dplyr. All of these packages have been pre-installed for your convenience. But they haven't been pre-loaded---something you will soon learn more about!
 
 Click the Next Topic button to begin.
 
@@ -168,7 +168,7 @@ View(babynames)
 
 ### The tidyverse
 
-The tibble package is one of several packages that are known collectively as ["the tidyverse"](http://tidyverse.org). Tidyverse packages share a common philosophy and are designed to work well together. For example, in this tutorial you will use the **tibble** package, the **ggplot2** package, and the **dplyr** package, all of which belong to the tidyverse.
+The tibble package is one of several packages that are known collectively as ["the tidyverse"](http://tidyverse.org){target="_blank}. Tidyverse packages share a common philosophy and are designed to work well together. For example, in this tutorial you will use the **tibble** package, the **ggplot2** package, and the **dplyr** package, all of which belong to the tidyverse.
 
 ### The tidyverse package
 

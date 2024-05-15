@@ -69,7 +69,7 @@ En faisant cela, vous maîtriserez trois autres fonctions {dplyr} :
 
 Ce sont quelques-unes des fonctions R les plus utiles pour la Data Science, et ce module fournit tout ce dont vous avez besoin pour les apprendre.
 
-Ce module utilise des fonctions [du package {tidyverse}](http://tidyverse.org/), notamment des fonctions de {ggplot2}, {tibble} et {dplyr}, ainsi que le package `{prenoms}`. Tous ces packages ont été préinstallés et préchargés.
+Ce module utilise des fonctions [du package {tidyverse}](http://tidyverse.org/){target="_blank}, notamment des fonctions de {ggplot2}, {tibble} et {dplyr}, ainsi que le package `{prenoms}`. Tous ces packages ont été préinstallés et préchargés.
 
 Cliquez sur le bouton "Suivant" pour commencer.
 
@@ -545,7 +545,7 @@ Ensemble, ces six fonctions créent une _grammaire_ pour la manipulation des don
 1. _Les jeux de données contiennent souvent plus d'informations que nécessaire_
 1. _Les jeux de données impliquent plus d'informations qu'ils n'en affichent_
 
-Ces six fonctions de {dplyr} vous aident à travailler avec ces réalités en isolant et en révélant les informations contenues dans vos données. En fait, {dplyr} fournit plus de six fonctions pour cette grammaire : {dplyr} est livré avec plusieurs fonctions qui sont des variations sur les thèmes de `select()`, `filter()`, `summarise()` et `mutate()`. Chacune suit la même syntaxe utilisable dans des pipes. Si vous êtes intéressé, vous pouvez en savoir plus sur ces fonctions complémentaires dans la [cheatsheet de {dplyr}](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf).
+Ces six fonctions de {dplyr} vous aident à travailler avec ces réalités en isolant et en révélant les informations contenues dans vos données. En fait, {dplyr} fournit plus de six fonctions pour cette grammaire : {dplyr} est livré avec plusieurs fonctions qui sont des variations sur les thèmes de `select()`, `filter()`, `summarise()` et `mutate()`. Chacune suit la même syntaxe utilisable dans des pipes. Si vous êtes intéressé, vous pouvez en savoir plus sur ces fonctions complémentaires dans la [cheatsheet de {dplyr}](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf){target="_blank}.
 
 ## Challenges
 
