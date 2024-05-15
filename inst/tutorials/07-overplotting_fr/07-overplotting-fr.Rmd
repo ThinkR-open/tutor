@@ -34,7 +34,7 @@ La visualisation de données permet de rendre les données accessibles à votre 
 
 Ces deux caractéristiques créent un phénomène de _chevauchement_, c'est-à-dire la condition où plusieurs geoms dans le graphique sont superposés et se cachent les uns les autres. Ce module vous montrera plusieurs stratégies pour faire face au problème de chevauchement, en introduisant de nouvelles fonctions geoms en cours de route.
 
-Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 Le module utilise les packages {ggplot2} et {hexbin}, qui ont été préchargés.
 

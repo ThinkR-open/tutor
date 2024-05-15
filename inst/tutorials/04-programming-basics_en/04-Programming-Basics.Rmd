@@ -38,7 +38,7 @@ R is easiest to use when you know how the R language works. This tutorial will t
 
 ### Functions
 
-![](https://vimeo.com/220490105)
+![](https://vimeo.com/220490105){target="_blank}
 
 ### Run a function
 
@@ -113,7 +113,7 @@ sqrt(961)
 
 ### Arguments
 
-![](https://vimeo.com/220490157)
+![](https://vimeo.com/220490157){target="_blank}
 
 ### args()
 
@@ -170,7 +170,7 @@ rnorm(100, mean = 100, sd = 50)
 
 ### Objects
 
-![](https://vimeo.com/220493412)
+![](https://vimeo.com/220493412){target="_blank}
 
 ### Object names
 
@@ -262,7 +262,7 @@ iris
 
 ### Vectors
 
-![](https://vimeo.com/220490316)
+![](https://vimeo.com/220490316){target="_blank}
 
 ### Create a vector
 
@@ -360,7 +360,7 @@ Predict what the code below will return. Then look at the result.
 
 ### Types
 
-![](https://vimeo.com/220490241)
+![](https://vimeo.com/220490241){target="_blank}
 
 ### Atomic types
 
@@ -445,7 +445,7 @@ question('Which of these are object names? What is the difference between object
 
 ### Lists
 
-![](https://vimeo.com/220490360)
+![](https://vimeo.com/220490360){target="_blank}
 
 ### Lists vs. vectors
 
@@ -522,7 +522,7 @@ df$strings
 
 ### Packages
 
-![](https://vimeo.com/220490447)
+![](https://vimeo.com/220490447){target="_blank}
 
 ### A common error
 

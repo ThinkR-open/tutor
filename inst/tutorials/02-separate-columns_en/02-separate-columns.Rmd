@@ -53,7 +53,7 @@ This tutorial will teach you two tools that you can use to tidy this type of dat
 
 It ends with a case study that requires you to use all of the tidy tools to wrangle a messy real world data set.
 
-This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including tidyr. All of these packages have been pre-installed and pre-loaded for your convenience.
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including tidyr. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -332,7 +332,7 @@ In the case study that follows, you will do just that. You will also practice us
 
 ### who 
 
-The `who` data set contains a subset of data from the World Health Organization Global Tuberculosis Report, available [here](http://www.who.int/tb/country/data/download/en/).
+The `who` data set contains a subset of data from the World Health Organization Global Tuberculosis Report, available [here](http://www.who.int/tb/country/data/download/en/){target="_blank}.
 
 In its original format, the data is very untidy
 

@@ -56,7 +56,7 @@ Ce module vous apprendra à personnaliser l'aspect de vos graphiques. Vous appre
 
 * Modifier les étiquettes, le titre et la position des **légendes**
 
-Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre sur [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre sur [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 Le module utilise les packages {ggplot2}, {dplyr}, {scales}, {ggthemes} et {viridis}, qui ont été préchargés.
 
@@ -504,7 +504,7 @@ Les fonctions `scale`de {ggplot2} suivent une convention de dénomination. Chaqu
 
 `scale_shape_manual()` et `scale_x_continuous()` sont des exemples de ce schéma de dénomination.
 
-Vous pouvez consulter la liste complète des noms d'échelle à l'adresse suivante : [http://ggplot2.tidyverse.org/reference/](http://ggplot2.tidyverse.org/reference/). Dans ce module, nous allons nous concentrer sur les échelles qui fonctionnent avec le paramètre esthétique `color`.
+Vous pouvez consulter la liste complète des noms d'échelle à l'adresse suivante : [http://ggplot2.tidyverse.org/reference/](http://ggplot2.tidyverse.org/reference/){target="_blank}. Dans ce module, nous allons nous concentrer sur les échelles qui fonctionnent avec le paramètre esthétique `color`.
 
 ### Discrète vs. continue
 
@@ -542,7 +542,7 @@ p1 +
 
 ### {RColorBrewer}
 
-Le package {RColorBrewer} contient une variété de palettes développées par Cynthis Brewer. Chaque palette est conçue pour être agréable à regarder et pour bien différencier visuellement les valeurs représentées par la palette. Vous pouvez en apprendre davantage sur le projet colorbrewer sur [colorbrewer2.org](http://colorbrewer2.org).
+Le package {RColorBrewer} contient une variété de palettes développées par Cynthis Brewer. Chaque palette est conçue pour être agréable à regarder et pour bien différencier visuellement les valeurs représentées par la palette. Vous pouvez en apprendre davantage sur le projet colorbrewer sur [colorbrewer2.org](http://colorbrewer2.org){target="_blank}.
 
 Au total, le package {RColorBrewer} contient 35 palettes. Vous pouvez voir chaque palette et son nom en exécutant `RColorBrewer::display.brewer.all()`. Essayez ci-dessous.
 

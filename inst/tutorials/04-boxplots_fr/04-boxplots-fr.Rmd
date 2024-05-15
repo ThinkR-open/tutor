@@ -33,7 +33,7 @@ Les **boites à moustaches** (ou boxplots en anglais) montrent la relation entre
 
 * Faire et interpréter les graphiques de comptage
 
-Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre sur [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Le module est adapté du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O'Reilly Media, Inc. 2016, ISBN : 9781491910399. Vous pouvez acheter le livre sur [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 Le module utilise les packages {ggplot2} et {dplyr}, qui ont été préchargés.
 

@@ -55,7 +55,7 @@ Ce module vous apprendra deux outils que vous pouvez utiliser pour réordonner c
 
 Le module se termine par une étude de cas qui vous obligera à utiliser tous les outils de mise en ordre des données pour appréhender un jeu de données réelles désordonnées.
 
-Ce module utilise les [packages de base du tidyverse](http://tidyverse.org/), notamment {tidyr}. Tous ces packages ont été préinstallés et préchargés.
+Ce module utilise les [packages de base du tidyverse](http://tidyverse.org/){target="_blank}, notamment {tidyr}. Tous ces packages ont été préinstallés et préchargés.
 
 Cliquez sur le bouton "Suivant" pour commencer.
 
@@ -304,7 +304,7 @@ Dans l'étude de cas qui suit, c'est justement ce que vous allez faire. Vous vou
 
 ### who 
 
-Le jeu de données `who` contient un sous-ensemble de données du rapport mondial sur la tuberculose de l'Organisation Mondiale de la Santé (OMS). Il est disponible [ici](http://www.who.int/tb/country/data/download/en/).
+Le jeu de données `who` contient un sous-ensemble de données du rapport mondial sur la tuberculose de l'Organisation Mondiale de la Santé (OMS). Il est disponible [ici](http://www.who.int/tb/country/data/download/en/){target="_blank}.
 
 Dans leur format d'origine, les données sont très désordonnées
 

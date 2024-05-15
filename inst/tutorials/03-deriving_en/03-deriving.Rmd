@@ -54,7 +54,7 @@ In this case study, you will identify the most popular American names from 1880 
 
 These are some of the most useful R functions for data science, and this tutorial provides everything you need to learn them. 
 
-This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -534,7 +534,7 @@ Together these six functions create a _grammar_ of data manipulation, a system o
 1. _Data sets often contain more information than you need_
 1. _Data sets imply more information than they display_
 
-The six dplyr functions help you work with these realities by isolating and revealing the information contained in your data. In fact, dplyr provides more than six functions for this grammar: dplyr comes with several functions that are variations on the themes of `select()`, `filter()`, `summarise()`, and `mutate()`. Each follows the same pipeable syntax that is used throughout dplyr. If you are interested, you can learn more about these peripheral functions in the [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf).
+The six dplyr functions help you work with these realities by isolating and revealing the information contained in your data. In fact, dplyr provides more than six functions for this grammar: dplyr comes with several functions that are variations on the themes of `select()`, `filter()`, `summarise()`, and `mutate()`. Each follows the same pipeable syntax that is used throughout dplyr. If you are interested, you can learn more about these peripheral functions in the [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf){target="_blank}.
 
 ## Challenges
 
@@ -671,7 +671,7 @@ babynames |>
 
 Congratulations! You can use dplyr's grammar of data manipulation to access any data associated with a table---even if that data is not currently displayed by the table.
 
-In other words, you now know how to look at data in R, as well as how to access specific values, calculate summary statistics, and compute new variables. When you combine this with the visualization skills that you learned in [Visualization Basics](http://tutorials.shinyapps.io/02-Vis-Basics), you have everything that you need to begin exploring data in R.
+In other words, you now know how to look at data in R, as well as how to access specific values, calculate summary statistics, and compute new variables. When you combine this with the visualization skills that you learned in [Visualization Basics](http://tutorials.shinyapps.io/02-Vis-Basics){target="_blank}, you have everything that you need to begin exploring data in R.
 
 The next tutorial will teach you the last of three basic skills for working with R:
 

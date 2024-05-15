@@ -35,11 +35,11 @@ Dans ce module, vous allez explorer la popularité de différents prénoms au fi
 
 Ce sont quelques-unes des fonctions R les plus utiles pour la data science, et les modules qui suivent vous fourniront tout ce dont vous avez besoin pour apprendre à les manipuler.
 
-Dans les modules, nous utiliserons un jeu de données nommé `prenoms`, qui est fourni dans le package également nommé **{prenoms}** made in ThinkR (voir [ici](https://github.com/ThinkR-open/prenoms) pour l'installer). Dans `prenoms`, vous trouverez des informations sur presque tous les prénoms donnés aux enfants en France métropolitaine depuis 1900.
+Dans les modules, nous utiliserons un jeu de données nommé `prenoms`, qui est fourni dans le package également nommé **{prenoms}** made in ThinkR (voir [ici](https://github.com/ThinkR-open/prenoms){target="_blank} pour l'installer). Dans `prenoms`, vous trouverez des informations sur presque tous les prénoms donnés aux enfants en France métropolitaine depuis 1900.
 
 Ce module présente `prenoms` ainsi qu'une nouvelle structure de données qui facilite l'utilisation des données dans R : le tibble.
 
-En plus de `{prenoms}`, ce module utilise les [packages de base du tidyverse](http://tidyverse.org/), notamment {ggplot2}, {tibble} et {dplyr}. Tous ces packages ont été préinstallés mais ils n'ont pas été préchargés.
+En plus de `{prenoms}`, ce module utilise les [packages de base du tidyverse](http://tidyverse.org/){target="_blank}, notamment {ggplot2}, {tibble} et {dplyr}. Tous ces packages ont été préinstallés mais ils n'ont pas été préchargés.
 
 Cliquez sur le bouton "Suivant" pour commencer.
 
@@ -157,7 +157,7 @@ View(prenoms)
 
 ### Le tidyverse
 
-Le package `{tibble}` est l'un des nombreux packages du ["tidyverse"](http://tidyverse.org). Les packages du tidyverse partagent une philosophie commune et sont conçus pour bien fonctionner ensemble. Par exemple, dans ce module, vous utiliserez le package **{tibble}**, le package **{ggplot2}** et le package **{dplyr}**, qui appartiennent tous au tidyverse.
+Le package `{tibble}` est l'un des nombreux packages du ["tidyverse"](http://tidyverse.org){target="_blank}. Les packages du tidyverse partagent une philosophie commune et sont conçus pour bien fonctionner ensemble. Par exemple, dans ce module, vous utiliserez le package **{tibble}**, le package **{ggplot2}** et le package **{dplyr}**, qui appartiennent tous au tidyverse.
 
 ### Le package {tidyverse}
 

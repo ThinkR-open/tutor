@@ -80,7 +80,7 @@ On the contrary, data are said to be 'in a wide format' if the same observation 
 knitr::include_graphics("www/images/wide.png")
 ```
 
-This tutorial uses the [core tidyverse packages](http://tidyverse.org/), including {ggplot2}, {dplyr}, and {tidyr}, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including {ggplot2}, {dplyr}, and {tidyr}, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -276,7 +276,7 @@ In the following sections, you will learn about the functions:
 
 We'll come back to this later, but here's an overview of how these two functions work: 
 
-![](https://www.fromthebottomoftheheap.net/assets/img/posts/tidyr-longer-wider.gif)
+![](https://www.fromthebottomoftheheap.net/assets/img/posts/tidyr-longer-wider.gif){target="_blank}
 
 ## Gathering columns
 
@@ -304,7 +304,7 @@ question("What are the variables in cases?",
 
 ### A tidy version of 
 
-![](https://vimeo.com/229581273)
+![](https://vimeo.com/229581273){target="_blank}
 
 ### pivot_longer()
 
@@ -514,7 +514,7 @@ question("Which column in pollution contains the values associated with the key 
 
 ### A tidy version of pollution
 
-![](https://vimeo.com/229581273)
+![](https://vimeo.com/229581273){target="_blank}
 
 ### pivot_wider()
 

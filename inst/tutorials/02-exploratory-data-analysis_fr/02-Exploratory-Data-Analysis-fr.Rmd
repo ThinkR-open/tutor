@@ -29,7 +29,7 @@ Ce module va vous montrer comment explorer vos données de façon systématique 
 
 * Assimiler des astuces pour déterminer quel type de graphique doit être utilisé pour explorer les données
 
-Ce module provient du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre à [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Ce module provient du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre à [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 ## Analyse exploratoire de donnees
 

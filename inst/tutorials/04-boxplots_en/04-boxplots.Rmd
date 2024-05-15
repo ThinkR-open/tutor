@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = FALSE)
 * Use *violin* plots and *dotplots*, two geoms that are similar to boxplots
 * Make and interpret count plots
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for your convenience.
 
@@ -37,7 +37,7 @@ The tutorial uses the ggplot2 and dplyr packages, which have been pre-loaded for
 
 ### Introduction
 
-![](https://vimeo.com/222358034)
+![](https://vimeo.com/222358034){target="_blank}
 
 ### Exercise 1 - Boxplots
 
@@ -57,7 +57,7 @@ question("Which of the sub-plots accurately describes the data above with a boxp
 
 ### How to make a boxplot
 
-To make a boxplot with ggplot2, add `geom_boxplot()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/). For example, the code below uses boxplots to display the relationship between the `class` and `hwy` variables in the `mpg` dataset, which comes with ggplot2. 
+To make a boxplot with ggplot2, add `geom_boxplot()` to the [ggplot2 template](https://tutorials.shinyapps.io/02-Vis-Basics/){target="_blank}. For example, the code below uses boxplots to display the relationship between the `class` and `hwy` variables in the `mpg` dataset, which comes with ggplot2. 
 
 ```{r boxplot, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) +

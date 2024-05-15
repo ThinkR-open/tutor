@@ -53,7 +53,7 @@ This tutorial will teach you how to customize the look and feel of your plots. Y
 * Use **scales** to select custom color palettes
 * Modify the labels, title, and position of **legends**
 
-The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+The tutorial is adapted from _R for Data Science_ by Hadley Wickham and Garrett Grolemund, published by O’Reilly Media, Inc., 2016, ISBN: 9781491910399. You can purchase the book at [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
 The tutorial uses the ggplot2, dplyr, scales, ggthemes, and viridis packages, which have been pre-loaded for your convenience.
 
@@ -473,7 +473,7 @@ ggplot2 scale functions follow a naming convention. Each function name contains 
 
 `scale_shape_manual()` and `scale_x_continuous()` are examples of the naming scheme.
 
-You can see the complete list of scale names at [http://ggplot2.tidyverse.org/reference/](http://ggplot2.tidyverse.org/reference/). In this tutorial, we will focus on scales that work with the color aesthetic.
+You can see the complete list of scale names at [http://ggplot2.tidyverse.org/reference/](http://ggplot2.tidyverse.org/reference/){target="_blank}. In this tutorial, we will focus on scales that work with the color aesthetic.
 
 ### Discrete vs. continuous
 
@@ -510,7 +510,7 @@ p1 +
 
 ### RColorBrewer
 
-The RColorBrewer package contains a variety of palettes developed by Cynthis Brewer. Each palette is designed to look pleasing as well as to differentiate between the values represented by the palette. You can learn more about the color brewer project at [colorbrewer2.org](http://colorbrewer2.org).
+The RColorBrewer package contains a variety of palettes developed by Cynthis Brewer. Each palette is designed to look pleasing as well as to differentiate between the values represented by the palette. You can learn more about the color brewer project at [colorbrewer2.org](http://colorbrewer2.org){target="_blank}.
 
 Altogether, the RColorBrewer package contains 35 palettes. You can see each palette and its name by running `RColorBrewer::display.brewer.all()`. Try it below.
 

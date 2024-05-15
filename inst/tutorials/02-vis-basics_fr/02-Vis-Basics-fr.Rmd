@@ -33,9 +33,9 @@ Ces trois compétences vont rapidement vous permettre d'ajouter la visualisation
 
 ### Remerciements
 
-Ces exemples sont issus du livre _R for Data Science_ d'Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do).
+Ces exemples sont issus du livre _R for Data Science_ d'Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre ici : [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
 
-Ce module utilise le [packages qui composent le coeur du tidyverse](http://tidyverse.org/), notamment {ggplot2}. Ce package a déjà été installé au préalable.
+Ce module utilise le [packages qui composent le coeur du tidyverse](http://tidyverse.org/){target="_blank}, notamment {ggplot2}. Ce package a déjà été installé au préalable.
 
 ## Un modèle de code
 
@@ -558,7 +558,7 @@ ggplot(data = mpg) +
 
 {ggplot2} contient plus de 30 fonctions _geom_ que vous pouvez utiliser, et d'autres packages en procurent encore d'avantage (regarder <https://exts.ggplot2.tidyverse.org/> pour une liste non exhaustive). Vous apprendrez comment utiliser ces geoms pour l'exploration de données dans le primer [Visualiser des données]().
 
-Jusque là, le meilleur moyen d'obtenir une vue d'ensemble compréhensible sur les geoms, c'est d'utiliser la [cheatsheet {ggplot2}](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf), cette petite page remplie d'astuces trèsutiles. Et pour en savoir plus sur un geom en particulier, regardez sa page d'aide (par ex : `?geom_violin`.)
+Jusque là, le meilleur moyen d'obtenir une vue d'ensemble compréhensible sur les geoms, c'est d'utiliser la [cheatsheet {ggplot2}](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf){target="_blank}, cette petite page remplie d'astuces trèsutiles. Et pour en savoir plus sur un geom en particulier, regardez sa page d'aide (par ex : `?geom_violin`.)
 
 ### Exercice 1
 
@@ -595,7 +595,7 @@ Vous n'aurez pas besoin d'installer de packages dans ces modules de cours. Tous 
 
 Cependant, un jour, vous voudrez peut-être (et sûrement !) utiliser R en dehors de ces modules. Vous voudrez alors savoir de quels packages vous aurez besoin pour utiliser les fonctions que nous voyons ensemble ici. Tout au long de ces modules, nous tâcherons de clairement lier les fonctions aux packages dont elles sont issues. Vous devrez ainsi installer ces packages lorsque ce plongeon dans le grand bain de l'autonomie dans R viendra.
 
-Si vous voulez en savoir d'avantage sur l’installation des packages R (ou R ou l'IDE -- environnement de développement intégré-- RStudio), la vidéo [Installation](http://tutorials.shinyapps.io/00-setup)) vous aidera dans le processus de paramétrage de R sur votre ordinateur.
+Si vous voulez en savoir d'avantage sur l’installation des packages R (ou R ou l'IDE -- environnement de développement intégré-- RStudio), la vidéo [Installation](http://tutorials.shinyapps.io/00-setup){target="_blank}) vous aidera dans le processus de paramétrage de R sur votre ordinateur.
 
 ### Suite
 
