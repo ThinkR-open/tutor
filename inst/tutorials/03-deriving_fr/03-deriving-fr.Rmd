@@ -545,7 +545,7 @@ Ensemble, ces six fonctions créent une _grammaire_ pour la manipulation des don
 1. _Les jeux de données contiennent souvent plus d'informations que nécessaire_
 1. _Les jeux de données impliquent plus d'informations qu'ils n'en affichent_
 
-Ces six fonctions de {dplyr} vous aident à travailler avec ces réalités en isolant et en révélant les informations contenues dans vos données. En fait, {dplyr} fournit plus de six fonctions pour cette grammaire : {dplyr} est livré avec plusieurs fonctions qui sont des variations sur les thèmes de `select()`, `filter()`, `summarise()` et `mutate()`. Chacune suit la même syntaxe utilisable dans des pipes. Si vous êtes intéressé, vous pouvez en savoir plus sur ces fonctions complémentaires dans la [cheatsheet de {dplyr}](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf){target="_blank"}.
+Ces six fonctions de {dplyr} vous aident à travailler avec ces réalités en isolant et en révélant les informations contenues dans vos données. En fait, {dplyr} fournit plus de six fonctions pour cette grammaire : {dplyr} est livré avec plusieurs fonctions qui sont des variations sur les thèmes de `select()`, `filter()`, `summarise()` et `mutate()`. Chacune suit la même syntaxe utilisable dans des pipes. Si vous êtes intéressé, vous pouvez en savoir plus sur ces fonctions complémentaires dans la [cheatsheet de {dplyr}](https://rstudio.github.io/cheatsheets/data-transformation.pdf){target="_blank"}.
 
 ## Challenges
 
