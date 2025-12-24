@@ -631,7 +631,7 @@ prenoms |>
   group_by(year, sex) |> 
   summarise(total = sum(n)) |> 
   ggplot() +
-    aes(year, n, color = sex)+
+    aes(year, total, color = sex)+
     geom_line()
 ```
 
