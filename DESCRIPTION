@@ -29,6 +29,7 @@ Imports:
     ggrepel,
     maps,
     mapproj,
+    MASS,
     gapminder,
     forcats,
     mgcv,
