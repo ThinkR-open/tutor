@@ -32,7 +32,7 @@ Dans cette étude de cas, vous allez explorer la popularité de votre propre pr�
 * `arrange()`, permet de réorganiser les lignes de vos données
 * `|>`, organise votre code en "pipes" ("flux" de traitement) faciles à lire
 
-Ce module de cours utilise les [packages de base du tidyverse](http://tidyverse.org/){target="_blank}, notamment `{ggplot2}`, `{tibble}` et `{dplyr}`, ainsi que le package `{prenoms}`. Tous ces packages ont été préinstallés et préchargés.
+Ce module de cours utilise les [packages de base du tidyverse](http://tidyverse.org/){target="_blank"}, notamment `{ggplot2}`, `{tibble}` et `{dplyr}`, ainsi que le package `{prenoms}`. Tous ces packages ont été préinstallés et préchargés.
 
 Cliquez sur le bouton "Suivant" pour commencer.
 
