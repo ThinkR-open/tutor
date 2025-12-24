@@ -450,7 +450,7 @@ ggplot(data = mpg) +
 Comment faire si l'on veut changer la couleur de tous les points, par exemple en bleu comme ci-dessous ?
 
 ```{r echo = FALSE, out.width="80%"}
-ggplot(mpg) +
+ggplot(data = mpg) +
   aes(displ, hwy) +
   geom_point(color = "blue")
 ```

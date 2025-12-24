@@ -85,7 +85,7 @@ Avant d'afficher les informations à propos d'un autre prénom, vous devrez réd
 Voyons la façon dont nous avons créé le graphique ci-dessus : nous avons commencé avec le jeu de données entier qui, si il était affiché sous la forme d'un nuage de points, aurait ressemblé à ceci : 
 
 ```{r out.width = "60%", cached = TRUE}
-ggplot(prenoms) +
+ggplot(data = prenoms) +
   aes(x = year, y = prop) +
   geom_point() +
   labs(title = "Popularité de chaque prénom dans le jeu de données")
@@ -105,7 +105,7 @@ prenoms |>
 Si nous avions sauté cette étape, notre graphique linéaire aurait connecté tous les points du jeu de données entier, créant un graphique non informatif.
 
 ```{r out.width = "60%", cached = TRUE}
-ggplot(prenoms) +
+ggplot(data = prenoms) +
   aes(x = year, y = prop) +
   geom_line() +
   labs(title = "Popularité de chaque prénom du jeu de données")

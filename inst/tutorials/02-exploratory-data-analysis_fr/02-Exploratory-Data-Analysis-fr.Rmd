@@ -288,7 +288,7 @@ diamonds |>
     geom_tile() +
     ggtitle("Gradient de couleur vs. qualité de la taille pour 53940 diamants")
 
-ggplot(diamonds) +
+ggplot(data = diamonds) +
   aes(color, cut) +
   geom_count() +
     ggtitle("Gradient de couleur vs. qualité de la taille pour 53940 diamants")
@@ -301,7 +301,7 @@ De nouveau, ne vous inquiétez pas de ne pas savoir comment faire ces graphiques
 Vous pouvez représenter la relation entre une variable continue et une variable catégorielle avec une boîte à moustaches (boxplot) :
 
 ```{r echo = FALSE, out.width = "100%"}
-ggplot(mpg) +
+ggplot(data = mpg) +
   aes(reorder(class, hwy, median), hwy) +
   geom_boxplot() +
   ggtitle("Pickup et SUV ont la consommation la plus efficace") +

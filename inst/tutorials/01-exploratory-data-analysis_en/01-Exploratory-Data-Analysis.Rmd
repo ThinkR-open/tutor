@@ -301,7 +301,7 @@ Again, don't be concerned if you do not know how to make these graphs. For now, 
 You can plot the relationship between one continuous and one categorical variable with a boxplot:
 
 ```{r echo = FALSE, out.width = "100%"}
-ggplot(mpg) +
+ggplot(data = mpg) +
   aes(reorder(class, hwy, median), hwy) +
   geom_boxplot() +
   ggtitle("Pickup trucks and SUVs display the lowest fuel efficiency") +

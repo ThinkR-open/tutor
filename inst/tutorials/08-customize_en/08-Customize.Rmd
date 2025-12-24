@@ -16,7 +16,7 @@ library(ggthemes)
 library(RColorBrewer)
 library(viridis)
 
-p <- ggplot(diamonds) +
+p <- ggplot(data = diamonds) +
   geom_boxplot(mapping = aes(x = cut, y = price))
 
 p1 <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
