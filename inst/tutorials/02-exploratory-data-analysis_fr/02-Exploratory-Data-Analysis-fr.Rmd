@@ -29,7 +29,7 @@ Ce module va vous montrer comment explorer vos données de façon systématique 
 
 * Assimiler des astuces pour déterminer quel type de graphique doit être utilisé pour explorer les données
 
-Ce module provient du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre à [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank}.
+Ce module provient du livre _R for Data Science_ de Hadley Wickham et Garrett Grolemund, publié par O’Reilly Media, Inc., 2016, ISBN: 9781491910399. Vous pouvez vous procurer le livre à [shop.oreilly.com](http://shop.oreilly.com/product/0636920034407.do){target="_blank"}.
 
 ## Analyse exploratoire de donnees
 
@@ -288,7 +288,7 @@ diamonds |>
     geom_tile() +
     ggtitle("Gradient de couleur vs. qualité de la taille pour 53940 diamants")
 
-ggplot(diamonds) +
+ggplot(data = diamonds) +
   aes(color, cut) +
   geom_count() +
     ggtitle("Gradient de couleur vs. qualité de la taille pour 53940 diamants")
@@ -301,7 +301,7 @@ De nouveau, ne vous inquiétez pas de ne pas savoir comment faire ces graphiques
 Vous pouvez représenter la relation entre une variable continue et une variable catégorielle avec une boîte à moustaches (boxplot) :
 
 ```{r echo = FALSE, out.width = "100%"}
-ggplot(mpg) +
+ggplot(data = mpg) +
   aes(reorder(class, hwy, median), hwy) +
   geom_boxplot() +
   ggtitle("Pickup et SUV ont la consommation la plus efficace") +

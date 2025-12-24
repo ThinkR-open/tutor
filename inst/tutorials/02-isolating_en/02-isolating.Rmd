@@ -38,7 +38,7 @@ In this case study, you will explore the popularity of your own name over time. 
 * `arrange()`, which lets you reorder the rows in your data
 * `|>`, which organizes your code into reader-friendly "pipes"
 
-This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank}, including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
+This tutorial uses the [core tidyverse packages](http://tidyverse.org/){target="_blank"}, including ggplot2, tibble, and dplyr, as well as the `babynames` package. All of these packages have been pre-installed and pre-loaded for your convenience.
 
 Click the Next Topic button to begin.
 
@@ -69,7 +69,7 @@ But before you do, you will need to trim down `babynames`. At the moment, there 
 To see what I mean, consider how I made the plot above: I began with the entire data set, which if plotted as a scatterplot would've looked like this.
 
 ```{r out.width = "60%", cached = TRUE}
-ggplot(babynames) +
+ggplot(data = babynames) +
   aes(x = year, y = prop) +
   geom_point() +
   labs(title = "Popularity of every name in the data set")
@@ -89,7 +89,7 @@ babynames |>
 If I had skipped this step, my line graph would've connected all of the points in the large data set, creating an uninformative graph.
 
 ```{r out.width = "60%", cached = TRUE}
-ggplot(babynames) +
+ggplot(data = babynames) +
   aes(x = year, y = prop) +
   geom_line() +
   labs(title = "Popularity of every name in the data set")
