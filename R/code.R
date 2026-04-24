@@ -72,6 +72,13 @@ launch_learn <- function(
   light = TRUE
 ) {
 
+  if (!file.exists(file)) {
+    stop(
+      "Tutorial file does not exist: ", file,
+      "\nCheck the `file =` argument or make sure {tutor} is installed with its tutorials bundled.",
+      call. = FALSE
+    )
+  }
 
   if (light){
     out <- .rs.tutorial.runTutorial(
