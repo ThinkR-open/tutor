@@ -27,7 +27,7 @@ The goal of tutor is to serve learnr tutorial
 
 ``` r
 # install.packages("devtools")
-remotes::install_github("VincentGuyader/tutor")
+remotes::install_github("ThinkR-open/tutor")
 ```
 
 ## Available tutorial
