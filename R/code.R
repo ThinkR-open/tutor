@@ -72,12 +72,25 @@ launch_learn <- function(
   light = TRUE
 ) {
 
-  if (!file.exists(file)) {
-    stop(
-      "Tutorial file does not exist: ", file,
-      "\nCheck the `file =` argument or make sure {tutor} is installed with its tutorials bundled.",
-      call. = FALSE
-    )
+  is_path <- grepl("[/\\\\]", file) || grepl("\\.[Rr]md$", file)
+  if (is_path) {
+    if (!file.exists(file)) {
+      stop(
+        "Tutorial file does not exist: ", file,
+        "\nCheck the `file =` argument or make sure {tutor} is installed with its tutorials bundled.",
+        call. = FALSE
+      )
+    }
+  } else {
+    available <- tous_les_programmes()
+    if (!file %in% available) {
+      stop(
+        "Tutorial '", file, "' not found in package {tutor}.",
+        "\nAvailable tutorials: ",
+        if (length(available)) paste(available, collapse = ", ") else "(none)",
+        call. = FALSE
+      )
+    }
   }
 
   if (light){
